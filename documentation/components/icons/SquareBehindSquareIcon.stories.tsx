@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { StoryObj } from '@storybook/react-vite';
 
 import { SquareBehindSquareIcon } from 'src/components/icons';
 

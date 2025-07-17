@@ -1,0 +1,37 @@
+import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
+import { Button } from 'src/components/button';
+import { FileTextIcon } from 'src/components/icons';
+import { styled } from '@linaria/react';
+import ButtonStories, { Default, Active, ToggleActiveState } from './Button.stories'
+
+<Meta of={ButtonStories} />
+
+# Button
+
+The `Button` component provides a flexible and styled button for use across the interface.
+It supports a `variant` prop to visually represent states like "active" with customized styles.
+
+## Usage
+
+Use the `variant` prop to control the button's visual behavior:
+
+- `standard`: default state
+- `active`: shows a highlighted background, border, and stronger text contrast
+
+## Examples
+
+### Default usage
+
+<Canvas of={Default} />
+
+### Active variant
+
+<Canvas of={Active} />
+
+### Toggle Active state
+
+<Canvas of={ToggleActiveState} />
+
+## Props
+
+<ArgTypes of={Button} />
