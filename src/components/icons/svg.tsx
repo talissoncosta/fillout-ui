@@ -1,0 +1,54 @@
+import clsx from 'clsx'
+import type { SVGProps} from "react";
+
+export type IconProps = {
+  /**
+   * Sets the icon size. (small | standard)
+   */
+  size?: 'small' | 'standard'
+  /**
+   * Accessible label for screen readers.
+   */
+  title?: string
+
+  /**
+   * Sets the icon's fill color.
+   */
+  color?: string
+}
+
+type SvgProps = IconProps & SVGProps<SVGSVGElement>;
+const Svg = ({
+  size = 'standard',
+  color,
+  title,
+  children,
+  className,
+  ...props
+}: SvgProps) => {
+  return (
+    <span
+      style={{ color: color}}
+      className={clsx(
+        'inline-block',
+        {
+          small: 'w-[16px] h-[16px]',
+          standard: 'w-[20px] h-[20px]',
+        }[size],
+        className
+      )}
+      aria-hidden={!title}
+    >
+      <svg
+        role="img"
+        focusable="false"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+      >
+        {title && <title>{title}</title>}
+        {children}
+      </svg>
+    </span>
+  )
+}
+export default Svg
