@@ -1,6 +1,7 @@
 import {mergeConfig, UserConfig} from "vite";
 import path from 'node:path';
 import {StorybookConfig} from "@storybook/react-vite";
+import wyw from '@wyw-in-js/vite';
 
 const config: StorybookConfig = {
   stories: [
@@ -20,9 +21,17 @@ const config: StorybookConfig = {
   },
   viteFinal: async (config): Promise<UserConfig> => {
     const merged = mergeConfig(config, {
+      plugins: [
+        wyw({
+          include: ['**/*.{ts,tsx}'],
+          babelOptions: {
+            presets: ['@babel/preset-typescript', '@babel/preset-react'],
+          },
+        }),
+      ],
       resolve: {
         alias: {
-          src: path.resolve(__dirname, '../src'),
+          src: path.resolve(new URL('../src', import.meta.url).pathname),
         },
       },
     });
