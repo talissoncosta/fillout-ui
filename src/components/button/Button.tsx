@@ -62,7 +62,7 @@ type ButtonProps = {
 
 export const Button = ({
   children,
-  variant,
+  variant = 'standard',
   ...props
 }: ButtonProps) => {
   return (
