@@ -1,0 +1,33 @@
+import { Meta, ArgTypes, IconGallery, IconItem } from '@storybook/addon-docs/blocks';
+import * as FileTextIconStories from './FileTextIcon.stories';
+import Svg from 'src/components/icons/svg'
+import * as icons from 'src/components/icons'
+
+<Meta title="Components/Icons" />
+
+# Icons
+
+The Icon system is built using a reusable `Svg` component that standardizes size, color, accessibility, and layout. All icons are React components that wrap inline SVG paths and support consistent props.
+
+## Usage
+
+Each icon can be imported and rendered as a standalone component:
+
+```tsx
+import { FileTextIcon } from 'src/components/icons'
+
+<FileTextIcon size="small" title="File icon" />
+
+```
+
+## Iconography
+
+<IconGallery>
+  {Object.entries(icons).map(([name, Icon]) => (
+    <IconItem>
+        <Icon />
+    </IconItem >
+  ))}
+</IconGallery>
+
+<ArgTypes of={Svg} />

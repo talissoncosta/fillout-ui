@@ -1,0 +1,6 @@
+export { FileTextIcon } from './file-text-icon'
+export { TrashIcon } from './trash-icon'
+export { SquareBehindSquareIcon } from './square-behind-square-icon'
+export { ClipboardIcon } from './clipboard-icon'
+export { FlagIcon } from './flag-icon'
+export { PencilIcon } from './pencil-icon.tsx'
