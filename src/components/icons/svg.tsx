@@ -1,11 +1,20 @@
 import clsx from 'clsx'
 import type { SVGProps} from "react";
+import {css} from "@linaria/core";
+
+const svgCss = css`
+  transition:
+          background-color 0.6s ease,
+          color 0.6s ease,
+          box-shadow 0.6s ease,
+          border-color 0.6s ease;
+`
 
 export type IconProps = {
   /**
    * Sets the icon size. (small | standard)
    */
-  size?: 'small' | 'standard'
+  size?: 'small' | 'standard' | 'large'
   /**
    * Accessible label for screen readers.
    */
@@ -30,10 +39,12 @@ const Svg = ({
     <span
       style={{ color: color}}
       className={clsx(
+        svgCss,
         'inline-block',
         {
           small: 'w-[16px] h-[16px]',
           standard: 'w-[20px] h-[20px]',
+
         }[size],
         className
       )}
