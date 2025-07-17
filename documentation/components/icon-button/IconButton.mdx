@@ -1,0 +1,49 @@
+import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
+import { IconButton } from 'src/components/icon-button';
+import { InfoIcon } from 'src/components/icons';
+import IconButtonStories, { Default, WithTooltip } from './IconButton.stories'
+
+<Meta of={IconButtonStories} />
+
+# IconButton
+
+`IconButton` is a compact button used to display a single icon, typically for secondary actions. It supports an optional `tooltip` prop for additional context, shown on hover or focus.
+
+
+---
+
+## Default usage
+
+Use `IconButton` to represent common UI actions like "info", "delete", or "edit" using icons only.
+
+<Canvas of={Default} />
+
+---
+
+## With Tooltip
+
+Add a tooltip for accessibility and clarity:
+
+<Canvas of={WithTooltip} />
+
+---
+
+## Props
+
+<ArgTypes of={IconButton} />
+
+---
+
+## Accessibility
+
+- Tooltip appears on hover and keyboard focus.
+- Button element is focusable and uses semantic HTML.
+- Icon should include an `aria-label` or visually hidden text if used without tooltip.
+
+---
+
+## Best Practices
+
+- Use for icon-only actions
+- Avoid using multiple `IconButton`s too close together
+- Provide a `tooltip` or `aria-label` for accessibility

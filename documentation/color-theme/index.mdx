@@ -9,7 +9,7 @@ import * as colors from 'src/theme'
    {Object.entries(colors).filter(([name]) => name.includes('color')).map(([name, color]) => (
      <ColorItem
        title={name}
-       colors={{ name : color }}
+       colors={{ [name] : color }}
      />
    ))}
 </ColorPalette>

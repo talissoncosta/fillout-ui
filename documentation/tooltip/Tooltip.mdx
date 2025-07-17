@@ -1,0 +1,61 @@
+import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
+import TooltipStories, { Default, BottomSide, WithCustomContent } from './Tooltip.stories'
+import { Tooltip } from 'src/components/tooltip'
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+The `Tooltip` component provides contextual information on hover or focus.
+
+> This component is built on top of [`@radix-ui/tooltip`](https://www.radix-ui.com/primitives/docs/components/tooltip), a low-level, accessible primitive from the [Radix UI](https://www.radix-ui.com) library.
+
+---
+
+## Usage
+
+Wrap any interactive element with `Tooltip` to show a small, non-interactive message.
+
+<Canvas of={Default} />
+
+---
+
+## Examples
+
+### Placement Options
+
+You can control the tooltip’s position using Radix’s `side` prop internally:
+
+<Canvas of={BottomSide} />
+
+---
+
+### Custom Content
+
+You can render any JSX as tooltip content:
+
+<Canvas of={WithCustomContent} />
+
+---
+
+## Props
+
+Although this wrapper component has a minimal API, it encapsulates `Tooltip.Trigger`, `Tooltip.Content`, and `Tooltip.Portal` from Radix.
+
+<ArgTypes of={Tooltip} />
+
+---
+
+## Accessibility
+
+- Built-in support for keyboard navigation and screen readers.
+- It uses `aria-describedby` to link tooltip content to the trigger element.
+- Triggered on both hover and focus (including keyboard focus).
+
+---
+
+## Best Practices
+
+- Use for brief helper messages
+- Don’t use for critical information or interactions
+- Keep it short and clear
