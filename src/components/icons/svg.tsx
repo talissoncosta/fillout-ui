@@ -3,6 +3,8 @@ import type { SVGProps} from "react";
 import {css} from "@linaria/core";
 
 const svgCss = css`
+  display: flex;
+  align-self: center;
   transition:
           background-color 0.6s ease,
           color 0.6s ease,
@@ -14,7 +16,7 @@ export type IconProps = {
   /**
    * Sets the icon size. (small | standard)
    */
-  size?: 'small' | 'standard' | 'large'
+  size?: 'tiny' | 'small' | 'standard' | 'large'
   /**
    * Accessible label for screen readers.
    */
@@ -42,6 +44,7 @@ const Svg = ({
         svgCss,
         'inline-block',
         {
+          tiny: 'w-[8px] h-[8px]',
           small: 'w-[16px] h-[16px]',
           standard: 'w-[20px] h-[20px]',
 
