@@ -1,0 +1,15 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+import * as colors from 'src/theme'
+
+<Meta title="Foundations/Colors" />
+
+# Color Theme
+
+<ColorPalette>
+   {Object.entries(colors).filter(([name]) => name.includes('color')).map(([name, color]) => (
+     <ColorItem
+       title={name}
+       colors={{ name : color }}
+     />
+   ))}
+</ColorPalette>
