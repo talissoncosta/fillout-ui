@@ -6,9 +6,9 @@ import {
   colorTextStandard,
   shadowStandard
 } from "src/theme";
-import { Content } from "@radix-ui/react-tooltip";
+import {Tooltip} from "radix-ui";
 
-export const TooltipContent = styled(Content)`
+export const TooltipContent = styled(Tooltip.Content)`
   border-radius: ${borderRadiusStandard};
   padding: 10px 15px;
   font-size: 14px;

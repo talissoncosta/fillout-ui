@@ -1,7 +1,6 @@
 import { Tooltip } from 'src/components/tooltip';
-import { PlusIcon} from "src/components/icons";
+import { PlusIcon } from "src/components/icons";
 import { IconButton } from "src/components/icon-button";
-import type {ComponentProps} from "react";
 
 const meta = {
   title: 'Components/Tooltip',
@@ -13,11 +12,10 @@ const meta = {
   },
 };
 
-
 export default meta;
 
 export const Default = {
-  render: (args: ComponentProps<typeof Tooltip> ) => (
+  render: (args) => (
     <Tooltip {...args}>
       <IconButton>
         <PlusIcon size="tiny" />
@@ -31,7 +29,7 @@ export const BottomSide = {
     content: 'This tooltip shows below',
     side: 'bottom',
   },
-  render: (args: ComponentProps<typeof Tooltip>) => (
+  render: (args) => (
     <Tooltip {...args}>
       <IconButton>
         <PlusIcon size="tiny" />
@@ -48,7 +46,7 @@ export const WithCustomContent = {
       </span>
     ),
   },
-  render: (args: ComponentProps<typeof Tooltip>) => (
+  render: (args) => (
     <Tooltip {...args}>
       <IconButton>
         <PlusIcon size="tiny" />
