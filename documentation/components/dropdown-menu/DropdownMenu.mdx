@@ -19,16 +19,12 @@ It is composed of trigger and content primitives, offering full control over lay
 
 Use it to render contextual actions, such as page-level settings or inline UI operations.
 
----
-
 ## Usage
 
 Wrap `DropdownMenuTrigger` around any clickable element (usually a `Button`).
 Use `DropdownMenuContent` to provide your menu structure, including optional titles, separators, and icon-labeled items.
 
-<Canvas of="Default" />
-
----
+<Canvas of={Default} />
 
 ## Anatomy
 
@@ -48,19 +44,3 @@ This component handles:
 - Focus trapping and loop navigation
 - ARIA roles (`menu`, `menuitem`)
 - Screen reader-friendly structure
-
----
-
-## Props
-
-### DropdownMenuTrigger
-
-<ArgTypes of={DropdownMenuTrigger} />
-
-### DropdownMenuContent
-
-<ArgTypes of={DropdownMenuContent} />
-
-### DropdownMenuItem
-
-<ArgTypes of={DropdownMenuItem} />

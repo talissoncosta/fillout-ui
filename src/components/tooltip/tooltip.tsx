@@ -1,29 +1,30 @@
-import { Tooltip as RadixTooltip } from "radix-ui";
-import { TooltipContent } from "./elements.tsx";
-import type { ReactNode } from "react";
+import { Provider, Root, Trigger, Portal, Content} from "@radix-ui/react-tooltip";
+import { TooltipContent } from "./elements";
+import type { ComponentProps, ReactNode } from "react";
 
 type TooltipProps = {
   content: ReactNode
   children: ReactNode;
   side?: 'top' | 'right' | 'bottom' | 'left';
   sideOffset?: number;
-};
-export const Tooltip = ({ content, children, side, sideOffset }: TooltipProps) => {
+} & ComponentProps<typeof Content>
+
+export const Tooltip = ({ content, children, side, sideOffset, ...props }: TooltipProps) => {
   if (!content) return children
 
   return (
-    <RadixTooltip.Provider>
-      <RadixTooltip.Root>
-        <RadixTooltip.Trigger asChild>
+    <Provider>
+      <Root>
+        <Trigger asChild>
           {children}
-        </RadixTooltip.Trigger>
-        <RadixTooltip.Portal>
-          <TooltipContent side={side || 'top'} sideOffset={sideOffset || 5}>
+        </Trigger>
+        <Portal>
+          <TooltipContent side={side || 'top'} sideOffset={sideOffset || 5} {...props}>
             {content}
           </TooltipContent>
-        </RadixTooltip.Portal>
-      </RadixTooltip.Root>
-    </RadixTooltip.Provider>
+        </Portal>
+      </Root>
+    </Provider>
   );
 };
 
