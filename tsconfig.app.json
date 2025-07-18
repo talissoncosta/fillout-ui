@@ -25,9 +25,9 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "src/*": [".src/*"]
+      "src/*": ["src/*"]
     },
-    "types": ["react/next", "vite/client"]
+    "types": ["react", "vite/client"]
   },
   "include": ["src/**/*", "documentation/**/*"],
   "exclude": ["node_modules"]

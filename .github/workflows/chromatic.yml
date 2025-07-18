@@ -1,0 +1,39 @@
+name: "Chromatic"
+
+on:
+  push:
+    paths:
+      - 'src/components/**'
+      - '.storybook/**'
+      - 'documentation/**'
+      - '**/*.mdx'
+      - '**/*.stories.@(js|ts|jsx|tsx|mdx)'
+
+jobs:
+  chromatic:
+    name: "📸 Run Chromatic"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.17.0
+          cache: 'yarn'
+
+      - name: 📦 Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 📸 Run Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          autoAcceptChanges: true
+          exitZeroOnChanges: true
+          exitOnceUploaded: true
+          onlyChanged: true

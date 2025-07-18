@@ -1,40 +1,39 @@
-import {styled} from "@linaria/react";
-import {
-  borderRadiusStandard,
-  colorStrokeStandard,
-  colorSurfaceStandardActive,
-  colorTextStandard,
-  shadowStandard
-} from "src/theme";
-import { Content } from "@radix-ui/react-tooltip";
+import { Portal, Content } from "@radix-ui/react-dropdown-menu";
+import { styled } from "@linaria/react";
+import { colorStrokeStandard, colorSurfaceStandardActive, shadowStandard } from "src/theme";
+import type {ComponentProps} from "react";
 
-export const TooltipContent = styled(Content)`
-  border-radius: ${borderRadiusStandard};
-  padding: 10px 15px;
-  font-size: 14px;
-  line-height: 1;
-  color: ${colorTextStandard};
-  background-color: ${colorSurfaceStandardActive};
-  box-shadow: ${shadowStandard};
+const MenuContent = styled(Content)`
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  overflow: auto;
+
+  background: ${colorSurfaceStandardActive};
   border: 0.5px solid ${colorStrokeStandard};
-  user-select: none;
+  box-shadow: ${shadowStandard};
+  border-radius: 12px;
+
+  min-width: 220px;
+  
+  & > :last-child {
+    margin-bottom: 6px;
+  }
+
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 
-  &[data-state="delayed-open"][data-side="top"] {
+  &[data-side="top"] {
     animation-name: slideDownAndFade;
   }
-
-  &[data-state="delayed-open"][data-side="right"] {
+  &[data-side="right"] {
     animation-name: slideLeftAndFade;
   }
-
-  &[data-state="delayed-open"][data-side="bottom"] {
+  &[data-side="bottom"] {
     animation-name: slideUpAndFade;
   }
-
-  &[data-state="delayed-open"][data-side="left"] {
+  &[data-side="left"]{
     animation-name: slideRightAndFade;
   }
 
@@ -82,3 +81,17 @@ export const TooltipContent = styled(Content)`
     }
   }
 `
+type DropdownMenuContentProps = ComponentProps<typeof Content>
+export const DropdownMenuContent = ({ children, align, side, ...props }: DropdownMenuContentProps) => (
+  <Portal>
+    <MenuContent
+      align={align || 'start'}
+      side={side || 'bottom'}
+      sideOffset={5}
+      loop
+      {...props}
+    >
+      {children}
+    </MenuContent>
+  </Portal>
+)
