@@ -1,4 +1,4 @@
-import {type ComponentProps, type ReactNode, useRef } from 'react';
+import React, {ComponentProps, ReactNode, useRef } from 'react';
 import {
   borderRadiusStandard,
   colorStrokeStandard,
