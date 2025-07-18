@@ -71,6 +71,9 @@ const Container = styled('div')`
 `
 
 export const Default = {
+  play: async ({ canvas, userEvent, canvasElement}) => {
+    await userEvent.click(await canvas.findByText('Text example'))
+  },
   render: () => {
     return (
       <DropdownMenu>
