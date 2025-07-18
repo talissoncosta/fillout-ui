@@ -3,11 +3,11 @@ import { TooltipContent } from "./elements";
 import type { ComponentProps, ReactNode } from "react";
 
 type TooltipProps = {
-  content: ReactNode
+  content: ReactNode | string;
   children: ReactNode;
   side?: 'top' | 'right' | 'bottom' | 'left';
   sideOffset?: number;
-} & ComponentProps<typeof Content>
+} & Omit<ComponentProps<typeof Content>, 'content'>
 
 export const Tooltip = ({ content, children, side, sideOffset, ...props }: TooltipProps) => {
   if (!content) return children

@@ -16,7 +16,7 @@ export type IconProps = {
   /**
    * Sets the icon size. (small | standard)
    */
-  size?: 'tiny' | 'small' | 'standard' | 'large'
+  size?: 'tiny' | 'small' | 'standard'
   /**
    * Accessible label for screen readers.
    */
@@ -47,7 +47,6 @@ const Svg = ({
           tiny: 'w-[8px] h-[8px]',
           small: 'w-[16px] h-[16px]',
           standard: 'w-[20px] h-[20px]',
-
         }[size],
         className
       )}

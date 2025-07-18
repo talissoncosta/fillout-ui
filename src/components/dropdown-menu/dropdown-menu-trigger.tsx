@@ -1,7 +1,7 @@
 import { Trigger } from "@radix-ui/react-dropdown-menu";
-import type { PropsWithChildren } from "react";
+import type { ReactNode } from "react";
 
-export const DropdownMenuTrigger = ({ children }) => (
+export const DropdownMenuTrigger = ({ children }: { children: ReactNode }) => (
   <Trigger asChild>
     {children}
   </Trigger>
