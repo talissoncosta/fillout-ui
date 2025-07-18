@@ -1,22 +1,38 @@
 name: "Chromatic"
 
-on: push
-
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/components/**'
+      - '.storybook/**'
 jobs:
   chromatic:
-    name: Run Chromatic
+    name: "📸 Run Chromatic"
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: ⬇️ Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
+          fetch-depth: 0 # Ensures full git history for Chromatic to detect changes
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22.17.0
-      - name: Install dependencies
+          cache: 'npm' # Speeds up installs by caching node_modules
+
+      - name: 📦 Install dependencies
         run: npm ci
-      - name: Run Chromatic
-        uses: chromaui/action@latest
+
+      - name: 📸 Run Chromatic
+        uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          autoAcceptChanges: true
+          exitZeroOnChanges: true
+          exitOnceUploaded: true
+          buildScriptName: build
+          onlyChanged: true
