@@ -2,7 +2,7 @@ import {styled} from "@linaria/react";
 import {
   borderRadiusStandard,
   colorStrokeStandard,
-  colorSurfaceStandardActive,
+  colorSurfaceStandard,
   colorTextStandard,
   shadowStandard
 } from "src/theme";
@@ -14,7 +14,7 @@ export const TooltipContent = styled(Content)`
   font-size: 14px;
   line-height: 1;
   color: ${colorTextStandard};
-  background-color: ${colorSurfaceStandardActive};
+  background-color: ${colorSurfaceStandard};
   box-shadow: ${shadowStandard};
   border: 0.5px solid ${colorStrokeStandard};
   user-select: none;

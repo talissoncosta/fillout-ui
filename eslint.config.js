@@ -9,7 +9,12 @@ import tseslint from 'typescript-eslint'
 import { globalIgnores } from 'eslint/config'
 
 export default tseslint.config([
-  globalIgnores(['dist']),
+  globalIgnores([
+    "storybook-static/",
+    "build/",
+    "dist/",
+    "*.config.js"
+  ]),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
