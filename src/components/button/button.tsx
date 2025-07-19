@@ -1,4 +1,4 @@
-import { type ComponentProps } from 'react';
+import {type ComponentProps, type ForwardedRef, forwardRef} from 'react';
 import {
   borderRadiusStandard,
   colorStrokeFocus,
@@ -72,13 +72,14 @@ type ButtonProps = {
   variant?: 'standard' | 'active';
 } & ComponentProps<'button'>
 
-export const Button = ({
+export const Button = forwardRef(({
   children,
   variant = 'standard',
   ...props
-}: ButtonProps) => {
+}: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
   return (
     <button
+      ref={ref}
       className={clsx(buttonClass, {
         [activeVariantClass]: variant === 'active'
       })}
@@ -88,4 +89,4 @@ export const Button = ({
       {children}
     </button>
   )
-}
+})
