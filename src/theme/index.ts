@@ -25,11 +25,14 @@ export const colorStrokeStandard = 'var(--colorStrokeStandard, #E1E1E1)';
 export const colorStrokeFocus = 'var(--colorStrokeFocus, #2F72E2)';
 export const colorStrokeSecondary = 'var(--colorStrokeSecondary, #C0C0C0)';
 
-export const borderRadiusStandard = 'var(--borderRadiusStandard, 8px)';
-
 export const shadowStandard =
   'var(--shadowStandard, 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 1px 3px rgba(0, 0, 0, 0.04))';
 export const shadowFocus =
   'var(--shadowFocus, 0px 0px 0px 1.5px rgba(47, 114, 226, 0.25), 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 1px 3px rgba(0, 0, 0, 0.04))';
 export const shadowActive =
   'var(--shadowActive, 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 1px 3px rgba(0, 0, 0, 0.04))';
+
+export const borderRadiusStandard = 'var(--borderRadiusStandard, 8px)';
+export const zIndexBase = 'var(--zIndexBase, 0)';
+export const zIndexDefault = 'var(--zIndexDefault, 1)';
+export const zIndexFloating = 'var(--zIndexTooltip, 10)';
