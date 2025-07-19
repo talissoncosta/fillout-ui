@@ -1,4 +1,4 @@
-import {type ComponentProps, type ForwardedRef, forwardRef, type ReactNode, useRef} from 'react';
+import { type ComponentProps, type ForwardedRef, forwardRef, type ReactNode } from 'react';
 import {
   borderRadiusStandard,
   colorStrokeStandard,
@@ -7,8 +7,8 @@ import {
   colorSurfaceStandardActive,
   shadowActive,
 } from 'src/theme';
-import { css } from "@linaria/core";
-import { Tooltip } from 'src/components/tooltip'
+import { css } from '@linaria/core';
+import { Tooltip } from 'src/components/tooltip';
 import clsx from 'clsx';
 
 const buttonClass = css`
@@ -19,47 +19,46 @@ const buttonClass = css`
   border-radius: ${borderRadiusStandard};
   border: 0.5px solid ${colorStrokeStandard};
   cursor: pointer;
-  
+
   &:hover {
     background-color: ${colorSurfaceStandardHover};
   }
-  
+
   &:active {
     background-color: ${colorSurfaceStandardActive};
   }
-  
+
   transition:
-          background-color 0.6s ease,
-          color 0.6s ease,
-          box-shadow 0.6s ease,
-          border-color 0.6s ease;
-  
+    background-color 0.6s ease,
+    color 0.6s ease,
+    box-shadow 0.6s ease,
+    border-color 0.6s ease;
 `;
 
 const smallButtonClass = css`
   width: 16px;
   height: 16px;
-`
+`;
 const mediumButtonClass = css`
   width: 20px;
   height: 20px;
-`
+`;
 const largeButtonClass = css`
   width: 24px;
   height: 24px;
-`
+`;
 
 const roundedButtonClass = css`
   border-radius: ${borderRadiusStandard};
-`
+`;
 
 const squareButtonClass = css`
   border-radius: 2px;
-`
+`;
 
 const standardButtonClass = css`
   background-color: ${colorSurfaceStandard};
-`
+`;
 
 const ghostButtonClass = css`
   background-color: transparent;
@@ -68,23 +67,27 @@ const ghostButtonClass = css`
   &:hover {
     background-color: ${colorSurfaceStandardHover};
   }
-`
+`;
 
 type ButtonProps = {
-  tooltip?: ReactNode
-  size?: 'small' | 'medium' | 'large'
-  shape?: 'rounded' | 'square',
-  variant?: 'standard' | 'ghost'
-} & ComponentProps<'button'>
+  tooltip?: ReactNode;
+  size?: 'small' | 'medium' | 'large';
+  shape?: 'rounded' | 'square';
+  variant?: 'standard' | 'ghost';
+} & ComponentProps<'button'>;
 
-export const IconButton = forwardRef(({
-  children,
-  tooltip,
-  size = 'small',
-  shape = 'rounded',
-  variant = 'standard',
-  ...props
-}: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => (
+export const IconButton = forwardRef(
+  (
+    {
+      children,
+      tooltip,
+      size = 'small',
+      shape = 'rounded',
+      variant = 'standard',
+      ...props
+    }: ButtonProps,
+    ref: ForwardedRef<HTMLButtonElement>
+  ) => (
     <Tooltip content={tooltip}>
       <button
         ref={ref}
@@ -97,10 +100,10 @@ export const IconButton = forwardRef(({
           [standardButtonClass]: variant === 'standard',
           [ghostButtonClass]: variant === 'ghost',
         })}
-        type="button"
         {...props}
       >
         {children}
       </button>
     </Tooltip>
-  ))
+  )
+);

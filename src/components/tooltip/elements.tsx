@@ -1,12 +1,12 @@
-import {styled} from "@linaria/react";
+import { styled } from '@linaria/react';
 import {
   borderRadiusStandard,
   colorStrokeStandard,
   colorSurfaceStandard,
   colorTextStandard,
-  shadowStandard
-} from "src/theme";
-import { Content } from "@radix-ui/react-tooltip";
+  shadowStandard,
+} from 'src/theme';
+import { Content } from '@radix-ui/react-tooltip';
 
 export const TooltipContent = styled(Content)`
   border-radius: ${borderRadiusStandard};
@@ -22,19 +22,19 @@ export const TooltipContent = styled(Content)`
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 
-  &[data-state="delayed-open"][data-side="top"] {
+  &[data-state='delayed-open'][data-side='top'] {
     animation-name: slideDownAndFade;
   }
 
-  &[data-state="delayed-open"][data-side="right"] {
+  &[data-state='delayed-open'][data-side='right'] {
     animation-name: slideLeftAndFade;
   }
 
-  &[data-state="delayed-open"][data-side="bottom"] {
+  &[data-state='delayed-open'][data-side='bottom'] {
     animation-name: slideUpAndFade;
   }
 
-  &[data-state="delayed-open"][data-side="left"] {
+  &[data-state='delayed-open'][data-side='left'] {
     animation-name: slideRightAndFade;
   }
 
@@ -81,4 +81,4 @@ export const TooltipContent = styled(Content)`
       transform: translateX(0);
     }
   }
-`
+`;

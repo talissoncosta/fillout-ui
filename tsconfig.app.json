@@ -29,6 +29,6 @@
     },
     "types": ["react", "vite/client"]
   },
-  "include": ["src/**/*", "documentation/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

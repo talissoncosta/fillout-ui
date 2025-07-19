@@ -1,11 +1,10 @@
-export { FileTextIcon } from './file-text-icon'
-export { TrashIcon } from './trash-icon'
-export { SquareBehindSquareIcon } from './square-behind-square-icon'
-export { ClipboardIcon } from './clipboard-icon'
-export { FlagIcon } from './flag-icon'
-export { PencilIcon } from './pencil-icon'
-export { CircleCheckIcon } from './circle-check-icon'
-export { InfoIcon } from './info-icon'
-export { PlusIcon } from './plus-icon'
-export { VerticalDotsIcon } from './vertical-dots-icon'
-
+export { FileTextIcon } from './file-text-icon';
+export { TrashIcon } from './trash-icon';
+export { SquareBehindSquareIcon } from './square-behind-square-icon';
+export { ClipboardIcon } from './clipboard-icon';
+export { FlagIcon } from './flag-icon';
+export { PencilIcon } from './pencil-icon';
+export { CircleCheckIcon } from './circle-check-icon';
+export { InfoIcon } from './info-icon';
+export { PlusIcon } from './plus-icon';
+export { VerticalDotsIcon } from './vertical-dots-icon';

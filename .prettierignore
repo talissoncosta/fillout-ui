@@ -1,0 +1,9 @@
+node_modules/
+dist/
+build/
+storybook-static/
+*.log
+*.lock
+# You might also want to explicitly ignore config files if you don't want Prettier to touch them
+# e.g., vite.config.js, eslint.config.js, prettier.config.js etc.
+# *.config.js

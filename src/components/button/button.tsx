@@ -1,4 +1,4 @@
-import {type ComponentProps, type ForwardedRef, forwardRef} from 'react';
+import { type ComponentProps, type ForwardedRef, forwardRef } from 'react';
 import {
   borderRadiusStandard,
   colorStrokeFocus,
@@ -14,8 +14,8 @@ import {
   shadowActive,
   shadowFocus,
 } from 'src/theme';
-import { css } from "@linaria/core";
-import clsx from "clsx";
+import { css } from '@linaria/core';
+import clsx from 'clsx';
 
 const buttonClass = css`
   display: flex;
@@ -45,12 +45,12 @@ const buttonClass = css`
   &:active {
     background-color: ${colorSurfaceTertiaryActive};
   }
-  
+
   transition:
-          background-color 0.6s ease,
-          color 0.6s ease,
-          box-shadow 0.6s ease,
-          border-color 0.6s ease;
+    background-color 0.6s ease,
+    color 0.6s ease,
+    box-shadow 0.6s ease,
+    border-color 0.6s ease;
 `;
 
 const activeVariantClass = css`
@@ -66,27 +66,28 @@ const activeVariantClass = css`
   &:active {
     background-color: ${colorSurfaceStandardActive};
   }
-`
+`;
 
 type ButtonProps = {
   variant?: 'standard' | 'active';
-} & ComponentProps<'button'>
+} & ComponentProps<'button'>;
 
-export const Button = forwardRef(({
-  children,
-  variant = 'standard',
-  ...props
-}: ButtonProps, ref: ForwardedRef<HTMLButtonElement>) => {
-  return (
-    <button
-      ref={ref}
-      className={clsx(buttonClass, {
-        [activeVariantClass]: variant === 'active'
-      })}
-      type="button"
-      {...props}
-    >
-      {children}
-    </button>
-  )
-})
+export const Button = forwardRef(
+  (
+    { children, variant = 'standard', ...props }: ButtonProps,
+    ref: ForwardedRef<HTMLButtonElement>
+  ) => {
+    return (
+      <button
+        ref={ref}
+        className={clsx(buttonClass, {
+          [activeVariantClass]: variant === 'active',
+        })}
+        type="button"
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  }
+);
