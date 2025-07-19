@@ -1,7 +1,14 @@
 import { Meta, ArgTypes, Canvas, Story } from '@storybook/addon-docs/blocks';
 import { IconButton } from 'src/components/icon-button';
 import { InfoIcon } from 'src/components/icons';
-import IconButtonStories, { Default, WithTooltip } from './IconButton.stories'
+import IconButtonStories, {
+    Default,
+    GhostVariant,
+    Shapes,
+    Sizes,
+    StandardVariant,
+    WithTooltip
+} from './IconButton.stories'
 
 <Meta of={IconButtonStories} />
 
@@ -27,6 +34,35 @@ Add a tooltip for accessibility and clarity:
 <Canvas of={WithTooltip} />
 
 ---
+### Sizes
+
+The `IconButton` comes in predefined sizes to fit various layout needs. You can control the size using the `size` prop.
+
+<Canvas of={Sizes} />
+
+### Shapes
+
+Customize the `IconButton`'s visual appearance with different `shape` options, such as `rounded` (default) or `square`.
+
+<Canvas of={Shapes} />
+
+
+### Variants
+
+The `IconButton` offers different visual `variant`s to suit various design contexts.
+
+#### Standard Variant
+
+The `standard` variant is the default, providing a solid background and border.
+
+<Canvas of={StandardVariant} />
+
+
+#### Ghost Variant
+
+The `ghost` variant is transparent by default, making it ideal for less prominent actions or when a subtle interaction is desired. It reveals its background on hover.
+
+<Canvas of={GhostVariant} />
 
 ## Props
 
