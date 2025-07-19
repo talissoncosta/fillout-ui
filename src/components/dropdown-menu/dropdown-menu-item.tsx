@@ -1,5 +1,7 @@
-import {styled} from "@linaria/react";
-import {colorSurfaceStandardHover, colorTextStandard} from "src/theme";
+import { styled } from '@linaria/react';
+import { colorSurfaceStandardHover, colorTextStandard } from 'src/theme';
+import type { ReactNode } from 'react';
+import type { MouseEventHandler } from 'react';
 
 const MenuItem = styled('span')`
   display: flex;
@@ -13,30 +15,29 @@ const MenuItem = styled('span')`
   user-select: none;
   width: 100%;
   padding: 8px 12px;
-  
+
   &[data-highlighted] {
     background-color: ${colorSurfaceStandardHover};
   }
-  
+
   &:focus-visible {
     outline: none;
   }
-  
+
   &:hover {
     background-color: ${colorSurfaceStandardHover};
   }
+`;
+
+interface DropdownMenuItemProps {
+  children: ReactNode;
+  onSelect: MouseEventHandler<HTMLSpanElement>;
 }
-`
 
-
-export const DropdownMenuItem = ({ children, onSelect }) => {
+export const DropdownMenuItem = ({ children, onSelect }: DropdownMenuItemProps) => {
   return (
-    <MenuItem
-      role="menuitem"
-      tabIndex={-1}
-      onClick={onSelect}
-    >
+    <MenuItem role="menuitem" tabIndex={-1} onClick={onSelect}>
       {children}
     </MenuItem>
   );
-}
+};

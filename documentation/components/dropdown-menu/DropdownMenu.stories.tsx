@@ -3,10 +3,11 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuSeparator
-} from "src/components/dropdown-menu";
-import { Button } from "src/components/button";
-import { styled } from "@linaria/react";
+  DropdownMenuSeparator,
+  DropdownMenuContext,
+} from 'src/components/dropdown-menu';
+import { Button } from 'src/components/button';
+import { styled } from '@linaria/react';
 import {
   colorIconActive,
   colorIconContrast,
@@ -14,8 +15,8 @@ import {
   colorIconStandardLighter,
   colorStrokeStandard,
   colorSurfaceSecondary,
-  colorTextStandard
-} from "src/theme";
+  colorTextStandard,
+} from 'src/theme';
 import {
   ClipboardIcon,
   FileTextIcon,
@@ -23,12 +24,9 @@ import {
   PencilIcon,
   SquareBehindSquareIcon,
   TrashIcon,
-  VerticalDotsIcon
-} from "src/components/icons";
-import {useContext, useEffect, useRef, useState} from "react";
-import {DropdownMenuContext} from "src/components/dropdown-menu/dropdown-menu.tsx";
-import {IconButton} from "src/components/icon-button";
-
+  VerticalDotsIcon,
+} from 'src/components/icons';
+import { useContext, useRef, useState } from 'react';
 
 const meta = {
   title: 'Components/DropdownMenu',
@@ -45,14 +43,14 @@ const meta = {
     },
     align: {
       control: 'radio',
-      options: ['start', 'center', 'end']
-    }
+      options: ['start', 'center', 'end'],
+    },
   },
   args: {
     side: 'bottom',
-    align: 'start'
-  }
-}
+    align: 'start',
+  },
+};
 
 export default meta;
 
@@ -60,7 +58,7 @@ const TitleContainer = styled('div')`
   padding: 8px 12px;
   background: ${colorSurfaceSecondary};
   border-bottom: 0.5px solid ${colorStrokeStandard};
-`
+`;
 
 const TitleText = styled('span')`
   width: 62px;
@@ -69,47 +67,46 @@ const TitleText = styled('span')`
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.015em;
-  color: ${colorTextStandard}
-`
+  color: ${colorTextStandard};
+`;
 
 const InnerText = styled('span')`
   display: flex;
-  gap: 6px
-`
+  gap: 6px;
+`;
 
 const ButtonWrapper = styled('span')`
   display: flex;
   align-items: center;
-  gap: 8px
-`
+  gap: 8px;
+`;
 
 const Container = styled('div')`
   max-height: 40vh;
   overflow: auto;
-`
+`;
 
 export const Default = {
-  play: async ({ canvas, userEvent}) => {
-    await userEvent.click(await canvas.findByText('Text example'))
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(await canvas.findByText('Text example'));
   },
   render: (args) => {
+    const [open, setOpen] = useState(false);
     return (
-      <DropdownMenu>
+      <DropdownMenu open={open} onOpenChange={setOpen} closeOnClickOutside>
         <DropdownMenuTrigger>
           <Button variant="active">
             <ButtonWrapper>
               <InnerText>
                 <FileTextIcon color={colorIconActive} /> Text example
               </InnerText>
-              <VerticalDotsIcon size="small" color={colorIconStandardLighter}/>
+              <VerticalDotsIcon size="small" color={colorIconStandardLighter} />
             </ButtonWrapper>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent {...args}>
           <TitleContainer>
-            <TitleText>
-              Settings
-            </TitleText>
+            <TitleText>Settings</TitleText>
           </TitleContainer>
           <Container>
             <DropdownMenuItem>
@@ -133,23 +130,20 @@ export const Default = {
               <TrashIcon size="small" color={colorIconDestructive} />
               Delete
             </DropdownMenuItem>
-
           </Container>
         </DropdownMenuContent>
       </DropdownMenu>
-    )
-  }
+    );
+  },
 };
 
-
-
-const MenuTrigger = () => {
-  const { refs } = useContext(DropdownMenuContext)
+const MenuTrigger = ({ triggerRef }) => {
+  const { refs } = useContext(DropdownMenuContext);
 
   const handleStopPropagation = (e) => {
     e.preventDefault();
     e.stopPropagation();
-  }
+  };
 
   return (
     <Button variant="active" ref={refs.setReference}>
@@ -158,35 +152,35 @@ const MenuTrigger = () => {
           <FileTextIcon color={colorIconActive} /> Text example
         </InnerText>
         <DropdownMenuTrigger>
-          <IconButton
+          <VerticalDotsIcon
+            ref={triggerRef}
             onMouseDown={handleStopPropagation}
-            variant="ghost" shape="square" size="small">
-            <VerticalDotsIcon size="small" color={colorIconStandardLighter} />
-          </IconButton>
+            size="small"
+            color={colorIconStandardLighter}
+          />
         </DropdownMenuTrigger>
       </ButtonWrapper>
     </Button>
-  )
-}
-
+  );
+};
 
 export const CustomReference = {
   render: (args) => {
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const triggerRef = useRef<HTMLSpanElement>(null);
 
     return (
-      <DropdownMenu open={open} onOpenChange={setOpen}>
-      <MenuTrigger />
-      <DropdownMenuContent {...args}>
-        <Container>
-          <DropdownMenuItem onSelect={() => alert('Edit')}>Edit</DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => alert('Delete')}>Delete</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onSelect={() => alert('Report')}>Report</DropdownMenuItem>
-        </Container>
-      </DropdownMenuContent>
-    </DropdownMenu>)
-
-  }
+      <DropdownMenu open={open} onOpenChange={setOpen} closeOnClickOutside triggerRef={triggerRef}>
+        <MenuTrigger triggerRef={triggerRef} />
+        <DropdownMenuContent {...args}>
+          <Container>
+            <DropdownMenuItem onSelect={() => alert('Edit')}>Edit</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => alert('Delete')}>Delete</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onSelect={() => alert('Report')}>Report</DropdownMenuItem>
+          </Container>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  },
 };
-
