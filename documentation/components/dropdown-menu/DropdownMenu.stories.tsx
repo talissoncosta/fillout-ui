@@ -37,18 +37,26 @@ const meta = {
   },
   argTypes: {
     onClick: { action: 'clicked' },
-    side: {
+    placement: {
       control: 'radio',
-      options: ['top', 'bottom'],
-    },
-    align: {
-      control: 'radio',
-      options: ['start', 'center', 'end'],
+      options: [
+        'top',
+        'top-start',
+        'top-end',
+        'right',
+        'right-start',
+        'right-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'left',
+        'left-start',
+        'left-end',
+      ],
     },
   },
   args: {
-    side: 'bottom',
-    align: 'start',
+    placement: 'bottom-start',
   },
 };
 
@@ -90,10 +98,10 @@ export const Default = {
   play: async ({ canvas, userEvent }) => {
     await userEvent.click(await canvas.findByText('Text example'));
   },
-  render: (args) => {
+  render: ({ placement, ...args }) => {
     const [open, setOpen] = useState(false);
     return (
-      <DropdownMenu open={open} onOpenChange={setOpen} closeOnClickOutside>
+      <DropdownMenu isOpen={open} onOpenChange={setOpen} closeOnClickOutside placement={placement}>
         <DropdownMenuTrigger>
           <Button variant="active">
             <ButtonWrapper>
@@ -109,24 +117,24 @@ export const Default = {
             <TitleText>Settings</TitleText>
           </TitleContainer>
           <Container>
-            <DropdownMenuItem>
+            <DropdownMenuItem index={1} onSelect={() => alert('Set as first page')}>
               <FlagIcon size="small" color={colorIconContrast} />
               <span>Set as first page</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem index={2} onSelect={() => alert('Rename')}>
               <PencilIcon size="small" color={colorIconStandardLighter} />
               <span>Rename</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem index={3} onSelect={() => alert('Copy')}>
               <ClipboardIcon size="small" color={colorIconStandardLighter} />
               <span>Copy</span>
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem index={4} onSelect={() => alert('Duplicate')}>
               <SquareBehindSquareIcon size="small" color={colorIconStandardLighter} />
               <span>Duplicate</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem index={5} onSelect={() => alert('Delete')}>
               <TrashIcon size="small" color={colorIconDestructive} />
               Delete
             </DropdownMenuItem>
@@ -170,14 +178,25 @@ export const CustomReference = {
     const triggerRef = useRef<HTMLSpanElement>(null);
 
     return (
-      <DropdownMenu open={open} onOpenChange={setOpen} closeOnClickOutside triggerRef={triggerRef}>
+      <DropdownMenu
+        isOpen={open}
+        onOpenChange={setOpen}
+        closeOnClickOutside
+        triggerRef={triggerRef}
+      >
         <MenuTrigger triggerRef={triggerRef} />
         <DropdownMenuContent {...args}>
           <Container>
-            <DropdownMenuItem onSelect={() => alert('Edit')}>Edit</DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => alert('Delete')}>Delete</DropdownMenuItem>
+            <DropdownMenuItem index={1} onSelect={() => alert('Edit')}>
+              Edit
+            </DropdownMenuItem>
+            <DropdownMenuItem index={2} onSelect={() => alert('Delete')}>
+              Delete
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onSelect={() => alert('Report')}>Report</DropdownMenuItem>
+            <DropdownMenuItem index={3} onSelect={() => alert('Report')}>
+              Report
+            </DropdownMenuItem>
           </Container>
         </DropdownMenuContent>
       </DropdownMenu>

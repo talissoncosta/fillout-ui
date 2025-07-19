@@ -1,14 +1,8 @@
-import { useContext, type ReactNode } from 'react';
-import { DropdownMenuContext } from './dropdown-menu-context';
+import { type ReactNode } from 'react';
+import { useDropdownMenu } from './dropdown-menu-context';
 
 export const DropdownMenuTrigger = ({ children }: { children: ReactNode }) => {
-  const context = useContext(DropdownMenuContext);
-
-  if (!context) {
-    throw new Error('DropdownMenuTrigger must be used within a DropdownMenu component.');
-  }
-
-  const { refs, getReferenceProps } = context;
+  const { refs, getReferenceProps } = useDropdownMenu();
 
   return (
     <div ref={refs.setReference} {...getReferenceProps()}>

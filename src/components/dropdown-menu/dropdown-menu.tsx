@@ -9,6 +9,7 @@ import {
   useInteractions,
   autoUpdate,
   type Placement,
+  useListNavigation,
 } from '@floating-ui/react';
 import {
   useEffect,
@@ -16,6 +17,8 @@ import {
   type Dispatch,
   type SetStateAction,
   type RefObject,
+  useState,
+  useRef,
 } from 'react';
 
 import { DropdownMenuContext } from './dropdown-menu-context';
@@ -23,7 +26,7 @@ import { useOutsideClick } from 'src/hooks/use-click-outside';
 
 interface DropdownMenuProps {
   children: ReactNode;
-  open?: boolean;
+  isOpen?: boolean;
   onOpenChange: Dispatch<SetStateAction<boolean>>;
   placement?: Placement;
   triggerRef?: RefObject<HTMLElement | null>;
@@ -31,14 +34,18 @@ interface DropdownMenuProps {
 
 export function DropdownMenu({
   children,
-  open = false,
+  isOpen = false,
   onOpenChange,
   placement = 'bottom-start',
   triggerRef,
 }: DropdownMenuProps) {
+  const listRef = useRef<Array<HTMLElement | null>>([]);
+
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
   const { refs, floatingStyles, context } = useFloating({
     placement,
-    open,
+    open: isOpen,
     onOpenChange,
     middleware: [offset(4), flip(), shift({ padding: 8 })],
     whileElementsMounted: autoUpdate,
@@ -53,7 +60,7 @@ export function DropdownMenu({
   useOutsideClick(
     refs.floating,
     () => {
-      if (open) {
+      if (isOpen) {
         onOpenChange(false);
       }
     },
@@ -66,7 +73,19 @@ export function DropdownMenu({
     escapeKey: true,
   });
   const role = useRole(context, { role: 'menu' });
-  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss, role]);
+  const listNavigation = useListNavigation(context, {
+    listRef,
+    activeIndex,
+    onNavigate: setActiveIndex,
+    loop: true,
+  });
+
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
+    click,
+    dismiss,
+    role,
+    listNavigation,
+  ]);
 
   useEffect(() => {
     const triggerEl = refs.reference.current;
@@ -83,7 +102,7 @@ export function DropdownMenu({
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        onOpenChange(!open);
+        onOpenChange(!isOpen);
       }
     }
 
@@ -92,18 +111,21 @@ export function DropdownMenu({
     return () => {
       triggerEl.removeEventListener('keydown', handleKeyDown);
     };
-  }, [refs.reference, onOpenChange, open]);
+  }, [refs.reference, onOpenChange, isOpen]);
 
   return (
     <DropdownMenuContext.Provider
       value={{
-        open,
+        isOpen,
         onOpenChange,
         refs,
         floatingStyles,
         context,
         getReferenceProps,
         getFloatingProps,
+        getItemProps,
+        listRef,
+        activeIndex,
       }}
     >
       {children}

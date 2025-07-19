@@ -1,9 +1,12 @@
 import { styled } from '@linaria/react';
 import { colorSurfaceStandardHover, colorTextStandard } from 'src/theme';
-import type { ReactNode } from 'react';
-import type { MouseEventHandler } from 'react';
+import type { ComponentProps, KeyboardEvent, ReactNode } from 'react';
+import { useDropdownMenu } from './dropdown-menu-context';
+import clsx from 'clsx';
+import { css } from '@linaria/core';
+import { useListItem } from '@floating-ui/react';
 
-const MenuItem = styled('span')`
+const MenuItem = styled('button')`
   display: flex;
   gap: 6px;
   line-height: 16px;
@@ -29,14 +32,45 @@ const MenuItem = styled('span')`
   }
 `;
 
-interface DropdownMenuItemProps {
-  children: ReactNode;
-  onSelect: MouseEventHandler<HTMLSpanElement>;
-}
+const isSelectedClass = css`
+  background-color: ${colorSurfaceStandardHover};
+`;
 
-export const DropdownMenuItem = ({ children, onSelect }: DropdownMenuItemProps) => {
+type DropdownMenuItemProps = {
+  children: ReactNode;
+  onSelect?: () => void;
+  disabled?: boolean;
+} & ComponentProps<'button'>;
+
+export const DropdownMenuItem = ({ children, onSelect, ...props }: DropdownMenuItemProps) => {
+  const { activeIndex, onOpenChange } = useDropdownMenu();
+  const { index, ref } = useListItem();
+  const isActive = index === activeIndex;
+
+  const handleClick = () => {
+    onSelect?.();
+    onOpenChange(false);
+  };
+  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+    if ((e.key === 'Enter' || e.key === ' ') && isActive) {
+      e.preventDefault();
+      onSelect?.();
+      onOpenChange(false);
+    }
+  };
+
   return (
-    <MenuItem role="menuitem" tabIndex={-1} onClick={onSelect}>
+    <MenuItem
+      role="menuitem"
+      tabIndex={isActive ? 0 : -1}
+      ref={ref}
+      className={clsx({
+        [isSelectedClass]: activeIndex === index,
+      })}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      {...props}
+    >
       {children}
     </MenuItem>
   );

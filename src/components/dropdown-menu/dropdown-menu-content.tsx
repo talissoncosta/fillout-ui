@@ -1,6 +1,6 @@
-import { useContext, type ReactNode } from 'react';
-import { FloatingFocusManager, FloatingPortal } from '@floating-ui/react';
-import { DropdownMenuContext } from './dropdown-menu-context';
+import { type ReactNode } from 'react';
+import { FloatingFocusManager, FloatingPortal, FloatingList } from '@floating-ui/react';
+import { useDropdownMenu } from './dropdown-menu-context';
 import { styled } from '@linaria/react';
 import { colorStrokeStandard, colorSurfaceStandard, shadowStandard } from 'src/theme';
 
@@ -56,23 +56,19 @@ interface DropdownMenuContentProps {
 }
 
 export const DropdownMenuContent = ({ children }: DropdownMenuContentProps) => {
-  const contextValue = useContext(DropdownMenuContext);
+  const { isOpen, listRef, refs, floatingStyles, context, getFloatingProps } = useDropdownMenu();
 
-  if (!contextValue) {
-    throw new Error('DropdownMenuContent must be used within a DropdownMenu component.');
-  }
-
-  const { open, refs, floatingStyles, context, getFloatingProps } = contextValue;
-
-  if (!open) return null;
+  if (!isOpen) return null;
 
   return (
-    <FloatingPortal>
-      <FloatingFocusManager context={context} modal={false}>
-        <MenuContent ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
-          {children}
-        </MenuContent>
-      </FloatingFocusManager>
-    </FloatingPortal>
+    <FloatingList elementsRef={listRef}>
+      <FloatingPortal>
+        <FloatingFocusManager context={context} modal={false}>
+          <MenuContent ref={refs.setFloating} style={floatingStyles} {...getFloatingProps()}>
+            {children}
+          </MenuContent>
+        </FloatingFocusManager>
+      </FloatingPortal>
+    </FloatingList>
   );
 };
