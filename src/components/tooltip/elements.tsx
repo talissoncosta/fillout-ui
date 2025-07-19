@@ -5,6 +5,7 @@ import {
   colorSurfaceStandard,
   colorTextStandard,
   shadowStandard,
+  zIndexFloating,
 } from 'src/theme';
 import { Content } from '@radix-ui/react-tooltip';
 
@@ -21,6 +22,7 @@ export const TooltipContent = styled(Content)`
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
+  z-index: ${zIndexFloating};
 
   &[data-state='delayed-open'][data-side='top'] {
     animation-name: slideDownAndFade;

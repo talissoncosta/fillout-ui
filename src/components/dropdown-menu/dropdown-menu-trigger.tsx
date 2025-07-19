@@ -1,7 +1,7 @@
-import { type ReactNode, type KeyboardEvent } from 'react';
+import { type KeyboardEvent, type ComponentProps } from 'react';
 import { useDropdownMenu } from './dropdown-menu-context';
 
-export const DropdownMenuTrigger = ({ children }: { children: ReactNode }) => {
+export const DropdownMenuTrigger = ({ children, ...props }: ComponentProps<'div'>) => {
   const { refs, getReferenceProps, onOpenChange, isOpen } = useDropdownMenu();
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -12,7 +12,7 @@ export const DropdownMenuTrigger = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <div ref={refs.setReference} {...getReferenceProps()} onKeyDown={handleKeyDown}>
+    <div ref={refs.setReference} {...getReferenceProps()} onKeyDown={handleKeyDown} {...props}>
       {children}
     </div>
   );

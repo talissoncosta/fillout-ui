@@ -6,6 +6,7 @@ import {
   colorSurfaceStandardHover,
   colorSurfaceStandardActive,
   shadowActive,
+  zIndexDefault,
 } from 'src/theme';
 import { css } from '@linaria/core';
 import { Tooltip } from 'src/components/tooltip';
@@ -19,6 +20,7 @@ const buttonClass = css`
   border-radius: ${borderRadiusStandard};
   border: 0.5px solid ${colorStrokeStandard};
   cursor: pointer;
+  z-index: ${zIndexDefault};
 
   &:hover {
     background-color: ${colorSurfaceStandardHover};
@@ -84,6 +86,7 @@ export const IconButton = forwardRef(
       size = 'small',
       shape = 'rounded',
       variant = 'standard',
+      className,
       ...props
     }: ButtonProps,
     ref: ForwardedRef<HTMLButtonElement>
@@ -91,15 +94,19 @@ export const IconButton = forwardRef(
     <Tooltip content={tooltip}>
       <button
         ref={ref}
-        className={clsx(buttonClass, {
-          [smallButtonClass]: size === 'small',
-          [mediumButtonClass]: size === 'medium',
-          [largeButtonClass]: size === 'large',
-          [roundedButtonClass]: shape === 'rounded',
-          [squareButtonClass]: shape === 'square',
-          [standardButtonClass]: variant === 'standard',
-          [ghostButtonClass]: variant === 'ghost',
-        })}
+        className={clsx(
+          buttonClass,
+          {
+            [smallButtonClass]: size === 'small',
+            [mediumButtonClass]: size === 'medium',
+            [largeButtonClass]: size === 'large',
+            [roundedButtonClass]: shape === 'rounded',
+            [squareButtonClass]: shape === 'square',
+            [standardButtonClass]: variant === 'standard',
+            [ghostButtonClass]: variant === 'ghost',
+          },
+          className
+        )}
         {...props}
       >
         {children}
