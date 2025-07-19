@@ -1,45 +1,38 @@
-import clsx from 'clsx'
-import type { SVGProps} from "react";
-import {css} from "@linaria/core";
+import clsx from 'clsx';
+import type { SVGProps } from 'react';
+import { css } from '@linaria/core';
 
 const svgCss = css`
   display: flex;
   align-self: center;
   transition:
-          background-color 0.6s ease,
-          color 0.6s ease,
-          box-shadow 0.6s ease,
-          border-color 0.6s ease;
-`
+    background-color 0.6s ease,
+    color 0.6s ease,
+    box-shadow 0.6s ease,
+    border-color 0.6s ease;
+`;
 
 export type IconProps = {
   /**
    * Sets the icon size. (small | standard)
    */
-  size?: 'tiny' | 'small' | 'standard'
+  size?: 'tiny' | 'small' | 'standard';
   /**
    * Accessible label for screen readers.
    */
-  title?: string
+  title?: string;
 
   /**
    * Sets the icon's fill color.
    */
-  color?: string
-}
+  color?: string;
+};
 
 type SvgProps = IconProps & SVGProps<SVGSVGElement>;
-const Svg = ({
-  size = 'standard',
-  color,
-  title,
-  children,
-  className,
-  ...props
-}: SvgProps) => {
+const Svg = ({ size = 'standard', color, title, children, className, ...props }: SvgProps) => {
   return (
     <span
-      style={{ color: color}}
+      style={{ color: color }}
       className={clsx(
         svgCss,
         'inline-block',
@@ -52,16 +45,11 @@ const Svg = ({
       )}
       aria-hidden={!title}
     >
-      <svg
-        role="img"
-        focusable="false"
-        xmlns="http://www.w3.org/2000/svg"
-        {...props}
-      >
+      <svg role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" {...props}>
         {title && <title>{title}</title>}
         {children}
       </svg>
     </span>
-  )
-}
-export default Svg
+  );
+};
+export default Svg;

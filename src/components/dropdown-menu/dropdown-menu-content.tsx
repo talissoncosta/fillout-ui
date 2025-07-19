@@ -1,23 +1,27 @@
-import { Portal, Content } from "@radix-ui/react-dropdown-menu";
-import { styled } from "@linaria/react";
-import {colorStrokeStandard, colorSurfaceStandard, shadowStandard} from "src/theme";
-import type {ComponentProps} from "react";
+import { type ReactNode } from 'react';
+import { FloatingFocusManager, FloatingPortal, FloatingList } from '@floating-ui/react';
+import { useDropdownMenu } from './dropdown-menu-context';
+import { styled } from '@linaria/react';
+import { colorStrokeStandard, colorSurfaceStandard, shadowStandard } from 'src/theme';
 
-const MenuContent = styled(Content)`
+const MenuContent = styled('div')`
   display: flex;
   flex-direction: column;
-  width: 240px;
   overflow: auto;
   background: ${colorSurfaceStandard};
   border: 0.5px solid ${colorStrokeStandard};
   box-shadow: ${shadowStandard};
   border-radius: 12px;
+  z-index: 10;
 
-  min-width: 220px;
-  
   & > :last-child {
     margin-bottom: 6px;
   }
+
+  &:focus-visible {
+    outline: none;
+  }
+
   transform-origin: var(--origin, top);
   animation: dropdown-in 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -32,31 +36,40 @@ const MenuContent = styled(Content)`
       transform: scaleY(1);
     }
   }
-  
-  &[data-side="top"] {
-    --origin: bottom
+
+  &[data-placement='top'] {
+    --origin: bottom;
   }
-  &[data-side="right"] {
-    --origin: left
+  &[data-placement='bottom'] {
+    --origin: top;
   }
-  &[data-side="bottom"] {
-    --origin: top
-  }
-  &[data-side="left"]{
-    --origin: right
-  }
-`
-type DropdownMenuContentProps = Omit<ComponentProps<typeof Content>, 'side'> & { side: 'bottom' | 'top' }
-export const DropdownMenuContent = ({ children, align, side, ...props }: DropdownMenuContentProps) => (
-  <Portal>
-    <MenuContent
-      align={align || 'start'}
-      side={side || 'bottom'}
-      sideOffset={5}
-      loop
-      {...props}
-    >
-      {children}
-    </MenuContent>
-  </Portal>
-)
+`;
+
+interface DropdownMenuContentProps {
+  children: ReactNode;
+}
+
+export const DropdownMenuContent = ({ children }: DropdownMenuContentProps) => {
+  const { currentPlacement, isOpen, listRef, refs, floatingStyles, context, getFloatingProps } =
+    useDropdownMenu();
+  const side = currentPlacement?.split('-')[0] ?? '';
+
+  if (!isOpen) return null;
+
+  return (
+    <FloatingList elementsRef={listRef}>
+      <FloatingPortal>
+        <FloatingFocusManager context={context} modal={false}>
+          <MenuContent
+            data-placement={side}
+            ref={refs.setFloating}
+            style={floatingStyles}
+            {...getFloatingProps()}
+          >
+            {children}
+          </MenuContent>
+        </FloatingFocusManager>
+      </FloatingPortal>
+    </FloatingList>
+  );
+};

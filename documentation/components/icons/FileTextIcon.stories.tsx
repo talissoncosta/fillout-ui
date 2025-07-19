@@ -8,19 +8,19 @@ const meta = {
   argTypes: {
     size: {
       control: 'radio',
-      options: ['standard', 'small']
+      options: ['standard', 'small'],
     },
     color: {
-      control: 'color'
-    }
-  }
-}
+      control: 'color',
+    },
+  },
+};
 
 export default meta;
 type Story = StoryObj<typeof FileTextIcon>;
 
 export const Default: Story = {
   args: {
-    size: 'standard'
-  }
+    size: 'standard',
+  },
 };
