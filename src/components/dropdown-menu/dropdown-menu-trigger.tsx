@@ -1,11 +1,18 @@
-import { type ReactNode } from 'react';
+import { type ReactNode, type KeyboardEvent } from 'react';
 import { useDropdownMenu } from './dropdown-menu-context';
 
 export const DropdownMenuTrigger = ({ children }: { children: ReactNode }) => {
-  const { refs, getReferenceProps } = useDropdownMenu();
+  const { refs, getReferenceProps, onOpenChange, isOpen } = useDropdownMenu();
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onOpenChange(!isOpen);
+    }
+  };
 
   return (
-    <div ref={refs.setReference} {...getReferenceProps()}>
+    <div ref={refs.setReference} {...getReferenceProps()} onKeyDown={handleKeyDown}>
       {children}
     </div>
   );

@@ -4,7 +4,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
-  DropdownMenuContext,
+  useDropdownMenu,
 } from 'src/components/dropdown-menu';
 import { Button } from 'src/components/button';
 import { styled } from '@linaria/react';
@@ -26,7 +26,7 @@ import {
   TrashIcon,
   VerticalDotsIcon,
 } from 'src/components/icons';
-import { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 const meta = {
   title: 'Components/DropdownMenu',
@@ -39,20 +39,7 @@ const meta = {
     onClick: { action: 'clicked' },
     placement: {
       control: 'radio',
-      options: [
-        'top',
-        'top-start',
-        'top-end',
-        'right',
-        'right-start',
-        'right-end',
-        'bottom',
-        'bottom-start',
-        'bottom-end',
-        'left',
-        'left-start',
-        'left-end',
-      ],
+      options: ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end'],
     },
   },
   args: {
@@ -101,7 +88,7 @@ export const Default = {
   render: ({ placement, ...args }) => {
     const [open, setOpen] = useState(false);
     return (
-      <DropdownMenu isOpen={open} onOpenChange={setOpen} closeOnClickOutside placement={placement}>
+      <DropdownMenu isOpen={open} onOpenChange={setOpen} placement={placement}>
         <DropdownMenuTrigger>
           <Button variant="active">
             <ButtonWrapper>
@@ -146,7 +133,7 @@ export const Default = {
 };
 
 const MenuTrigger = ({ triggerRef }) => {
-  const { refs } = useContext(DropdownMenuContext);
+  const { refs } = useDropdownMenu();
 
   const handleStopPropagation = (e) => {
     e.preventDefault();
@@ -173,7 +160,7 @@ const MenuTrigger = ({ triggerRef }) => {
 };
 
 export const CustomReference = {
-  render: (args) => {
+  render: ({ placement, ...args }) => {
     const [open, setOpen] = useState(false);
     const triggerRef = useRef<HTMLSpanElement>(null);
 
@@ -181,8 +168,8 @@ export const CustomReference = {
       <DropdownMenu
         isOpen={open}
         onOpenChange={setOpen}
-        closeOnClickOutside
         triggerRef={triggerRef}
+        placement={placement}
       >
         <MenuTrigger triggerRef={triggerRef} />
         <DropdownMenuContent {...args}>

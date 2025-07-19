@@ -8,11 +8,12 @@ import {
   useRole,
   useInteractions,
   autoUpdate,
-  type Placement,
   useListNavigation,
+  autoPlacement,
+  type Placement as PlacementType,
+  type Alignment,
 } from '@floating-ui/react';
 import {
-  useEffect,
   type ReactNode,
   type Dispatch,
   type SetStateAction,
@@ -24,11 +25,17 @@ import {
 import { DropdownMenuContext } from './dropdown-menu-context';
 import { useOutsideClick } from 'src/hooks/use-click-outside';
 
+type Placement = Extract<
+  PlacementType,
+  'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end'
+>;
+
 interface DropdownMenuProps {
   children: ReactNode;
   isOpen?: boolean;
   onOpenChange: Dispatch<SetStateAction<boolean>>;
   placement?: Placement;
+  alignment?: Alignment;
   triggerRef?: RefObject<HTMLElement | null>;
 }
 
@@ -37,20 +44,35 @@ export function DropdownMenu({
   isOpen = false,
   onOpenChange,
   placement = 'bottom-start',
+  alignment = 'start',
   triggerRef,
 }: DropdownMenuProps) {
   const listRef = useRef<Array<HTMLElement | null>>([]);
-
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const { refs, floatingStyles, context } = useFloating({
+  const {
+    refs,
+    floatingStyles,
+    context,
+    placement: currentPlacement,
+    ...rest
+  } = useFloating({
     placement,
     open: isOpen,
     onOpenChange,
-    middleware: [offset(4), flip(), shift({ padding: 8 })],
+    middleware: [
+      offset(4),
+      flip(),
+      shift({ padding: 8 }),
+      autoPlacement({
+        alignment,
+        autoAlignment: false,
+        allowedPlacements: ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end'],
+      }),
+    ],
     whileElementsMounted: autoUpdate,
+    transform: false,
   });
-
   const getIgnoredRefs = (): RefObject<HTMLElement | null>[] => {
     if (triggerRef) return [triggerRef];
     if (refs.reference) return [refs.reference as RefObject<HTMLElement | null>];
@@ -80,38 +102,12 @@ export function DropdownMenu({
     loop: true,
   });
 
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([
+  const { getReferenceProps, getItemProps, getFloatingProps } = useInteractions([
     click,
     dismiss,
     role,
     listNavigation,
   ]);
-
-  useEffect(() => {
-    const triggerEl = refs.reference.current;
-
-    if (!triggerEl) return;
-
-    if (!(triggerEl instanceof HTMLElement)) {
-      console.warn(
-        'DropdownMenu: Reference element is not an HTMLElement. Keyboard events (Enter/Space) may not function as expected.'
-      );
-      return;
-    }
-
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        onOpenChange(!isOpen);
-      }
-    }
-
-    triggerEl.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      triggerEl.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [refs.reference, onOpenChange, isOpen]);
 
   return (
     <DropdownMenuContext.Provider
@@ -126,6 +122,8 @@ export function DropdownMenu({
         getItemProps,
         listRef,
         activeIndex,
+        triggerRef,
+        currentPlacement,
       }}
     >
       {children}

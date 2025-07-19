@@ -1,6 +1,7 @@
 import { createContext, type MutableRefObject, useContext } from 'react';
 import type { ReferenceType, FloatingContext, UseFloatingReturn } from '@floating-ui/react';
 import type { useInteractions } from '@floating-ui/react';
+import { type Placement } from '@floating-ui/react';
 
 interface DropdownMenuContextType {
   isOpen: boolean;
@@ -13,6 +14,8 @@ interface DropdownMenuContextType {
   getItemProps: ReturnType<typeof useInteractions>['getItemProps'];
   listRef: MutableRefObject<Array<HTMLElement | null>>;
   activeIndex: number | null;
+  triggerRef?: MutableRefObject<HTMLElement | null>;
+  currentPlacement: Placement;
 }
 
 export const DropdownMenuContext = createContext<DropdownMenuContextType | null>(null);
