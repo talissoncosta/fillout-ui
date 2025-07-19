@@ -18,6 +18,9 @@ const MenuItem = styled('button')`
   user-select: none;
   width: 100%;
   padding: 8px 12px;
+  background: none;
+  outline: none;
+  border: none;
 
   &[data-highlighted] {
     background-color: ${colorSurfaceStandardHover};
