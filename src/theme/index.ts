@@ -1,9 +1,14 @@
-export const colorSurfaceStandard = 'var(--colorSurfaceStandard, rgba(157, 164, 178, 0.15))'
-export const colorSurfaceStandardHover = 'var(--colorSurfaceStandardHover, rgba(157, 164, 178, 0.35))'
-export const colorSurfaceStandardActive = 'var(--colorSurfaceStandardActive, #FFFFFF)'
-export const colorSurfaceStandardActiveHover = 'var(--colorSurfaceStandardActive, #F5F5F5)'
+export const colorSurfaceStandard = 'var(--colorSurfaceStandard, #FFFFFF)'
+export const colorSurfaceStandardActive = 'var(--colorSurfaceStandardActive, #EDEDED)'
+export const colorSurfaceStandardHover = 'var(--colorSurfaceStandardHover, #F5F5F5)'
 
 export const colorSurfaceSecondary = 'var(--colorSurfaceSecondary, #FAFBFC)'
+export const colorSurfaceSecondaryActive = 'var(--colorSurfaceSecondaryActive, #E6E8EA)'
+export const colorSurfaceSecondaryHover = 'var(--colorSurfaceSecondaryHover, #F0F2F4)'
+
+export const colorSurfaceTertiary = 'var(--colorSurfaceTertiary, rgba(157, 164, 178, 0.15))'
+export const colorSurfaceTertiaryHover = 'var(--colorSurfaceTertiaryHover, rgba(157, 164, 178, 0.35))'
+export const colorSurfaceTertiaryActive = 'var(--colorSurfaceTertiaryActive, rgba(157, 164, 178, 0.5))'
 
 export const colorIconStandard = 'var(--colorIconStandard, #8C93A1)'
 export const colorIconStandardLighter = 'var(--colorIconStandardLighter, #9DA4B2)'

@@ -10,7 +10,8 @@ import { styled } from "@linaria/react";
 import {
   colorIconActive,
   colorIconContrast,
-  colorIconDestructive, colorIconStandardLighter,
+  colorIconDestructive,
+  colorIconStandardLighter,
   colorStrokeStandard,
   colorSurfaceSecondary,
   colorTextStandard
@@ -33,7 +34,19 @@ const meta = {
     layout: 'centered',
   },
   argTypes: {
-    onClick: { action: 'clicked' }
+    onClick: { action: 'clicked' },
+    side: {
+      control: 'radio',
+      options: ['top', 'bottom'],
+    },
+    align: {
+      control: 'radio',
+      options: ['start', 'center', 'end']
+    }
+  },
+  args: {
+    side: 'bottom',
+    align: 'start'
   }
 }
 
@@ -66,15 +79,15 @@ const ButtonWrapper = styled('span')`
 `
 
 const Container = styled('div')`
-  max-height: 30vh;
+  max-height: 40vh;
   overflow: auto;
 `
 
 export const Default = {
-  play: async ({ canvas, userEvent, canvasElement}) => {
+  play: async ({ canvas, userEvent}) => {
     await userEvent.click(await canvas.findByText('Text example'))
   },
-  render: () => {
+  render: (args) => {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger>
@@ -87,7 +100,7 @@ export const Default = {
             </ButtonWrapper>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent side="top">
+        <DropdownMenuContent {...args}>
           <TitleContainer>
             <TitleText>
               Settings

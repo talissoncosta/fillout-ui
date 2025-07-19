@@ -1,6 +1,6 @@
 import { Portal, Content } from "@radix-ui/react-dropdown-menu";
 import { styled } from "@linaria/react";
-import { colorStrokeStandard, colorSurfaceStandardActive, shadowStandard } from "src/theme";
+import {colorStrokeStandard, colorSurfaceStandard, shadowStandard} from "src/theme";
 import type {ComponentProps} from "react";
 
 const MenuContent = styled(Content)`
@@ -8,8 +8,7 @@ const MenuContent = styled(Content)`
   flex-direction: column;
   width: 240px;
   overflow: auto;
-
-  background: ${colorSurfaceStandardActive};
+  background: ${colorSurfaceStandard};
   border: 0.5px solid ${colorStrokeStandard};
   box-shadow: ${shadowStandard};
   border-radius: 12px;
@@ -19,69 +18,35 @@ const MenuContent = styled(Content)`
   & > :last-child {
     margin-bottom: 6px;
   }
+  transform-origin: var(--origin, top);
+  animation: dropdown-in 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 
-  animation-duration: 400ms;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
+  @keyframes dropdown-in {
+    from {
+      opacity: 0;
+      transform: scaleY(0);
+    }
 
+    to {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+  }
+  
   &[data-side="top"] {
-    animation-name: slideDownAndFade;
+    --origin: bottom
   }
   &[data-side="right"] {
-    animation-name: slideLeftAndFade;
+    --origin: left
   }
   &[data-side="bottom"] {
-    animation-name: slideUpAndFade;
+    --origin: top
   }
   &[data-side="left"]{
-    animation-name: slideRightAndFade;
-  }
-
-  @keyframes slideUpAndFade {
-    from {
-      opacity: 0;
-      transform: translateY(2px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideRightAndFade {
-    from {
-      opacity: 0;
-      transform: translateX(-2px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideDownAndFade {
-    from {
-      opacity: 0;
-      transform: translateY(-2px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideLeftAndFade {
-    from {
-      opacity: 0;
-      transform: translateX(2px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+    --origin: right
   }
 `
-type DropdownMenuContentProps = ComponentProps<typeof Content>
+type DropdownMenuContentProps = Omit<ComponentProps<typeof Content>, 'side'> & { side: 'bottom' | 'top' }
 export const DropdownMenuContent = ({ children, align, side, ...props }: DropdownMenuContentProps) => (
   <Portal>
     <MenuContent

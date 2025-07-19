@@ -1,6 +1,6 @@
 import { Item } from "@radix-ui/react-dropdown-menu";
 import { styled } from "@linaria/react";
-import {colorSurfaceStandardActiveHover, colorTextStandard} from "src/theme";
+import { colorSurfaceStandardHover, colorTextStandard } from "src/theme";
 import type { ComponentProps } from "react";
 
 const MenuItem = styled(Item)`
@@ -17,7 +17,7 @@ const MenuItem = styled(Item)`
   padding: 8px 12px;
   
   &[data-highlighted] {
-    background-color: ${colorSurfaceStandardActiveHover};
+    background-color: ${colorSurfaceStandardHover};
   }
   
   &:focus-visible {
@@ -25,7 +25,7 @@ const MenuItem = styled(Item)`
   }
   
   &:hover {
-    background-color: ${colorSurfaceStandardActiveHover};
+    background-color: ${colorSurfaceStandardHover};
   }
 }
 `
