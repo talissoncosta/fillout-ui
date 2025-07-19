@@ -1,9 +1,7 @@
-import { Item } from "@radix-ui/react-dropdown-menu";
-import { styled } from "@linaria/react";
-import { colorSurfaceStandardHover, colorTextStandard } from "src/theme";
-import type { ComponentProps } from "react";
+import {styled} from "@linaria/react";
+import {colorSurfaceStandardHover, colorTextStandard} from "src/theme";
 
-const MenuItem = styled(Item)`
+const MenuItem = styled('span')`
   display: flex;
   gap: 6px;
   line-height: 16px;
@@ -29,8 +27,16 @@ const MenuItem = styled(Item)`
   }
 }
 `
-export const DropdownMenuItem = ({ children, ...props }: ComponentProps<typeof Item>) =>  (
-  <MenuItem {...props}>
-    {children}
-  </MenuItem>
-)
+
+
+export const DropdownMenuItem = ({ children, onSelect }) => {
+  return (
+    <MenuItem
+      role="menuitem"
+      tabIndex={-1}
+      onClick={onSelect}
+    >
+      {children}
+    </MenuItem>
+  );
+}

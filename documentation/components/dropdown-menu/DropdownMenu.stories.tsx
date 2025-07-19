@@ -25,6 +25,10 @@ import {
   TrashIcon,
   VerticalDotsIcon
 } from "src/components/icons";
+import {useContext, useEffect, useRef, useState} from "react";
+import {DropdownMenuContext} from "src/components/dropdown-menu/dropdown-menu.tsx";
+import {IconButton} from "src/components/icon-button";
+
 
 const meta = {
   title: 'Components/DropdownMenu',
@@ -75,6 +79,7 @@ const InnerText = styled('span')`
 
 const ButtonWrapper = styled('span')`
   display: flex;
+  align-items: center;
   gap: 8px
 `
 
@@ -128,6 +133,7 @@ export const Default = {
               <TrashIcon size="small" color={colorIconDestructive} />
               Delete
             </DropdownMenuItem>
+
           </Container>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -136,4 +142,51 @@ export const Default = {
 };
 
 
+
+const MenuTrigger = () => {
+  const { refs } = useContext(DropdownMenuContext)
+
+  const handleStopPropagation = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  return (
+    <Button variant="active" ref={refs.setReference}>
+      <ButtonWrapper>
+        <InnerText>
+          <FileTextIcon color={colorIconActive} /> Text example
+        </InnerText>
+        <DropdownMenuTrigger>
+          <IconButton
+            onMouseDown={handleStopPropagation}
+            variant="ghost" shape="square" size="small">
+            <VerticalDotsIcon size="small" color={colorIconStandardLighter} />
+          </IconButton>
+        </DropdownMenuTrigger>
+      </ButtonWrapper>
+    </Button>
+  )
+}
+
+
+export const CustomReference = {
+  render: (args) => {
+    const [open, setOpen] = useState(false)
+
+    return (
+      <DropdownMenu open={open} onOpenChange={setOpen}>
+      <MenuTrigger />
+      <DropdownMenuContent {...args}>
+        <Container>
+          <DropdownMenuItem onSelect={() => alert('Edit')}>Edit</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => alert('Delete')}>Delete</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onSelect={() => alert('Report')}>Report</DropdownMenuItem>
+        </Container>
+      </DropdownMenuContent>
+    </DropdownMenu>)
+
+  }
+};
 
