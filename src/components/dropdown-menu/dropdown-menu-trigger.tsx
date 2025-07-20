@@ -1,7 +1,12 @@
 import { type KeyboardEvent, type ComponentProps } from 'react';
 import { useDropdownMenu } from './dropdown-menu-context';
+import { Slot } from '@radix-ui/react-slot';
 
-export const DropdownMenuTrigger = ({ children, ...props }: ComponentProps<'div'>) => {
+type DropdownMenuTriggerProps = ComponentProps<'div'> & {
+  asChild?: boolean;
+};
+
+export const DropdownMenuTrigger = ({ children, asChild, ...props }: DropdownMenuTriggerProps) => {
   const { refs, getReferenceProps, onOpenChange, isOpen } = useDropdownMenu();
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -11,9 +16,18 @@ export const DropdownMenuTrigger = ({ children, ...props }: ComponentProps<'div'
     }
   };
 
+  const Comp = asChild ? Slot : 'div';
+
   return (
-    <div ref={refs.setReference} {...getReferenceProps()} onKeyDown={handleKeyDown} {...props}>
+    <Comp
+      ref={asChild ? refs.setReference : undefined}
+      {...getReferenceProps()}
+      onKeyDown={handleKeyDown}
+      aria-expanded={isOpen}
+      aria-haspopup="menu"
+      {...props}
+    >
       {children}
-    </div>
+    </Comp>
   );
 };

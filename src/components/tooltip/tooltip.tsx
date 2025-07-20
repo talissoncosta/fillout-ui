@@ -7,6 +7,7 @@ type TooltipProps = {
   children: ReactNode;
   side?: 'top' | 'right' | 'bottom' | 'left';
   sideOffset?: number;
+  id?: string;
 } & Omit<ComponentProps<typeof Content>, 'content'>;
 
 export const Tooltip = ({ content, children, side, sideOffset, ...props }: TooltipProps) => {
@@ -17,7 +18,12 @@ export const Tooltip = ({ content, children, side, sideOffset, ...props }: Toolt
       <Root>
         <Trigger asChild>{children}</Trigger>
         <Portal>
-          <TooltipContent side={side || 'top'} sideOffset={sideOffset || 5} {...props}>
+          <TooltipContent
+            id={props.id}
+            side={side || 'top'}
+            sideOffset={sideOffset || 5}
+            {...props}
+          >
             {content}
           </TooltipContent>
         </Portal>

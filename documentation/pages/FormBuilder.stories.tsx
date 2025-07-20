@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { StoryObj } from '@storybook/react-vite';
 
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
@@ -8,7 +8,6 @@ const meta = {
   title: 'Examples/FormBuilder',
   component: FormBuilder,
   parameters: {
-    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
   },
 };
@@ -16,8 +15,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on component testing: https://storybook.js.org/docs/writing-tests/interaction-testing
-export const FormBuilderExample = {
+export const FormBuilderExample: Story = {
   render: () => {
     return <FormBuilder />;
   },

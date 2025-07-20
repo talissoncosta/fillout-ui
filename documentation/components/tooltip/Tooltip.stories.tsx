@@ -2,6 +2,8 @@ import { Tooltip } from 'src/components/tooltip';
 import { PlusIcon } from 'src/components/icons';
 import { IconButton } from 'src/components/icon-button';
 import type { ComponentProps } from 'react';
+import { userEvent, within } from 'storybook/test';
+import { Button } from '../../../src/components/button';
 
 const meta = {
   title: 'Components/Tooltip',
@@ -16,13 +18,19 @@ const meta = {
 export default meta;
 
 export const Default = {
-  render: (args: ComponentProps<typeof Tooltip>) => (
+  render: (args) => (
     <Tooltip {...args}>
-      <IconButton>
-        <PlusIcon size="tiny" />
-      </IconButton>
+      <Button>Button with tooltip</Button>
     </Tooltip>
   ),
+  args: {
+    content: 'Add item',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = await canvas.getByRole('button');
+    await userEvent.hover(button);
+  },
 };
 
 export const BottomSide = {
@@ -37,6 +45,11 @@ export const BottomSide = {
       </IconButton>
     </Tooltip>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = await canvas.getByRole('button');
+    await userEvent.hover(button);
+  },
 };
 
 export const WithCustomContent = {
@@ -54,4 +67,9 @@ export const WithCustomContent = {
       </IconButton>
     </Tooltip>
   ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = await canvas.getByRole('button');
+    await userEvent.hover(button);
+  },
 };

@@ -14,6 +14,7 @@ export default meta;
 export const Default = {
   args: {
     children: <PlusIcon size="tiny" />,
+    'aria-label': 'Button label',
   },
 };
 

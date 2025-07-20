@@ -89,7 +89,7 @@ export const Default = {
     const [open, setOpen] = useState(false);
     return (
       <DropdownMenu isOpen={open} onOpenChange={setOpen} placement={placement}>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
           <Button variant="active">
             <ButtonWrapper>
               <InnerText>
@@ -146,7 +146,7 @@ const MenuTrigger = ({ triggerRef }) => {
         <InnerText>
           <FileTextIcon color={colorIconActive} /> Text example
         </InnerText>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger role="menu">
           <VerticalDotsIcon
             ref={triggerRef}
             onMouseDown={handleStopPropagation}
@@ -160,6 +160,9 @@ const MenuTrigger = ({ triggerRef }) => {
 };
 
 export const CustomReference = {
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(await canvas.findByRole('menu'));
+  },
   render: ({ placement, ...args }) => {
     const [open, setOpen] = useState(false);
     const triggerRef = useRef<HTMLSpanElement>(null);

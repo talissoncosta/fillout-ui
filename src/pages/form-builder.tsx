@@ -2,22 +2,25 @@ import { useState } from 'react';
 import { CircleCheckIcon, FileTextIcon, InfoIcon } from 'src/components/icons';
 import { PageNavigator } from 'src/components/page-navigator';
 import { generateId } from 'src/utils/generate-id';
+import { type ReactElement } from 'react';
+
+type Page = { id: string; title: string; icon: ReactElement };
 
 export const FormBuilder = () => {
-  const initialPages = [
+  const initialPages: Page[] = [
     { id: generateId(), title: 'Info', icon: <InfoIcon /> },
     { id: generateId(), title: 'Details', icon: <FileTextIcon /> },
     { id: generateId(), title: 'Other', icon: <FileTextIcon /> },
     { id: generateId(), title: 'Ending', icon: <CircleCheckIcon /> },
   ];
-  const [activePage, setActivePage] = useState<string>(initialPages[0]);
+  const [activePage, setActivePage] = useState<Page>(initialPages[0]);
   const [pages, setPages] = useState(initialPages);
 
-  const handleChange = (id) => {
-    setActivePage(pages.find((page) => page.id === id));
+  const handleChange = (id: string) => {
+    setActivePage(pages.find((page) => page.id === id) ?? pages[0]);
   };
 
-  const handleAddNewPage = (index) => {
+  const handleAddNewPage = (index: number) => {
     const newPage = {
       id: generateId(),
       title: 'New page',
@@ -32,7 +35,7 @@ export const FormBuilder = () => {
 
   return (
     <div>
-      <h1 className="text-center">{activePage.title}</h1>
+      <h1 className="text-center">{activePage?.title}</h1>
       <PageNavigator
         pages={pages}
         activePageId={activePage?.id}

@@ -21,7 +21,7 @@ export const colorIconDestructive = 'var(--colorIconDestructive, #EF494F)';
 export const colorIconContrast = 'var(--colorIconContrast, #2F72E2)';
 
 export const colorTextStandard = 'var(--colorTextStandard, #1A1A1A)';
-export const colorTextSecondary = 'var(--colorTextSecondary, #677289)';
+export const colorTextSecondary = 'var(--colorTextSecondary, #5a637a)';
 export const colorTextInverseStandard = 'var(--colorTextInverseStandard, #FFFFFF)';
 
 export const colorStrokeStandard = 'var(--colorStrokeStandard, #E1E1E1)';
