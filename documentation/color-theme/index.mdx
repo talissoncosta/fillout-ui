@@ -6,7 +6,7 @@ import * as colors from 'src/theme'
 # Color Theme
 
 <ColorPalette>
-   {Object.entries(colors).filter(([name]) => name.includes('color')).map(([name, color]) => (
+   {Object.entries(colors).filter(([name]) => name.includes('color') || name.includes('shadow')).map(([name, color]) => (
      <ColorItem
        title={name}
        colors={{ [name] : color }}

@@ -1,69 +1,137 @@
-# React + TypeScript + Vite
+# Fillout UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, accessible, and customizable UI component library designed to support robust product interfaces with powerful interactivity and design system alignment.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* ✅ Fully typed with TypeScript
+* 🎯 Built with accessibility best practices
+* 🧹 Modular component architecture
+* 👡 Keyboard and pointer interactions supported
+* 🎨 Theming via design tokens
+* 📦 Drag and drop (powered by `@dnd-kit`)
+* 🧪 Storybook with interaction and accessibility testing
+* 🧰 Built-in support for Radix UI primitives and Floating UI positioning
+* 🔍 Support for tooltips, dropdowns, and dynamic forms
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/your-username/fillout-ui.git
+cd fillout-ui
+yarn install
+yarn start
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This will start the local Storybook environment.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📚 Storybook
+
+All components are documented using Storybook with interactive stories and MDX documentation.
+
+```bash
+yarn start
 ```
+
+You can browse the components at: [http://localhost:6006](http://localhost:6006)
+
+---
+
+## Component Highlights
+
+### `PageNavigator`
+
+A horizontal step/page navigation component designed for form flows and builders.
+
+#### Key Features
+
+* Keyboard arrow navigation
+* Dynamic page insertion (via inline `+` buttons)
+* Drag-and-drop reordering
+* Focus and accessibility management
+* Design token-based styles
+* Custom icon support
+* Tooltips and `aria-label` for screen reader support
+
+---
+
+### `DropdownMenu`
+
+A composable dropdown menu using Floating UI for positioning and focus management.
+
+Structure:
+
+* `<DropdownMenu>` — root context provider
+* `<DropdownMenuTrigger>` — button or trigger element
+* `<DropdownMenuContent>` — floating panel
+* `<DropdownMenuItem>` — interactive items
+* `<DropdownMenuSeparator>` — divider
+
+---
+
+### `Tooltip`
+
+A lightweight wrapper around Radix UI Tooltip with custom styling support.
+
+Usage:
+
+```tsx
+<Tooltip content="Add new item">
+  <IconButton>
+    <PlusIcon />
+  </IconButton>
+</Tooltip>
+```
+
+---
+
+## Testing
+
+Component interactions are tested using Storybook `play` functions with `@storybook/testing-library` and `jest-axe` for accessibility compliance.
+
+To run tests:
+
+```bash
+yarn test
+```
+
+---
+
+## Tech Stack
+
+* React + TypeScript
+* Storybook
+* Linaria (zero-runtime CSS-in-JS)
+* Floating UI + Radix Primitives
+* @dnd-kit for drag-and-drop
+* Jest + Testing Library
+
+---
+
+##  Design Tokens
+
+The colors, z-index, and shadows are centralized via CSS custom properties and TypeScript exports (e.g. `colorSurfaceStandard`, `shadowFocus`).
+
+
+---
+
+## Roadmap
+
+* [ ] Publish to NPM
+* [ ] Add full theming support (light/dark)
+
+---
+
+## Author
+
+Built with ❤️ by [@talissoncosta](https://github.com/talissoncosta)
+
+---
+
+## 📄 License
+
+MIT

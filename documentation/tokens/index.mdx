@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as tokens from 'src/theme';
+
+<Meta title="Foundations/Tokens" />
+
+<h2 className="text-2xl font-bold mb-4 text-gray-800 mt-8">Non-Color Design Tokens</h2>
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <thead>
+    <tr>
+      <th style={{ textAlign: 'left', padding: '8px', borderBottom: '1px solid #eee' }}>Name</th>
+      <th style={{ textAlign: 'left', padding: '8px', borderBottom: '1px solid #eee' }}>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    {Object.entries(tokens)
+      .filter(([name]) => !name.startsWith('color') && !name.startsWith('shadow'))
+      .map(([name, value]) => (
+        <tr key={name}>
+          <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>{name}</td>
+          <td style={{ padding: '8px', borderBottom: '1px solid #eee' }}>
+            {typeof value === 'string'
+              ? value.match(/var\([^)]+,\s*([^)]+)\)/)?.[1]?.trim() || value
+              : String(value)}
+          </td>
+        </tr>
+      ))}
+  </tbody>
+</table>
