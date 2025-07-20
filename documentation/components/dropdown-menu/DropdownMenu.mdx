@@ -8,39 +8,82 @@ import {
 } from 'src/components/dropdown-menu';
 import { Button } from 'src/components/button';
 import { VerticalDotsIcon, FileTextIcon } from 'src/components/icons';
-import DropdownMenuStories, { Default} from './DropdownMenu.stories'
+import DropdownMenuStories, {CustomReference, Default} from './DropdownMenu.stories'
 
 <Meta of={DropdownMenuStories} />
 
 # DropdownMenu
 
-The `DropdownMenu` component is a custom menu built using [@radix-ui/react-dropdown-menu](https://www.radix-ui.com/docs/primitives/components/dropdown-menu).
-It is composed of trigger and content primitives, offering full control over layout, animation, accessibility, and keyboard navigation.
+The `DropdownMenu` component is a composable, accessible dropdown built using [Floating UI](https://floating-ui.com/) primitives. It provides flexible placement, keyboard interactions, and full control over styling and structure.
 
-Use it to render contextual actions, such as page-level settings or inline UI operations.
+Use it to render contextual action menus triggered by buttons, icons, or any interactive element.
 
-## Usage
+## Composition
 
-Wrap `DropdownMenuTrigger` around any clickable element (usually a `Button`).
-Use `DropdownMenuContent` to provide your menu structure, including optional titles, separators, and icon-labeled items.
+The `DropdownMenu` is built from several composable parts:
+
+- **`DropdownMenu`**: Provides context and handles positioning logic.
+- **`DropdownMenuTrigger`**: Wraps the trigger element (e.g. a `Button`).
+- **`DropdownMenuContent`**: Renders the floating panel containing the menu.
+- **`DropdownMenuItem`**: Clickable actions or selectable options.
+- **`DropdownMenuSeparator`**: Optional visual divider between sections.
+
+## Example
 
 <Canvas of={Default} />
 
-## Anatomy
+## Custom Reference Element
+The DropdownMenu supports advanced positioning through the triggerRef prop. This enables decoupling the visual trigger from the element used for positioning.
 
-- `DropdownMenu`: Root context provider.
-- `DropdownMenuTrigger`: The element that opens the menu.
-- `DropdownMenuContent`: The floating panel containing the menu options.
-- `DropdownMenuItem`: Clickable option inside the menu.
-- `DropdownMenuSeparator`: Horizontal divider between groups of items.
+This is useful when:
+- You want to use a floating icon, avatar, or custom area as the anchor
+- You want to show the dropdown relative to one element but trigger it from another
+
+<Canvas of={CustomReference} />
+
+
+```tsx
+const triggerRef = useRef(null);
+
+return (
+  <DropdownMenu
+    isOpen={open}
+    onOpenChange={setOpen}
+    triggerRef={triggerRef}
+    placement="bottom-end"
+  >
+    <MenuTrigger triggerRef={triggerRef} /> {/* Trigger can be elsewhere */}
+    <DropdownMenuContent>
+      <DropdownMenuItem onSelect={() => alert('Edit')}>Edit</DropdownMenuItem>
+      <DropdownMenuItem onSelect={() => alert('Delete')}>Delete</DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem onSelect={() => alert('Report')}>Report</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+);
+
+```
+
 
 ---
 
 ## Accessibility
 
-This component handles:
+The DropdownMenu follows best practices for keyboard and screen reader support:
 
-- Keyboard support (arrow keys, `Enter`, `Escape`)
-- Focus trapping and loop navigation
-- ARIA roles (`menu`, `menuitem`)
+- Keyboard navigation: `ArrowDown`, `ArrowUp`, `Enter`, `Escape`
+- aria-haspopup, aria-expanded, and aria-controls attributes on trigger
+- Roles: menu, menuitem
+- Focus is correctly managed when the menu opens/closes
 - Screen reader-friendly structure
+
+## Behavior & Features
+
+- Customizable placement (bottom-start, top-end, etc.)
+- Auto flips and shifts to fit viewport
+- Modal or non-modal focus management
+- Controlled or uncontrolled open state
+
+
+## Props
+<ArgTypes of={DropdownMenu} />
