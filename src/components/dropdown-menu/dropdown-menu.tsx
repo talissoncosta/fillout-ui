@@ -9,9 +9,7 @@ import {
   useInteractions,
   autoUpdate,
   useListNavigation,
-  autoPlacement,
   type Placement as PlacementType,
-  type Alignment,
 } from '@floating-ui/react';
 import {
   type ReactNode,
@@ -35,7 +33,6 @@ interface DropdownMenuProps {
   isOpen?: boolean;
   onOpenChange: Dispatch<SetStateAction<boolean>>;
   placement?: Placement;
-  alignment?: Alignment;
   triggerRef?: RefObject<HTMLElement | null>;
 }
 
@@ -44,7 +41,6 @@ export function DropdownMenu({
   isOpen = false,
   onOpenChange,
   placement = 'bottom-start',
-  alignment = 'start',
   triggerRef,
 }: DropdownMenuProps) {
   const listRef = useRef<Array<HTMLElement | null>>([]);
@@ -55,21 +51,11 @@ export function DropdownMenu({
     floatingStyles,
     context,
     placement: currentPlacement,
-    ...rest
   } = useFloating({
     placement,
     open: isOpen,
     onOpenChange,
-    middleware: [
-      offset(4),
-      flip(),
-      shift({ padding: 8 }),
-      autoPlacement({
-        alignment,
-        autoAlignment: false,
-        allowedPlacements: ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end'],
-      }),
-    ],
+    middleware: [offset(4), flip(), shift({ padding: 8 })],
     whileElementsMounted: autoUpdate,
     transform: false,
   });

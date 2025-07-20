@@ -26,6 +26,10 @@ export type IconProps = {
    * Sets the icon's fill color.
    */
   color?: string;
+    /**
+   * Sets the class for Icon
+   */
+  className?: string
 };
 
 type SvgProps = IconProps & SVGProps<SVGSVGElement>;

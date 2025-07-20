@@ -1,0 +1,80 @@
+import { Meta, ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import { PageNavigator } from 'src/components/page-navigator';
+import PageNavigatorStories, { Default, WithManyPages, WithLongTitles, MoreComplex, NoPages } from './PageNavigator.stories';
+
+<Meta of={PageNavigatorStories} />
+
+# PageNavigator
+
+`PageNavigator` is a component used to display and switch between multiple "pages" in a horizontal navigation bar. It supports icons, keyboard navigation, overflow handling, dynamic page addition, and accessibility best practices.
+
+---
+
+## Features
+
+- Keyboard arrow navigation
+- Overflow scroll with fade edges
+- Dynamic page insertion (`+` button between pages)
+- Dropdown actions per page
+- Accessibility with `aria-current`, tooltips, and focus management
+- Handles long page titles gracefully
+
+---
+
+## Props
+
+<ArgTypes of={PageNavigator} />
+
+---
+
+## Usage Example
+
+Use the `PageNavigator` to help users switch between logical steps or sections within a UI. Each page accepts a `title`, an `icon`, and an `id`.
+
+---
+
+## Stories
+
+### Default
+
+<Canvas of={Default} />
+
+---
+
+### With Many Pages
+
+<Canvas of={WithManyPages} />
+
+---
+
+### With Long Titles
+
+<Canvas of={WithLongTitles} />
+
+---
+
+### More Complex (with dynamic ID generation)
+
+<Canvas of={MoreComplex} />
+
+---
+
+### No Pages
+
+<Canvas of={NoPages} />
+
+---
+
+## Best Practices
+
+- Use concise titles to avoid truncation.
+- Pair icons with labels for better scannability.
+- Use the `onAddNewPage` callback to dynamically inject new items in the correct position.
+- Use tooltips or `aria-label` for hidden or truncated content.
+
+---
+
+## 💡 Tip
+
+You can simulate adding pages by clicking on the inline `+` buttons between steps in the stories. Try out different configurations to see how `PageNavigator` adapts.
+
