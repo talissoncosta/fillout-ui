@@ -34,5 +34,5 @@ export const shadowActive =
 
 export const borderRadiusStandard = 'var(--borderRadiusStandard, 8px)';
 export const zIndexBase = 'var(--zIndexBase, 0)';
-export const zIndexDefault = 'var(--zIndexDefault, 1)';
+export const zIndexDefault = 'var(--zIndexDefault, 2)';
 export const zIndexFloating = 'var(--zIndexTooltip, 10)';

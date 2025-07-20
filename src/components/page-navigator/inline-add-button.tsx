@@ -1,9 +1,10 @@
 import { css } from '@linaria/core';
-import { type ComponentProps, useEffect, useRef, useState } from 'react';
+import React, { type ComponentProps, useEffect, useRef, useState } from 'react';
 import { IconButton } from 'src/components/icon-button';
 import clsx from 'clsx';
 import { PlusIcon } from 'src/components/icons';
 import { zIndexDefault } from 'src/theme';
+import { DashedLine } from 'src/components/page-navigator/elements.tsx';
 
 const addPageButtonClass = css`
   transition: opacity 200ms ease-out;
@@ -18,7 +19,6 @@ const buttonVisibleClass = css`
 `;
 
 const containerClass = css`
-  z-index: ${zIndexDefault};
   width: 16px;
   height: 30px;
   align-content: center;
@@ -37,7 +37,7 @@ const HOVER_DEBOUNCE = 150; // ms
 export const InlineAddButton = ({ onClick }: ComponentProps<typeof IconButton>) => {
   const [isVisible, setIsVisible] = useState(false);
   const hoverTimeout = useRef<number | null>(null);
-  
+
   const showButton = () => {
     hoverTimeout.current = setTimeout(() => {
       setIsVisible(true);
@@ -68,6 +68,8 @@ export const InlineAddButton = ({ onClick }: ComponentProps<typeof IconButton>) 
       onMouseEnter={showButton}
       onMouseLeave={hideButton}
     >
+      <DashedLine />
+
       <IconButton
         onClick={onClick}
         className={clsx(addPageButtonClass, {

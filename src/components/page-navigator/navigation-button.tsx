@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, { cloneElement, forwardRef, useEffect, useRef, useState } from 'react';
 import type { ComponentProps, ReactElement, ReactNode } from 'react';
 import {
   colorIconActive,
@@ -71,24 +71,28 @@ const contextButtonVisibleClass = css`
   display: flex;
 `;
 
-interface NavButtonProps extends Omit<ComponentProps<'button'>, 'ref'> {
-  triggerRef: React.RefObject<HTMLSpanElement>;
+interface PageNavButtonProps {
   children: ReactNode;
   isActive?: boolean;
   onToggleDropdown: React.Dispatch<React.SetStateAction<boolean>>;
   tooltip?: ReactNode;
 }
 
-const NavButton = forwardRef<HTMLButtonElement, NavButtonProps>(({
-  children,
-  onClick,
-  isActive,
-  onToggleDropdown,
-  tooltip,
-  onFocus,
-  onBlur,
-  ...props
-},forwardedRef) => {
+const PageNavButton = forwardRef<HTMLButtonElement, PageNavButtonProps>(
+  (
+    {
+      children,
+      onClick,
+      isActive,
+      onToggleDropdown,
+      tooltip,
+      onFocus,
+      onBlur,
+      onKeyDown,
+      ...props
+    },
+    forwardedRef
+  ) => {
     const { refs } = useDropdownMenu();
 
     const handleStopPropagation = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -97,11 +101,13 @@ const NavButton = forwardRef<HTMLButtonElement, NavButtonProps>(({
     };
 
     const handleContextMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+      console.log('here');
       e.preventDefault(); // Prevents the browser's default context menu from appearing
       if (isActive) onToggleDropdown((prev: boolean) => !prev);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+      onKeyDown?.(e);
       if (e.metaKey && e.key === 'Enter') {
         onToggleDropdown((prev) => !prev);
       }
@@ -145,43 +151,42 @@ type NavigationButtonProps = {
   isActive?: boolean;
 } & ComponentProps<'button'>;
 
-export const NavigationButton = React.forwardRef<HTMLButtonElement, NavigationButtonProps>(
+export const NavigationButton = forwardRef<HTMLButtonElement, NavigationButtonProps>(
   ({ children: text, icon, isActive = false, ...props }, forwardedRef) => {
     const [open, setOpen] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
-    const triggerRef = useRef<HTMLSpanElement>(null) as React.RefObject<HTMLSpanElement>;
-    const contentRef = useRef<HTMLSpanElement>(null);
+    const triggerRef = useRef<HTMLSpanElement | null>(null);
+    const contentRef = useRef<HTMLSpanElement | null>(null);
     const [isOverflowing, setIsOverflowing] = useState(false);
 
     useEffect(() => {
       if (contentRef.current) {
         const el = contentRef.current;
-        setIsOverflowing(el.scrollWidth > el.clientWidth);
+        if ('scrollWidth' in el) {
+          setIsOverflowing(el.scrollWidth > el.clientWidth);
+        }
       }
     }, [text]);
 
     const renderedIcon =
-      isActive || isFocused
-        ? React.cloneElement(icon as ReactElement<{ color?: string }>, { color: colorIconActive })
-        : icon;
+      isActive || isFocused ? cloneElement(icon, { color: colorIconActive }) : icon;
 
     return (
       <DropdownMenu isOpen={open} onOpenChange={setOpen} triggerRef={triggerRef}>
-        <NavButton
-          triggerRef={triggerRef}
+        <PageNavButton
           isActive={isActive}
           onToggleDropdown={setOpen}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           tooltip={isOverflowing ? text : undefined}
-          ref={forwardedRef}
+          ref={useMergeRefs([forwardedRef, triggerRef])}
           {...props}
         >
           <InnerText ref={contentRef}>
             {renderedIcon}
             {!isOverflowing && text}
           </InnerText>
-        </NavButton>
+        </PageNavButton>
         <DropdownMenuContent>
           <TitleContainer>
             <TitleText>Settings</TitleText>

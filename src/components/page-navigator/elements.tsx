@@ -31,15 +31,15 @@ export const PageNavigatorBar = styled('nav')`
   background-color: ${colorSurfaceStandard};
   box-shadow: ${shadowStandard};
   place-self: center;
-  max-width: 100%;
   transition:
     opacity 180ms ease-out,
     transform 180ms ease-out;
   --toolbar-animation-speed: 120ms;
-
   transition-timing-function: ease-out;
   animation-name: slide-up;
   animation-duration: var(--toolbar-animation-speed);
+  max-width: calc(100% - 48px); /* Full width minus left/right margins */
+  width: fit-content;
 
   @keyframes slide-up {
     from {
@@ -52,8 +52,9 @@ export const PageNavigatorBar = styled('nav')`
 export const PageNavigatorContent = styled('ol')`
   display: flex;
   position: relative;
-  overflow-y: auto;
   padding: 2px;
+  overflow: auto;
+
   &::-webkit-scrollbar {
     height: 2px;
   }
@@ -67,8 +68,7 @@ export const PageNavigatorContent = styled('ol')`
 export const DashedLine = styled('div')`
   position: absolute;
   top: 50%;
-  left: 0;
-  right: 0;
+  width: 100px;
   height: 1px;
   background-color: transparent;
   border-top: 1px dashed ${colorStrokeSecondary};
