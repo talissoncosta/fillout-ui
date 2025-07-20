@@ -1,9 +1,13 @@
 import { styled } from '@linaria/react';
 import {
   borderRadiusStandard,
+  colorStrokeInverseStandard,
   colorStrokeStandard,
+  colorSurfaceInverseStandard,
   colorSurfaceStandard,
+  colorTextInverseStandard,
   colorTextStandard,
+  shadowInverseStandard,
   shadowStandard,
   zIndexFloating,
 } from 'src/theme';
@@ -14,10 +18,10 @@ export const TooltipContent = styled(Content)`
   padding: 10px 15px;
   font-size: 14px;
   line-height: 1;
-  color: ${colorTextStandard};
-  background-color: ${colorSurfaceStandard};
-  box-shadow: ${shadowStandard};
-  border: 0.5px solid ${colorStrokeStandard};
+  color: ${colorTextInverseStandard};
+  background-color: ${colorSurfaceInverseStandard};
+  box-shadow: ${shadowInverseStandard};
+  border: 0.5px solid ${colorStrokeInverseStandard};
   user-select: none;
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
