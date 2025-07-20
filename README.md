@@ -49,13 +49,13 @@ A horizontal step/page navigation component designed for form flows and builders
 
 #### Key Features
 
-* Keyboard arrow navigation
-* Dynamic page insertion (via inline `+` buttons)
-* Drag-and-drop reordering
-* Focus and accessibility management
-* Design token-based styles
-* Custom icon support
-* Tooltips and `aria-label` for screen reader support
+* Keyboard arrow navigation for accessibility.
+* Dynamic page insertion via inline + buttons.
+* Drag-and-drop reordering with @dnd-kit/sortable.
+* Focus and accessibility management with Radix UI.
+* Design token-based styling for consistency.
+* Custom icon support for flexibility.
+* Tooltips and aria-label for screen reader compatibility.
 
 ---
 
@@ -91,24 +91,23 @@ Usage:
 
 ## Testing
 
-Component interactions are tested using Storybook `play` functions with `@storybook/testing-library` and `jest-axe` for accessibility compliance.
-
-To run tests:
-
-```bash
-yarn test
-```
+- Visual testing with chromatic
+  - Check the render, UI and also a11y
 
 ---
 
 ## Tech Stack
 
-* React + TypeScript
-* Storybook
-* Linaria (zero-runtime CSS-in-JS)
-* Floating UI + Radix Primitives
-* @dnd-kit for drag-and-drop
-* Jest + Testing Library
+* React + TypeScript: Core framework with type-safe development.
+* Vite: Fast build tool and development server.
+* Vitest: Lightweight and fast unit testing framework.
+* Linaria: Zero-runtime CSS-in-JS for performant styling.
+* Tailwind CSS: Utility-first CSS framework for rapid UI development.
+* Radix UI: Accessible, unstyled UI components for custom interfaces.
+* Floating UI: Toolkit for dynamic, accessible positioning of floating elements.
+* @dnd-kit/sortable: Flexible drag-and-drop library for sortable lists.
+* Storybook: Component library for UI development and documentation.
+* Chromatic: Visual testing and review tool for Storybook.
 
 ---
 
@@ -122,7 +121,9 @@ The colors, z-index, and shadows are centralized via CSS custom properties and T
 ## Roadmap
 
 * [ ] Publish to NPM
-* [ ] Add full theming support (light/dark)
+* [ ] Add full theming support (light/dark modes).
+* [ ] Integrate end-to-end testing with Playwright.
+* [ ] Add support for internationalization (i18n).
 
 ---
 
