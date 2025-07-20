@@ -1,0 +1,5 @@
+import{b as r}from"./drag-handler-icon-Bf5aGXdl.js";import"./jsx-runtime-D_zvdyIk.js";const a={title:"Components/Icons/FileTextIcon",component:r,argTypes:{size:{control:"radio",options:["standard","small"]},color:{control:"color"}}},o={args:{size:"standard"}};o.parameters={...o.parameters,docs:{...o.parameters?.docs,source:{originalSource:`{
+  args: {
+    size: 'standard'
+  }
+}`,...o.parameters?.docs?.source}}};const t=["Default"];export{o as Default,t as __namedExportsOrder,a as default};
