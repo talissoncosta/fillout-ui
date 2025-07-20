@@ -14,6 +14,9 @@ const meta = {
       </div>
     ),
   ],
+  parameters: {
+    layout: 'fullscreen', // removes padding
+  },
 };
 
 export default meta;

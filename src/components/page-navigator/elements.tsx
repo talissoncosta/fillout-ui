@@ -62,7 +62,7 @@ export const PageNavigatorContent = styled('ol')`
   overflow-y: auto;
 
   &::-webkit-scrollbar {
-    height: 2px;
+    height: 0.5px;
   }
 
   &::-webkit-scrollbar-thumb {

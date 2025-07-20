@@ -55,7 +55,7 @@ export function DropdownMenu({
     placement,
     open: isOpen,
     onOpenChange,
-    middleware: [offset(4), flip(), shift({ padding: 8 })],
+    middleware: [offset(9), flip(), shift({ padding: 8 })],
     whileElementsMounted: autoUpdate,
     transform: false,
   });

@@ -110,32 +110,29 @@ export const PageNavigator = ({
         ref={pageNavigatorScrollRef}
       >
         <PageItems>
-          <SortableList<Page> items={pages} onDragEnd={handleDragEnd} >
+          <SortableList<Page> items={pages} onDragEnd={handleDragEnd}>
             {pages.map(({ title, icon, id }, index) => (
               <React.Fragment key={id}>
                 <SortableItem id={id} key={id}>
-                  {({ listeners, attributes, setNodeRef, style, isDragging }) => {
-                    console.log({ listeners, attributes });
-                    return (
-                      <PageButtonWrapper ref={setNodeRef} style={style}>
-                        <NavigationItem
-                          ref={refs[index]}
-                          icon={icon}
-                          isActive={id === activePageId}
-                          onClick={(e) => handleChange(e, id)}
-                          {...listeners}
-                          {...attributes}
-                          {...getItemProps(index)}
-                          className={clsx({
-                            [isDraggingCss]: isDragging,
-                            [dragEndsCss]: lastDraggedId === id,
-                          })}
-                        >
-                          {title}
-                        </NavigationItem>
-                      </PageButtonWrapper>
-                    );
-                  }}
+                  {({ listeners, attributes, setNodeRef, style, isDragging }) => (
+                    <PageButtonWrapper ref={setNodeRef} style={style}>
+                      <NavigationItem
+                        ref={refs[index]}
+                        icon={icon}
+                        isActive={id === activePageId}
+                        onClick={(e) => handleChange(e, id)}
+                        {...listeners}
+                        {...attributes}
+                        {...getItemProps(index)}
+                        className={clsx({
+                          [isDraggingCss]: isDragging,
+                          [dragEndsCss]: lastDraggedId === id,
+                        })}
+                      >
+                        {title}
+                      </NavigationItem>
+                    </PageButtonWrapper>
+                  )}
                 </SortableItem>
                 {index < pages.length && (
                   <InlineAddButton

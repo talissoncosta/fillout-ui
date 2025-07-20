@@ -6,18 +6,19 @@ import PageNavigatorStories, { Default, WithManyPages, WithLongTitles, MoreCompl
 
 # PageNavigator
 
-`PageNavigator` is a component used to display and switch between multiple "pages" in a horizontal navigation bar. It supports icons, keyboard navigation, overflow handling, dynamic page addition, and accessibility best practices.
+The `PageNavigator` component provides an interactive, horizontally scrollable UI for navigating between logical "pages" or steps. It supports keyboard and pointer navigation, dynamic page creation, reordering via drag-and-drop, and accessibility best practices.
 
----
 
-## Features
+##  Features
 
-- Keyboard arrow navigation
-- Overflow scroll with fade edges
-- Dynamic page insertion (`+` button between pages)
-- Dropdown actions per page
-- Accessibility with `aria-current`, tooltips, and focus management
-- Handles long page titles gracefully
+- **Keyboard navigation** with arrow keys (looping and focusable)
+- **Dynamic page insertion** via inline `+` buttons between pages
+- **Drag-and-drop reordering** using `@dnd-kit/core`
+- **Visual highlight** when reordering completes
+- **Accessibility**:
+    - Uses `aria-current="page"` for the active page
+    - Focus restoration and announcement-friendly labeling
+    - **Handles long titles gracefully** with truncation and tooltips
 
 ---
 
@@ -25,11 +26,30 @@ import PageNavigatorStories, { Default, WithManyPages, WithLongTitles, MoreCompl
 
 <ArgTypes of={PageNavigator} />
 
+```ts
+interface PageNavigatorProps {
+  pages: {
+    title: string;
+    icon: React.ReactElement;
+    id: string;
+  }[];
+  activePageId: string;
+  onSelectPage?: (id: string) => void;
+  onAddNewPage?: (index: number) => void;
+  onReorder?: (updatedPages: Page[]) => void;
+}
+```
+
 ---
 
 ## Usage Example
 
-Use the `PageNavigator` to help users switch between logical steps or sections within a UI. Each page accepts a `title`, an `icon`, and an `id`.
+Use PageNavigator to help users switch between steps or views in your app. Each page requires a unique id, an icon, and a title.
+
+You can:
+ - Dynamically add new pages at the end or between pages
+ - Reorder pages with drag-and-drop
+ - Provide tooltips or accessible names for better UX
 
 ---
 
@@ -67,14 +87,16 @@ Use the `PageNavigator` to help users switch between logical steps or sections w
 
 ## Best Practices
 
-- Use concise titles to avoid truncation.
-- Pair icons with labels for better scannability.
-- Use the `onAddNewPage` callback to dynamically inject new items in the correct position.
-- Use tooltips or `aria-label` for hidden or truncated content.
+- Use concise page titles to avoid overflow.
+- Combine icons + text for better recognition.
+- Use the onReorder callback to persist page order after drag-and-drop.
+- Use onAddNewPage with the index to control where new pages are inserted.
+- Enhance accessibility with aria-label, tooltips, and visible focus styles.
 
 ---
 
-## 💡 Tip
+##  Tip
 
-You can simulate adding pages by clicking on the inline `+` buttons between steps in the stories. Try out different configurations to see how `PageNavigator` adapts.
-
+- Press and hold a page to show the drag handle and initiate reordering.
+- Try dragging pages to see how others adjust and animate space.
+- Inline + buttons make inserting new pages intuitive and precise.
