@@ -50,6 +50,7 @@ const PageNavigatorExample = ({ pages: initialPages, activePageId }) => {
       activePageId={activePage}
       onSelectPage={handleChange}
       onAddNewPage={handleAddNewPage}
+      onReorder={(pages) => setPages(pages)}
     />
   );
 };

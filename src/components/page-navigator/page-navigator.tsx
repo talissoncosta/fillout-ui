@@ -1,12 +1,25 @@
-import React, { type MouseEvent, useRef, createRef, type ReactElement, useMemo } from 'react';
+import React, {
+  type MouseEvent,
+  useRef,
+  createRef,
+  type ReactElement,
+  useMemo,
+  useState,
+} from 'react';
 import { PlusIcon } from 'src/components/icons';
 import { colorTextStandard } from 'src/theme';
 import { InnerText, PageButtonWrapper, PageNavigatorBar, PageNavigatorContent } from './elements';
 import { Button } from 'src/components/button';
-import { NavigationButton } from './navigation-button.tsx';
+import { NavigationItem } from './navigation-item.tsx';
 import { InlineAddButton } from './inline-add-button.tsx';
 import { styled } from '@linaria/react';
 import { useHorizontalListNavigation } from 'src/hooks/use-horizontal-list-navigation';
+import { type DragEndEvent } from '@dnd-kit/core';
+import { arrayMove } from '@dnd-kit/sortable';
+import { SortableItem } from 'src/components/page-navigator/sortable-item.tsx';
+import clsx from 'clsx';
+import { SortableList } from 'src/components/page-navigator/sortable-list.tsx';
+import { dragEndsCss, isDraggingCss } from './styles';
 
 interface Page {
   title: string;
@@ -32,6 +45,7 @@ interface PageNavigatorProps {
   activePageId: string;
   onSelectPage?: (id: string) => void;
   onAddNewPage?: (index: number) => void;
+  onReorder?: (updatedPages: Page[]) => void;
 }
 
 export const PageNavigator = ({
@@ -39,7 +53,10 @@ export const PageNavigator = ({
   activePageId,
   onSelectPage,
   onAddNewPage,
+  onReorder,
 }: PageNavigatorProps) => {
+  const [lastDraggedId, setLastDraggedId] = useState<string | null>(null);
+
   const onAddPageAtEnd = () => {
     requestAnimationFrame(() => scrollToEnd(pageNavigatorScrollRef.current));
     onAddNewPage?.(pages.length);
@@ -71,6 +88,20 @@ export const PageNavigator = ({
     onSelectPage?.(id);
   };
 
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      const oldIndex = pages.findIndex((page) => page.id === active.id);
+      const newIndex = pages.findIndex((page) => page.id === over.id);
+      const newPages = arrayMove(pages, oldIndex, newIndex);
+
+      onReorder?.(newPages);
+
+      setLastDraggedId(String(active.id));
+      setTimeout(() => setLastDraggedId(null), 600);
+    }
+  };
+
   return (
     <PageNavigatorBar>
       <PageNavigatorContent
@@ -79,33 +110,43 @@ export const PageNavigator = ({
         ref={pageNavigatorScrollRef}
       >
         <PageItems>
-          {pages.map(({ title, icon, id }, index) => (
-            <React.Fragment key={id}>
-              <PageButtonWrapper>
-                <NavigationButton
-                  icon={icon}
-                  isActive={id === activePageId}
-                  onClick={(e) => handleChange(e, id)}
-                  aria-current={id === activePageId ? 'page' : undefined}
-                  aria-label={title}
-                  {...getItemProps(index)}
-                  ref={refs[index]}
-                >
-                  {title}
-                </NavigationButton>
-              </PageButtonWrapper>
-              {index < pages.length && (
-                <>
+          <SortableList<Page> items={pages} onDragEnd={handleDragEnd} >
+            {pages.map(({ title, icon, id }, index) => (
+              <React.Fragment key={id}>
+                <SortableItem id={id} key={id}>
+                  {({ listeners, attributes, setNodeRef, style, isDragging }) => {
+                    console.log({ listeners, attributes });
+                    return (
+                      <PageButtonWrapper ref={setNodeRef} style={style}>
+                        <NavigationItem
+                          ref={refs[index]}
+                          icon={icon}
+                          isActive={id === activePageId}
+                          onClick={(e) => handleChange(e, id)}
+                          {...listeners}
+                          {...attributes}
+                          {...getItemProps(index)}
+                          className={clsx({
+                            [isDraggingCss]: isDragging,
+                            [dragEndsCss]: lastDraggedId === id,
+                          })}
+                        >
+                          {title}
+                        </NavigationItem>
+                      </PageButtonWrapper>
+                    );
+                  }}
+                </SortableItem>
+                {index < pages.length && (
                   <InlineAddButton
                     aria-hidden="true"
                     onClick={() => onAddNewPage?.(index)}
                     aria-label={`Add page after ${title}`}
                   />
-                </>
-              )}
-            </React.Fragment>
-          ))}
-
+                )}
+              </React.Fragment>
+            ))}
+          </SortableList>
           <PageButtonWrapper>
             <Button
               variant="active"

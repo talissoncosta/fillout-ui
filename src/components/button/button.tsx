@@ -80,11 +80,15 @@ export const Button = forwardRef(
     return (
       <button
         ref={ref}
-        className={clsx(buttonClass, {
-          [activeVariantClass]: variant === 'active',
-        })}
         type="button"
         {...props}
+        className={clsx(
+          buttonClass,
+          {
+            [activeVariantClass]: variant === 'active',
+          },
+          props.className
+        )}
       >
         {children}
       </button>

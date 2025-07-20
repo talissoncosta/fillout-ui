@@ -33,6 +33,7 @@ export const useHorizontalListNavigation = ({
   }, [activeIndex, refs.length]);
 
   const handleKeyDown = (e: ReactKeyboardEvent, index: number) => {
+    console.log('tete');
     if (!refs[index]?.current) return;
 
     if (e.metaKey && e.key == 'Enter') {
