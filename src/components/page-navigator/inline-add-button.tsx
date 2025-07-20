@@ -1,9 +1,8 @@
 import { css } from '@linaria/core';
-import React, { type ComponentProps, useEffect, useRef, useState } from 'react';
+import { type ComponentProps, useEffect, useRef, useState } from 'react';
 import { IconButton } from 'src/components/icon-button';
 import clsx from 'clsx';
 import { PlusIcon } from 'src/components/icons';
-import { zIndexDefault } from 'src/theme';
 import { DashedLine } from 'src/components/page-navigator/elements.tsx';
 
 const addPageButtonClass = css`

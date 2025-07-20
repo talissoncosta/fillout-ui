@@ -1,5 +1,21 @@
-import React, { cloneElement, forwardRef, useEffect, useRef, useState } from 'react';
-import type { ComponentProps, ReactElement, ReactNode } from 'react';
+import React, {
+  cloneElement,
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import type {
+  ComponentProps,
+  ReactElement,
+  ReactNode,
+  MouseEvent,
+  Dispatch,
+  SetStateAction,
+  MouseEventHandler,
+  FocusEventHandler,
+  KeyboardEventHandler,
+} from 'react';
 import {
   colorIconActive,
   colorIconContrast,
@@ -74,8 +90,12 @@ const contextButtonVisibleClass = css`
 interface PageNavButtonProps {
   children: ReactNode;
   isActive?: boolean;
-  onToggleDropdown: React.Dispatch<React.SetStateAction<boolean>>;
+  onToggleDropdown: Dispatch<SetStateAction<boolean>>;
   tooltip?: ReactNode;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  onFocus?: FocusEventHandler<HTMLButtonElement>;
+  onBlur?: FocusEventHandler<HTMLButtonElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
 }
 
 const PageNavButton = forwardRef<HTMLButtonElement, PageNavButtonProps>(
@@ -95,21 +115,21 @@ const PageNavButton = forwardRef<HTMLButtonElement, PageNavButtonProps>(
   ) => {
     const { refs } = useDropdownMenu();
 
-    const handleStopPropagation = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const handleStopPropagation = (e: MouseEvent<HTMLSpanElement>) => {
       e.preventDefault();
       e.stopPropagation();
     };
 
-    const handleContextMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleContextMenu = (e: MouseEvent<HTMLButtonElement>) => {
       console.log('here');
       e.preventDefault(); // Prevents the browser's default context menu from appearing
       if (isActive) onToggleDropdown((prev: boolean) => !prev);
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
       onKeyDown?.(e);
       if (e.metaKey && e.key === 'Enter') {
-        onToggleDropdown((prev) => !prev);
+        onToggleDropdown((prev: boolean) => !prev);
       }
     };
 
@@ -169,7 +189,9 @@ export const NavigationButton = forwardRef<HTMLButtonElement, NavigationButtonPr
     }, [text]);
 
     const renderedIcon =
-      isActive || isFocused ? cloneElement(icon, { color: colorIconActive }) : icon;
+      isActive || isFocused
+        ? cloneElement(icon as React.ReactElement<{ color?: string }>, { color: colorIconActive })
+        : icon;
 
     return (
       <DropdownMenu isOpen={open} onOpenChange={setOpen} triggerRef={triggerRef}>

@@ -40,12 +40,6 @@ export const PageNavigator = ({
   onSelectPage,
   onAddNewPage,
 }: PageNavigatorProps) => {
-  // const navsRef = useRef<RefObject<HTMLButtonElement>[]>(
-  //   Array(pages.length + 1)
-  //     .fill()
-  //     .map(() => createRef<HTMLButtonElement>())
-  // );
-
   const onAddPageAtEnd = () => {
     requestAnimationFrame(() => scrollToEnd(pageNavigatorScrollRef.current));
     onAddNewPage?.(pages.length);
@@ -53,8 +47,8 @@ export const PageNavigator = ({
 
   const refs = useMemo(() => {
     return Array(pages.length + 1)
-      .fill()
-      .map(() => createRef<HTMLElement>());
+      .fill(null)
+      .map(() => createRef<HTMLButtonElement>());
   }, [pages.length]);
 
   const pageNavigatorScrollRef = useRef<HTMLOListElement | null>(null);

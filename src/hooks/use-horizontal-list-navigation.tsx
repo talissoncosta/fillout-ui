@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { type RefObject } from 'react';
+import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 
 type UseHorizontalListNavigationOptions = {
-  refs: RefObject<HTMLElement>[];
+  refs: RefObject<HTMLElement | null>[];
   loop?: boolean;
   initialActiveIndex?: number;
   onSelect?: (index: number) => void;
@@ -31,7 +32,7 @@ export const useHorizontalListNavigation = ({
     }
   }, [activeIndex, refs.length]);
 
-  const handleKeyDown = (e: KeyboardEvent, index: number) => {
+  const handleKeyDown = (e: ReactKeyboardEvent, index: number) => {
     if (!refs[index]?.current) return;
 
     if (e.metaKey && e.key == 'Enter') {
@@ -64,7 +65,7 @@ export const useHorizontalListNavigation = ({
   };
 
   const getItemProps = (index: number) => ({
-    onKeyDown: (e: KeyboardEvent) => handleKeyDown(e, index),
+    onKeyDown: (e: ReactKeyboardEvent) => handleKeyDown(e, index),
   });
 
   return { getItemProps, activeIndex } as UseHorizontalListNavigationReturn;

@@ -2,13 +2,9 @@ import { styled } from '@linaria/react';
 import {
   borderRadiusStandard,
   colorStrokeInverseStandard,
-  colorStrokeStandard,
   colorSurfaceInverseStandard,
-  colorSurfaceStandard,
   colorTextInverseStandard,
-  colorTextStandard,
   shadowInverseStandard,
-  shadowStandard,
   zIndexFloating,
 } from 'src/theme';
 import { Content } from '@radix-ui/react-tooltip';
