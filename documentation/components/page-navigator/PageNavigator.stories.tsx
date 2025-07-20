@@ -3,6 +3,7 @@ import { InfoIcon, FileTextIcon, CircleCheckIcon } from 'src/components/icons';
 import { useState } from 'react';
 import { StoryObj } from '@storybook/react-vite';
 import { styled } from '@linaria/react';
+import { generateId } from 'src/utils/generate-id';
 
 const meta = {
   title: 'Components/PageNavigator',
@@ -21,9 +22,6 @@ const meta = {
 
 export default meta;
 
-function generateId(): string {
-  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
-}
 type Story = StoryObj<typeof PageNavigator>;
 const PageNavigatorExample = ({ pages: initialPages, activePageId }) => {
   const [activePage, setActivePage] = useState<string>(activePageId);
