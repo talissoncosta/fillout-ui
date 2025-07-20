@@ -19,9 +19,6 @@ export const InnerText = styled('span')`
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100px;
-  transition:
-    opacity 1800ms ease-out,
-    transform 1800ms ease-out;
 `;
 
 export const PageNavigatorBar = styled('nav')`
@@ -43,7 +40,7 @@ export const PageNavigatorBar = styled('nav')`
   transition-timing-function: ease-out;
   animation-name: slide-up;
   animation-duration: var(--toolbar-animation-speed);
-  max-width: calc(100% - 48px); /* Full width minus left/right margins */
+  max-width: calc(100% - 48px);
   width: fit-content;
 
   @keyframes slide-up {

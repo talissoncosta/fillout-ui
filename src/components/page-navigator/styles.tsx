@@ -1,4 +1,5 @@
 import { css } from '@linaria/core';
+import { shadowDragging, shadowPulseHighlight } from 'src/theme';
 
 export const dragEndsCss = css`
   animation: pulseHighlight 0.6s ease;
@@ -8,10 +9,7 @@ export const dragEndsCss = css`
       box-shadow: none;
     }
     50% {
-      box-shadow:
-        0 0 0 1.5px rgba(47, 114, 226, 0.25),
-        /* focus ring */ 0px 1px 1px rgba(0, 0, 0, 0.02),
-        /* subtle shadow */ 0px 1px 3px rgba(0, 0, 0, 0.04); /* subtle shadow */
+      box-shadow: ${shadowPulseHighlight};
     }
     100% {
       box-shadow: none;
@@ -20,7 +18,7 @@ export const dragEndsCss = css`
 `;
 
 export const isDraggingCss = css`
-  box-shadow: 0 0 0 2px rgba(47, 114, 226, 0.4);
+  box-shadow: ${shadowDragging};
   background-color: var(--colorSurfaceStandardActive);
 `;
 

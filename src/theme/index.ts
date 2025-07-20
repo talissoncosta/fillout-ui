@@ -37,6 +37,12 @@ export const shadowActive =
   'var(--shadowActive, 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 1px 3px rgba(0, 0, 0, 0.04))';
 export const shadowInverseStandard = 'var(--shadowInverseStandard, 0px 2px 6px rgba(0, 0, 0, 0.3))';
 
+export const shadowFocusRing = 'var(--shadowFocusRing, 0 0 0 1.5px rgba(47, 114, 226, 0.25))';
+export const shadowSubtle =
+  'var(--shadowSubtle, 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 1px 3px rgba(0, 0, 0, 0.04))';
+export const shadowDragging = 'var(--shadowDragging, 0 0 0 2px rgba(47, 114, 226, 0.4))';
+export const shadowPulseHighlight = `var(--shadowPulseHighlight, ${shadowFocusRing}, ${shadowSubtle})`;
+
 export const borderRadiusStandard = 'var(--borderRadiusStandard, 8px)';
 export const zIndexBase = 'var(--zIndexBase, 0)';
 export const zIndexDefault = 'var(--zIndexDefault, 2)';
