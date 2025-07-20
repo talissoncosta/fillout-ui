@@ -1,3 +1,0 @@
-import{j as o}from"./jsx-runtime-D_zvdyIk.js";import{useMDXComponents as s}from"./index-cnOLenWC.js";import{M as m,C as c,a as l}from"./blocks-ChVWNz7o.js";import{c as a}from"./index-Q3B3-Be7.js";import"./iframe-C1KHkSHS.js";import"./index-C93_kJ5d.js";import"./index-Bx369HKm.js";function n(t){const e={h1:"h1",...s(),...t.components};return o.jsxs(o.Fragment,{children:[o.jsx(m,{title:"Foundations/Colors"}),`
-`,o.jsx(e.h1,{id:"color-theme",children:"Color Theme"}),`
-`,o.jsx(c,{children:Object.entries(a).filter(([r])=>r.includes("color")).map(([r,i])=>o.jsx(l,{title:r,colors:{[r]:i}}))})]})}function C(t={}){const{wrapper:e}={...s(),...t.components};return e?o.jsx(e,{...t,children:o.jsx(n,{...t})}):n(t)}export{C as default};
