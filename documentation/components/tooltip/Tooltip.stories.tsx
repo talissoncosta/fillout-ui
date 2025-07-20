@@ -3,7 +3,7 @@ import { PlusIcon } from 'src/components/icons';
 import { IconButton } from 'src/components/icon-button';
 import type { ComponentProps } from 'react';
 import { userEvent, within } from 'storybook/test';
-import { Button } from '../../../src/components/button';
+import { Button } from 'src/components/button';
 
 const meta = {
   title: 'Components/Tooltip',

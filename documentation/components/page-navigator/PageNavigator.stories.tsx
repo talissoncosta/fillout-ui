@@ -16,7 +16,7 @@ const meta = {
     ),
   ],
   parameters: {
-    layout: 'fullscreen', // removes padding
+    layout: 'fullscreen',
   },
 };
 

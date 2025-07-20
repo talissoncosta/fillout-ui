@@ -28,7 +28,7 @@ export function SortableList<T extends BaseItem>({ items, onDragEnd, children }:
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 5, // Only start dragging after moving 5px
+        distance: 5,
       },
     }),
     useSensor(KeyboardSensor, {
@@ -36,11 +36,7 @@ export function SortableList<T extends BaseItem>({ items, onDragEnd, children }:
     })
   );
   return (
-    <DndContext
-      sensors={sensors}
-      onDragEnd={onDragEnd}
-      modifiers={[restrictToHorizontalAxis]}
-    >
+    <DndContext sensors={sensors} onDragEnd={onDragEnd} modifiers={[restrictToHorizontalAxis]}>
       <SortableContext items={items} strategy={horizontalListSortingStrategy}>
         {children}
       </SortableContext>
