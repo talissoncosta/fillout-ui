@@ -1,4 +1,4 @@
-import { type ComponentProps, type ForwardedRef, forwardRef, type ReactNode } from 'react';
+import { type ComponentProps, type ForwardedRef, forwardRef, type ReactNode, useId } from 'react';
 import {
   borderRadiusStandard,
   colorStrokeStandard,
@@ -90,27 +90,32 @@ export const IconButton = forwardRef(
       ...props
     }: ButtonProps,
     ref: ForwardedRef<HTMLButtonElement>
-  ) => (
-    <Tooltip content={tooltip}>
-      <button
-        ref={ref}
-        className={clsx(
-          buttonClass,
-          {
-            [smallButtonClass]: size === 'small',
-            [mediumButtonClass]: size === 'medium',
-            [largeButtonClass]: size === 'large',
-            [roundedButtonClass]: shape === 'rounded',
-            [squareButtonClass]: shape === 'square',
-            [standardButtonClass]: variant === 'standard',
-            [ghostButtonClass]: variant === 'ghost',
-          },
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </button>
-    </Tooltip>
-  )
+  ) => {
+    const tooltipId = useId();
+
+    return (
+      <Tooltip content={tooltip} id={tooltipId}>
+        <button
+          ref={ref}
+          aria-describedby={tooltip ? tooltipId : undefined}
+          className={clsx(
+            buttonClass,
+            {
+              [smallButtonClass]: size === 'small',
+              [mediumButtonClass]: size === 'medium',
+              [largeButtonClass]: size === 'large',
+              [roundedButtonClass]: shape === 'rounded',
+              [squareButtonClass]: shape === 'square',
+              [standardButtonClass]: variant === 'standard',
+              [ghostButtonClass]: variant === 'ghost',
+            },
+            className
+          )}
+          {...props}
+        >
+          {children}
+        </button>
+      </Tooltip>
+    );
+  }
 );

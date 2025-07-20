@@ -35,10 +35,6 @@ export const useHorizontalListNavigation = ({
   const handleKeyDown = (e: ReactKeyboardEvent, index: number) => {
     if (!refs[index]?.current) return;
 
-    if (e.metaKey && e.key == 'Enter') {
-      console.log('sim');
-    }
-
     let newIndex = index;
 
     switch (e.key) {

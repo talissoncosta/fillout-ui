@@ -8,3 +8,4 @@ export { CircleCheckIcon } from './circle-check-icon';
 export { InfoIcon } from './info-icon';
 export { PlusIcon } from './plus-icon';
 export { VerticalDotsIcon } from './vertical-dots-icon';
+export { DragHandlerIcon } from './drag-handler-icon.tsx';

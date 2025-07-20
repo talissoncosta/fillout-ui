@@ -3,8 +3,10 @@ import {
   borderRadiusStandard,
   colorStrokeSecondary,
   colorStrokeStandard,
+  colorSurfaceSecondary,
   colorSurfaceStandard,
   colorSurfaceStandardActive,
+  colorTextStandard,
   shadowStandard,
   zIndexBase,
   zIndexDefault,
@@ -38,7 +40,7 @@ export const PageNavigatorBar = styled('nav')`
   transition-timing-function: ease-out;
   animation-name: slide-up;
   animation-duration: var(--toolbar-animation-speed);
-  max-width: calc(100% - 48px); /* Full width minus left/right margins */
+  max-width: calc(100% - 48px);
   width: fit-content;
 
   @keyframes slide-up {
@@ -52,11 +54,12 @@ export const PageNavigatorBar = styled('nav')`
 export const PageNavigatorContent = styled('ol')`
   display: flex;
   position: relative;
-  padding: 2px;
-  overflow: auto;
+  padding: 4px 2px;
+  overflow: visible;
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
-    height: 2px;
+    height: 0.5px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -81,4 +84,30 @@ export const PageButtonWrapper = styled('li')`
   background-color: ${colorSurfaceStandardActive};
   border-radius: ${borderRadiusStandard};
   list-style-type: none;
+`;
+
+export const TitleContainer = styled('div')`
+  padding: 8px 12px;
+  background: ${colorSurfaceSecondary};
+  border-bottom: 0.5px solid ${colorStrokeStandard};
+`;
+
+export const TitleText = styled('span')`
+  width: 62px;
+  height: 24px;
+  font-family: 'BL Melody';
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.015em;
+  color: ${colorTextStandard};
+`;
+
+export const Container = styled('div')`
+  max-height: 40vh;
+  overflow: auto;
+`;
+
+export const ButtonWrapper = styled('span')`
+  display: flex;
+  align-items: center;
 `;

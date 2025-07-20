@@ -21,7 +21,7 @@ export const colorIconDestructive = 'var(--colorIconDestructive, #EF494F)';
 export const colorIconContrast = 'var(--colorIconContrast, #2F72E2)';
 
 export const colorTextStandard = 'var(--colorTextStandard, #1A1A1A)';
-export const colorTextSecondary = 'var(--colorTextSecondary, #677289)';
+export const colorTextSecondary = 'var(--colorTextSecondary, #5a637a)';
 export const colorTextInverseStandard = 'var(--colorTextInverseStandard, #FFFFFF)';
 
 export const colorStrokeStandard = 'var(--colorStrokeStandard, #E1E1E1)';
@@ -36,6 +36,12 @@ export const shadowFocus =
 export const shadowActive =
   'var(--shadowActive, 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 1px 3px rgba(0, 0, 0, 0.04))';
 export const shadowInverseStandard = 'var(--shadowInverseStandard, 0px 2px 6px rgba(0, 0, 0, 0.3))';
+
+export const shadowFocusRing = 'var(--shadowFocusRing, 0 0 0 1.5px rgba(47, 114, 226, 0.25))';
+export const shadowSubtle =
+  'var(--shadowSubtle, 0px 1px 1px rgba(0, 0, 0, 0.02), 0px 1px 3px rgba(0, 0, 0, 0.04))';
+export const shadowDragging = 'var(--shadowDragging, 0 0 0 2px rgba(47, 114, 226, 0.4))';
+export const shadowPulseHighlight = `var(--shadowPulseHighlight, ${shadowFocusRing}, ${shadowSubtle})`;
 
 export const borderRadiusStandard = 'var(--borderRadiusStandard, 8px)';
 export const zIndexBase = 'var(--zIndexBase, 0)';
