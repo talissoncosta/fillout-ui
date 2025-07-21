@@ -90,17 +90,16 @@ yarn storybook
 
 ---
 
-## 📚 Storybook
+## Storybook
 
-Visit the live component documentation at:
-
-👉 [https://talissoncosta.github.io/fillout-ui](https://talissoncosta.github.io/fillout-ui)
+Visit the live component documentation at:  
+[https://talissoncosta.github.io/fillout-ui](https://talissoncosta.github.io/fillout-ui)
 
 Includes interactive examples, keyboard testing, and accessibility annotations.
 
 ---
 
-## 🧩 Component Highlights
+## Component Highlights
 
 ### `PageNavigator`
 
@@ -108,13 +107,13 @@ A drag-and-droppable navigation bar for forms and multi-step flows.
 
 #### Key Features
 
-- 🔁 Keyboard navigation
-- ➕ Inline page insertion
-- 🖱️ Drag-and-drop reordering
-- ✨ Animated highlight after reorder
-- ⌨️ Context menu support
-- ♿ Accessibility via `aria-current`, focus control, and tooltips
-- 🧠 Custom reference support for flexible positioning
+- Keyboard navigation
+- Inline page insertion
+- Drag-and-drop reordering
+- Animated highlight after reorder
+- Context menu support
+- Accessibility via `aria-current`, focus control, and tooltips
+- Custom reference support for flexible positioning
 
 Use cases:
 - Form builders with dynamic step flows
@@ -135,13 +134,13 @@ Composed using Floating UI for flexible positioning and interaction management.
 - `<DropdownMenuItem>` — interactive actions
 - `<DropdownMenuSeparator>` — divider
 
-💡 **Custom Reference Support**: Position content based on a different element than the trigger, supporting decoupled UIs.
+Tip: Custom reference support allows positioning content based on a different element than the trigger.
 
 ---
 
 ### `Tooltip`
 
-Lightweight and accessible hover/focus tooltips with Radix + design tokens.
+Lightweight and accessible hover/focus tooltips with Radix and design tokens.
 
 ```tsx
 <Tooltip content="Add new page">
@@ -151,65 +150,64 @@ Lightweight and accessible hover/focus tooltips with Radix + design tokens.
 
 ---
 
-## 📦 Tech Stack
+## Tech Stack
 
-- **React 19** with suspense, updated typings, and strict mode
-- **Vite** for instant startup and optimized builds
-- **TypeScript** for type safety and IDE autocompletion
-- **Linaria** for zero-runtime styled components
-- **Tailwind (optional)** for rapid prototyping (currently disabled)
-- **Floating UI** for positioning
-- **@dnd-kit** for drag-and-drop logic
-- **Storybook** for isolated component development and docs
-- **Chromatic** for visual regression testing
+- React 19 with suspense and strict mode
+- Vite for fast builds
+- TypeScript for safety and IntelliSense
+- Linaria for zero-runtime styles
+- Floating UI for popover positioning
+- @dnd-kit for drag-and-drop behavior
+- Storybook for component development and docs
+- Chromatic for visual regression testing
 
 ---
 
-## 🧪 Testing & Reliability
+## Testing & Reliability
 
 - Visual testing with Chromatic
-- Manual a11y review with keyboard + screen reader
-- Storybook interaction tests (via `@storybook/test-runner` and `vitest`)
+- Manual accessibility testing with keyboard and screen readers
+- Storybook interaction tests using `@storybook/test-runner` and `vitest`
 
 ---
 
-## 🎨 Design Tokens
+## Design Tokens
 
-Design tokens are defined as TypeScript exports and CSS variables:
+Design tokens are available as both TypeScript exports and CSS variables:
 
-- Colors: `colorSurfaceStandard`, `colorTextSecondary`, etc.
-- Shadows: `shadowFocus`, `shadowStandard`
-- Radii, spacing, and z-indices are consistent across components
-
----
-
-## 📝 Design Considerations
-
-This project was developed as an assessment, and design fidelity + usability were top priorities. A few observations:
-
-- The **Inline "+" Add buttons** aren’t accessible via keyboard/screen reader (needs `button` semantics)
-- The **drag handle** is missing a visual indicator (e.g., `::grab` cursor)
-- The **dropdown trigger inside the button** can't be a `<button>` element (nesting issue) which causes slight a11y compromise
-- The menu was rebuilt using Floating UI to allow **custom reference + trigger** separation — not possible with Radix
+- Color tokens: `colorSurfaceStandard`, `colorTextSecondary`, etc.
+- Shadow tokens: `shadowFocus`, `shadowStandard`
+- Radius, spacing, and z-index scales
 
 ---
 
-## 🛤️ Roadmap
+## Design Considerations
 
-- [ ] Add Playwright E2E coverage
+This project was developed as an assessment with a focus on developer experience, UX, and accessibility. Key notes:
+
+- Inline "+" buttons are not yet fully accessible (missing semantic roles)
+- Drag handles could be more visually obvious
+- Nested button issue in dropdown trigger introduces minor accessibility compromise
+- Floating UI was chosen to enable flexible trigger + content positioning
+
+---
+
+## Roadmap
+
+- [ ] Add Playwright E2E tests
 - [ ] Publish on NPM
 - [ ] Theme switching support
 - [ ] Improve drag handle visibility
-- [ ] Improve screen reader support for dynamic page insertions
+- [ ] Improve screen reader support for dynamic insertions
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 Made with 💙 by [@talissoncosta](https://github.com/talissoncosta)
 
 ---
 
-## 📄 License
+## License
 
 MIT — Free to use, modify, and distribute.
