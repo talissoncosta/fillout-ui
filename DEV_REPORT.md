@@ -1,7 +1,3 @@
-import { Meta } from '@storybook/addon-docs/blocks';
-
-<Meta title="Documentation/Development Report: Fillout UI Assessment" />
-
 # Development Report: Fillout UI Assessment
 
 This document summarizes the decisions, challenges, and technical choices made during the development of the `PageNavigator` component and supporting UI pieces for the Fillout take-home assessment.
