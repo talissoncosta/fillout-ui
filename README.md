@@ -210,4 +210,4 @@ Made with 💙 by [@talissoncosta](https://github.com/talissoncosta)
 
 ## License
 
-MIT — Free to use, modify, and distribute.
+MIT
