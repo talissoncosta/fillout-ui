@@ -4,24 +4,24 @@ A modern, accessible, and customizable UI component library developed as a take-
 
 ---
 
-## ✨ Features
+## Features
 
-- ✅ Fully typed with TypeScript
-- ♿ Accessibility-first design with ARIA support and keyboard navigation
-- 🔁 Keyboard navigation with arrow keys and focus management
-- ➕ Dynamic page insertion via inline “+” buttons
-- 🖱️ Drag-and-drop reordering (powered by `@dnd-kit/core`)
-- ✨ Animated feedback after reorder
-- ⌨️ Context menu via ⌘ + Enter
-- 🎨 Theming via design tokens (color, spacing, shadows, etc.)
-- 🧰 Visual testing with Chromatic
-- 🧪 Storybook with MDX documentation and interaction tests
-- ⚛️ Built with React 19 and Vite
-- ⚡️ Linaria for zero-runtime, styled-components-like developer experience
+- Fully typed with TypeScript
+- Accessibility-first design with ARIA support and keyboard navigation
+- Keyboard navigation with arrow keys and focus management
+- Dynamic page insertion via inline "+" buttons
+- Drag-and-drop reordering (powered by `@dnd-kit/core`)
+- Animated feedback after reorder
+- Context menu via keyboard shortcuts
+- Theming via design tokens (color, spacing, shadows, etc.)
+- Visual testing with Chromatic
+- Storybook with MDX documentation and interaction tests
+- Built with React 19 and Vite
+- Linaria for zero-runtime, styled-components-like developer experience
 
 ---
 
-##  Live Demos
+## Live Demos
 
 - **Component Showcase (Deployed Project):**  
   [https://fillout-ui-showcase.pages.dev](https://fillout-ui-showcase.pages.dev)
@@ -29,12 +29,13 @@ A modern, accessible, and customizable UI component library developed as a take-
 - **Fillout UI Site (Storybook):**  
   [https://fillout-ui.pages.dev](https://fillout-ui.pages.dev)
 
+---
 
-## ✅ TODO
+## TODO
 
 This checklist helps ensure the PageNavigator component meets the expected requirements:
 
-### 🔹 Component Features
+### Component Features
 - [x] Display pages as buttons in a horizontal layout
 - [x] Highlight the active page
 - [x] Add inline "+" button to insert a page between others
@@ -47,31 +48,32 @@ This checklist helps ensure the PageNavigator component meets the expected requi
 - [x] Keyboard navigation (arrow keys + Enter)
 - [x] Accessibility: aria-current, aria-label, focus state, tooltips
 
-### 🎨 Design & Visuals
+### Design & Visuals
 - [x] Use design tokens for spacing, color, and shadows
 - [x] Apply active, hover, and drag visual styles
 - [x] Animate highlight on drag end
 - [x] Prevent UI from breaking when dragging vertically
 
-### 🧪 Testing & QA
+### Testing & QA
 - [x] Add interaction tests via Storybook `play` functions
-- [x] Run accessibility checks on storybook stories
+- [x] Run accessibility checks on Storybook stories
 - [x] Ensure component is responsive and handles overflow
 - [x] Fix contrast issues for WCAG 2.1 AA compliance
 
-### 📦 Storybook & Docs
+### Storybook & Docs
 - [x] Write full MDX documentation for all the components
 - [x] Add usage examples with various edge cases
 - [x] Deploy Storybook and the showcase project
 
 ---
 
-## 📄 Developer Notes
+## Developer Notes
 
 See [`DEV_REPORT.md`](./DEV_REPORT.md) for a detailed breakdown of design decisions, implementation notes, and known trade-offs.
 
+---
 
-## 🔧 Getting Started
+## Getting Started
 
 ```bash
 git clone https://github.com/talissoncosta/fillout-ui.git
