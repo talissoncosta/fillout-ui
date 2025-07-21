@@ -1,138 +1,213 @@
 # Fillout UI
 
-A modern, accessible, and customizable UI component library designed to support robust product interfaces with powerful interactivity and design system alignment.
-
-## ✨ Features
-
-* ✅ Fully typed with TypeScript
-* 🎯 Built with accessibility best practices
-* 🧹 Modular component architecture
-* 👡 Keyboard and pointer interactions supported
-* 🎨 Theming via design tokens
-* 📦 Drag and drop (powered by `@dnd-kit`)
-* 🧪 Storybook with interaction and accessibility testing
-* 🧰 Built-in support for Radix UI primitives and Floating UI positioning
-* 🔍 Support for tooltips, dropdowns, and dynamic forms
+A modern, accessible, and customizable UI component library developed as a take-home assessment for a Front-End Engineer role at Fillout. The goal is to demonstrate high-quality component architecture, strong UX fundamentals, accessibility, and maintainability.
 
 ---
 
-## Getting Started
+## ✨ Features
+
+- ✅ Fully typed with TypeScript
+- ♿ Accessibility-first design with ARIA support and keyboard navigation
+- 🔁 Keyboard navigation with arrow keys and focus management
+- ➕ Dynamic page insertion via inline “+” buttons
+- 🖱️ Drag-and-drop reordering (powered by `@dnd-kit/core`)
+- ✨ Animated feedback after reorder
+- ⌨️ Context menu via ⌘ + Enter
+- 🎨 Theming via design tokens (color, spacing, shadows, etc.)
+- 🧰 Visual testing with Chromatic
+- 🧪 Storybook with MDX documentation and interaction tests
+- ⚛️ Built with React 19 and Vite
+- ⚡️ Linaria for zero-runtime, styled-components-like developer experience
+
+---
+
+##  Live Demos
+
+- **Component Showcase (Deployed Project):**  
+  [https://fillout-ui-showcase.pages.dev](https://fillout-ui-showcase.pages.dev)
+
+- **Fillout UI Site (Storybook):**  
+  [https://fillout-ui.pages.dev](https://fillout-ui.pages.dev)
+
+
+## ✅ TODO
+
+This checklist helps ensure the PageNavigator component meets the expected requirements:
+
+### 🔹 Component Features
+- [x] Display pages as buttons in a horizontal layout
+- [x] Highlight the active page
+- [x] Add inline "+" button to insert a page between others
+- [x] Show context menu (dropdown) on each page
+- [x] Enable drag-and-drop to reorder pages
+- [x] Animate space during drag to indicate placement
+- [x] Replace icon with drag handle during long press
+- [x] Auto-scroll horizontally when dragging near edges
+- [x] Show tooltips for truncated/overflowed page labels
+- [x] Keyboard navigation (arrow keys + Enter)
+- [x] Accessibility: aria-current, aria-label, focus state, tooltips
+
+### 🎨 Design & Visuals
+- [x] Use design tokens for spacing, color, and shadows
+- [x] Apply active, hover, and drag visual styles
+- [x] Animate highlight on drag end
+- [x] Prevent UI from breaking when dragging vertically
+
+### 🧪 Testing & QA
+- [x] Add interaction tests via Storybook `play` functions
+- [x] Run accessibility checks on storybook stories
+- [x] Ensure component is responsive and handles overflow
+- [x] Fix contrast issues for WCAG 2.1 AA compliance
+
+### 📦 Storybook & Docs
+- [x] Write full MDX documentation for all the components
+- [x] Add usage examples with various edge cases
+- [x] Deploy Storybook and the showcase project
+
+---
+
+## 📄 Developer Notes
+
+See [`DEV_REPORT.md`](./DEV_REPORT.md) for a detailed breakdown of design decisions, implementation notes, and known trade-offs.
+
+
+## 🔧 Getting Started
 
 ```bash
-git clone https://github.com/your-username/fillout-ui.git
+git clone https://github.com/talissoncosta/fillout-ui.git
 cd fillout-ui
 yarn install
-yarn start
+yarn dev
 ```
 
-This will start the local Storybook environment.
+To start the Storybook documentation:
+
+```bash
+yarn storybook
+```
 
 ---
 
 ## 📚 Storybook
 
-All components are documented using Storybook with interactive stories and MDX documentation.
+Visit the live component documentation at:
 
-```bash
-yarn start
-```
+👉 [https://talissoncosta.github.io/fillout-ui](https://talissoncosta.github.io/fillout-ui)
 
-You can browse the components at: [http://localhost:6006](http://localhost:6006)
+Includes interactive examples, keyboard testing, and accessibility annotations.
 
 ---
 
-## Component Highlights
+## 🧩 Component Highlights
 
 ### `PageNavigator`
 
-A horizontal step/page navigation component designed for form flows and builders.
+A drag-and-droppable navigation bar for forms and multi-step flows.
 
 #### Key Features
 
-* Keyboard arrow navigation for accessibility.
-* Dynamic page insertion via inline + buttons.
-* Drag-and-drop reordering with @dnd-kit/sortable.
-* Focus and accessibility management with Radix UI.
-* Design token-based styling for consistency.
-* Custom icon support for flexibility.
-* Tooltips and aria-label for screen reader compatibility.
+- 🔁 Keyboard navigation
+- ➕ Inline page insertion
+- 🖱️ Drag-and-drop reordering
+- ✨ Animated highlight after reorder
+- ⌨️ Context menu support
+- ♿ Accessibility via `aria-current`, focus control, and tooltips
+- 🧠 Custom reference support for flexible positioning
+
+Use cases:
+- Form builders with dynamic step flows
+- Slide/page-based editors
+- Interactive page templates
 
 ---
 
 ### `DropdownMenu`
 
-A composable dropdown menu using Floating UI for positioning and focus management.
+Composed using Floating UI for flexible positioning and interaction management.
 
-Structure:
+#### Structure
 
-* `<DropdownMenu>` — root context provider
-* `<DropdownMenuTrigger>` — button or trigger element
-* `<DropdownMenuContent>` — floating panel
-* `<DropdownMenuItem>` — interactive items
-* `<DropdownMenuSeparator>` — divider
+- `<DropdownMenu>` — context provider
+- `<DropdownMenuTrigger>` — click target
+- `<DropdownMenuContent>` — floating panel
+- `<DropdownMenuItem>` — interactive actions
+- `<DropdownMenuSeparator>` — divider
+
+💡 **Custom Reference Support**: Position content based on a different element than the trigger, supporting decoupled UIs.
 
 ---
 
 ### `Tooltip`
 
-A lightweight wrapper around Radix UI Tooltip with custom styling support.
-
-Usage:
+Lightweight and accessible hover/focus tooltips with Radix + design tokens.
 
 ```tsx
-<Tooltip content="Add new item">
-  <IconButton>
-    <PlusIcon />
-  </IconButton>
+<Tooltip content="Add new page">
+  <IconButton><PlusIcon /></IconButton>
 </Tooltip>
 ```
 
 ---
 
-## Testing
+## 📦 Tech Stack
 
-- Visual testing with chromatic
-  - Check the render, UI and also a11y
-
----
-
-## Tech Stack
-
-* React + TypeScript: Core framework with type-safe development.
-* Vite: Fast build tool and development server.
-* Vitest: Lightweight and fast unit testing framework.
-* Linaria: Zero-runtime CSS-in-JS for performant styling.
-* Tailwind CSS: Utility-first CSS framework for rapid UI development.
-* Radix UI: Accessible, unstyled UI components for custom interfaces.
-* Floating UI: Toolkit for dynamic, accessible positioning of floating elements.
-* @dnd-kit/sortable: Flexible drag-and-drop library for sortable lists.
-* Storybook: Component library for UI development and documentation.
-* Chromatic: Visual testing and review tool for Storybook.
+- **React 19** with suspense, updated typings, and strict mode
+- **Vite** for instant startup and optimized builds
+- **TypeScript** for type safety and IDE autocompletion
+- **Linaria** for zero-runtime styled components
+- **Tailwind (optional)** for rapid prototyping (currently disabled)
+- **Floating UI** for positioning
+- **@dnd-kit** for drag-and-drop logic
+- **Storybook** for isolated component development and docs
+- **Chromatic** for visual regression testing
 
 ---
 
-##  Design Tokens
+## 🧪 Testing & Reliability
 
-The colors, z-index, and shadows are centralized via CSS custom properties and TypeScript exports (e.g. `colorSurfaceStandard`, `shadowFocus`).
-
-
----
-
-## Roadmap
-
-* [ ] Publish to NPM
-* [ ] Add full theming support (light/dark modes).
-* [ ] Integrate end-to-end testing with Playwright.
-* [ ] Add support for internationalization (i18n).
+- Visual testing with Chromatic
+- Manual a11y review with keyboard + screen reader
+- Storybook interaction tests (via `@storybook/test-runner` and `vitest`)
 
 ---
 
-## Author
+## 🎨 Design Tokens
 
-Built with ❤️ by [@talissoncosta](https://github.com/talissoncosta)
+Design tokens are defined as TypeScript exports and CSS variables:
+
+- Colors: `colorSurfaceStandard`, `colorTextSecondary`, etc.
+- Shadows: `shadowFocus`, `shadowStandard`
+- Radii, spacing, and z-indices are consistent across components
+
+---
+
+## 📝 Design Considerations
+
+This project was developed as an assessment, and design fidelity + usability were top priorities. A few observations:
+
+- The **Inline "+" Add buttons** aren’t accessible via keyboard/screen reader (needs `button` semantics)
+- The **drag handle** is missing a visual indicator (e.g., `::grab` cursor)
+- The **dropdown trigger inside the button** can't be a `<button>` element (nesting issue) which causes slight a11y compromise
+- The menu was rebuilt using Floating UI to allow **custom reference + trigger** separation — not possible with Radix
+
+---
+
+## 🛤️ Roadmap
+
+- [ ] Add Playwright E2E coverage
+- [ ] Publish on NPM
+- [ ] Theme switching support
+- [ ] Improve drag handle visibility
+- [ ] Improve screen reader support for dynamic page insertions
+
+---
+
+## 👨‍💻 Author
+
+Made with 💙 by [@talissoncosta](https://github.com/talissoncosta)
 
 ---
 
 ## 📄 License
 
-MIT
+MIT — Free to use, modify, and distribute.
