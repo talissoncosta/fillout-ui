@@ -53,34 +53,78 @@ Used Chromatic to:
 - Ensure component consistency across updates
 
 ---
+## Design Tokens & Styling
 
-## Design Tokens & Accessibility Tweaks
+### Centralized Design Tokens
 
-- The project uses centralized design tokens for colors, spacing, and elevation.
-- I manually updated the button text color to `#5a637a` to meet WCAG contrast requirements. This fix ensures sufficient contrast between text and background, improving accessibility for all users.
+- The project uses centralized **design tokens** for colors, spacing, shadows, and radii to ensure consistency and ease of theming.
+- These tokens allow global updates across components and reinforce a scalable design system architecture.
+
+### Button States & Token-Driven Styling
+
+The original design lacked a defined **active state** for buttons (e.g., no visual feedback when clicked).
+
+To improve usability and maintain design coherence:
+
+- I treated `active` as a **button variant** (just like `standard` and `ghost`).
+- Created new **design tokens** for active background colors.
+- Applied consistent styles across the page buttons and the inline “+” add button.
+
+This diverged slightly from the Figma spec but improved interaction clarity and user experience.
 
 ---
 
-## Design Gaps & Accessibility Observations
+## Accessibility Enhancements & Design Gaps
 
-While I followed the design closely, I identified the following accessibility and design limitations:
+### Accessibility Tweaks
 
-- The inline `+` buttons are not accessible via keyboard or screen readers.
-- There’s no drag handle to visually indicate that the page buttons are draggable.
-- The dropdown menu button (three dots) is not a real `<button>`, due to restrictions on nesting buttons within buttons. This affects keyboard accessibility.
+- Updated button text color to `#5a637a` to meet **WCAG 2.1 contrast ratio** requirements.
+- This subtle fix ensures better readability and accessibility for all users.
+
+### Design Limitations Identified
+
+While the implementation adheres closely to the design, I observed several gaps that impacted accessibility and UX:
+
+- The **inline “+” buttons** are not yet tabbable or screen-reader-friendly.
+- **Drag handle** indicators are missing, so users may not realize the page buttons can be moved.
+- The **three-dot dropdown trigger** is not a semantic `<button>`, due to nesting limitations, which introduces some accessibility compromises.
+
+---
+
+## UX Design Decisions
+
+### Floating Placement for PageNavigator
+
+The design did not specify where the `PageNavigator` should be positioned in the UI.
+
+Inspired by apps like Figma, I chose a **floating horizontal toolbar** fixed to the bottom of the screen:
+
+- It feels lightweight and modern
+- Always visible without taking too much space
+- Encourages multi-step editing workflows
+
+### Visual Feedback for Drag Actions
+
+To create a more intuitive experience while interacting with the page buttons:
+
+- I added a **box shadow while dragging** to indicate elevation.
+- After a successful drag-and-drop, a **pulse animation** highlights the newly placed button.
+
+These touches improve usability by reinforcing changes in state and interaction feedback.
 
 ---
 
 ## Custom Engineering Decisions
 
-### DropdownMenu Behavior
+### DropdownMenu with Custom Reference
 
-- I originally built the `DropdownMenu` with Radix UI, but it didn’t support setting a custom reference element different from the trigger.
-- I switched to Floating UI, which enabled:
-  - Separating positioning (`triggerRef`) and interaction
-  - Achieving the correct behavior inside the PageNavigator (menu opens on (⌘ + Enter), but is positioned based on the icon button)
+- Radix UI was my initial choice due to its great accessibility and structure.
+- However, Radix assumes that the **trigger and reference element are the same**, which conflicted with the requirement to have the icon trigger separate from the positioning anchor.
+- I rewrote the component using **Floating UI**, which allowed:
+- A decoupled trigger and reference setup
+- Correct positioning and keyboard accessibility (triggered via Command + Enter)
 
----
+This required more manual handling of accessibility features, but gave me the flexibility I needed to match the interaction spec.
 
 ## Summary
 
