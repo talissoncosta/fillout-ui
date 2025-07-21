@@ -6,7 +6,6 @@ import {
   colorSurfaceStandard,
   colorSurfaceStandardActive,
   colorSurfaceStandardHover,
-  colorSurfaceTertiary,
   colorSurfaceTertiaryActive,
   colorSurfaceTertiaryHover,
   colorTextSecondary,
