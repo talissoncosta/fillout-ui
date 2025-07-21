@@ -21,7 +21,7 @@ export const buttonClass = css`
   justify-content: space-between;
   border-radius: ${borderRadiusStandard};
   border: none;
-  background-color: ${colorSurfaceTertiary};
+  background-color: red;
   cursor: pointer;
   color: ${colorTextSecondary};
   padding: 6px 10px;
