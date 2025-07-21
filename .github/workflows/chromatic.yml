@@ -8,6 +8,13 @@ on:
       - 'documentation/**'
       - '**/*.mdx'
       - '**/*.stories.@(js|ts|jsx|tsx|mdx)'
+  pull_request:
+    paths:
+      - 'src/components/**'
+      - '.storybook/**'
+      - 'documentation/**'
+      - '**/*.mdx'
+      - '**/*.stories.@(js|ts|jsx|tsx|mdx)'
 
 jobs:
   chromatic:
