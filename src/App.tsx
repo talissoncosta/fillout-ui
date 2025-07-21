@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useState, type ReactElement } from 'react';
 import { CircleCheckIcon, FileTextIcon, InfoIcon } from 'src/components/icons';
 import { PageNavigator } from 'src/components/page-navigator';
 import { generateId } from 'src/utils/generate-id';
-import { type ReactElement } from 'react';
 import { colorSurfaceStandard } from 'src/theme';
 
 type PageMeta = {

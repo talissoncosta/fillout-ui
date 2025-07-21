@@ -2,10 +2,10 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
-    branches: [main]
+    branches: ["**"] # Runs on any PR regardless of base branch
+  push:
+    branches: [main] # Also runs on direct pushes to main
 
 jobs:
   lint:
