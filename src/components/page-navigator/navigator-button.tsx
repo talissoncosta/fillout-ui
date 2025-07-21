@@ -36,7 +36,6 @@ export const NavigationButton = forwardRef<HTMLButtonElement, NavigationButtonPr
     };
 
     const handleContextMenu = (e: MouseEvent<HTMLButtonElement>) => {
-      console.log('here');
       e.preventDefault(); // Prevents the browser's default context menu from appearing
       if (isActive) onToggleDropdown((prev: boolean) => !prev);
     };

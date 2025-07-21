@@ -28,7 +28,6 @@ const PageNavigatorExample = ({ pages: initialPages, activePageId }) => {
   const [pages, setPages] = useState(initialPages);
 
   const handleChange = (id) => {
-    console.log({ id });
     setActivePage(id);
   };
 
