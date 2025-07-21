@@ -6,6 +6,7 @@ import {
   colorSurfaceStandard,
   colorSurfaceStandardActive,
   colorSurfaceStandardHover,
+  colorSurfaceTertiary,
   colorSurfaceTertiaryActive,
   colorSurfaceTertiaryHover,
   colorTextSecondary,
@@ -20,7 +21,7 @@ export const buttonClass = css`
   justify-content: space-between;
   border-radius: ${borderRadiusStandard};
   border: none;
-  background-color: red;
+  background-color: ${colorSurfaceTertiary};
   cursor: pointer;
   color: ${colorTextSecondary};
   padding: 6px 10px;
