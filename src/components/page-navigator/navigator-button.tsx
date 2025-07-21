@@ -5,27 +5,29 @@ import React, {
   type MouseEvent,
   type ReactNode,
   type SetStateAction,
+  type RefObject,
 } from 'react';
 import { DropdownMenuTrigger, useDropdownMenu } from 'src/components/dropdown-menu';
 import { Tooltip } from 'src/components/tooltip';
 import { Button } from 'src/components/button';
-import { useMergeRefs } from '@floating-ui/react';
 import { VerticalDotsIcon } from 'src/components/icons';
 import clsx from 'clsx';
 import { buttonIconClass, contextButtonHiddenClass, contextButtonVisibleClass } from './styles';
 import { colorIconStandardLighter } from 'src/theme';
 import { ButtonWrapper } from './elements';
+import { useMergeRefs } from '@floating-ui/react';
 
 type NavigationButtonProps = {
   children: ReactNode;
   isActive?: boolean;
   onToggleDropdown: Dispatch<SetStateAction<boolean>>;
   tooltip?: ReactNode;
+  triggerRef?: RefObject<HTMLDivElement | null>;
 } & ComponentProps<'button'>;
 
 export const NavigationButton = forwardRef<HTMLButtonElement, NavigationButtonProps>(
   (
-    { children, onClick, isActive, onToggleDropdown, tooltip, onKeyDown, ...props },
+    { children, triggerRef, onClick, isActive, onToggleDropdown, tooltip, onKeyDown, ...props },
     forwardedRef
   ) => {
     const { refs } = useDropdownMenu();
@@ -60,7 +62,7 @@ export const NavigationButton = forwardRef<HTMLButtonElement, NavigationButtonPr
         >
           <ButtonWrapper>
             {children}
-            <DropdownMenuTrigger onMouseDown={handleStopPropagation}>
+            <DropdownMenuTrigger onMouseDown={handleStopPropagation} ref={triggerRef}>
               <VerticalDotsIcon
                 className={clsx(buttonIconClass, {
                   [contextButtonHiddenClass]: !isActive,

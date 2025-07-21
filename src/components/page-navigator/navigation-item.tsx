@@ -2,7 +2,6 @@ import React, { cloneElement, forwardRef, useEffect, useRef, useState } from 're
 import type { ComponentProps, ReactElement, ReactNode } from 'react';
 import { colorIconActive } from 'src/theme';
 import { InnerText } from './elements';
-import { useMergeRefs } from '@floating-ui/react';
 import { NavigationDropdown } from './navigation-dropdown';
 import { NavigationButton } from './navigator-button';
 
@@ -17,7 +16,7 @@ export const NavigationItem = forwardRef<HTMLButtonElement, NavigationItemProps>
     const [open, setOpen] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
 
-    const triggerRef = useRef<HTMLSpanElement | null>(null);
+    const triggerRef = useRef<HTMLDivElement | null>(null);
     const contentRef = useRef<HTMLSpanElement | null>(null);
     const [isOverflowing, setIsOverflowing] = useState(false);
 
@@ -43,7 +42,8 @@ export const NavigationItem = forwardRef<HTMLButtonElement, NavigationItemProps>
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           tooltip={isOverflowing ? text : undefined}
-          ref={useMergeRefs([forwardedRef, triggerRef])}
+          ref={forwardedRef}
+          triggerRef={triggerRef}
           {...props}
         >
           <InnerText ref={contentRef}>
