@@ -199,6 +199,7 @@ This project was developed as an assessment with a focus on developer experience
 - [ ] Theme switching support
 - [ ] Improve drag handle visibility
 - [ ] Improve screen reader support for dynamic insertions
+- [ ] Automate the addition of new icons ( component + story + documentation)
 
 ---
 
