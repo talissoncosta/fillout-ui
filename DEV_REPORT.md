@@ -122,6 +122,19 @@ These touches improve usability by reinforcing changes in state and interaction 
 
 This required more manual handling of accessibility features, but gave me the flexibility I needed to match the interaction spec.
 
+---
+
+
+## CI/CD Enhancements
+
+To improve reliability and maintain code consistency, I extended the CI pipeline with:
+
+- **Type Checking** using `tsc --noEmit` to catch type errors before deployment.
+- **Lint Checking** using `eslint` to enforce consistent code style and catch potential issues early.
+
+These checks ensure that every commit passes a baseline quality standard and helps prevent regressions.
+
+---
 ## Summary
 
 This assessment was not only a coding challenge, but a chance to show:
