@@ -9,16 +9,25 @@ import PageNavigatorStories, { Default, WithManyPages, WithLongTitles, MoreCompl
 The `PageNavigator` component provides an interactive, horizontally scrollable UI for navigating between logical "pages" or steps. It supports keyboard and pointer navigation, dynamic page creation, reordering via drag-and-drop, and accessibility best practices.
 
 
-##  Features
+## Features
 
-- **Keyboard navigation** with arrow keys (looping and focusable)
-- **Dynamic page insertion** via inline `+` buttons between pages
-- **Drag-and-drop reordering** using `@dnd-kit/core`
-- **Visual highlight** when reordering completes
-- **Accessibility**:
-    - Uses `aria-current="page"` for the active page
-    - Focus restoration and announcement-friendly labeling
-    - **Handles long titles gracefully** with truncation and tooltips
+### Keyboard Navigation
+- Navigate between pages using the **Arrow keys**, with optional **looping** and proper **focus management**.
+### Dynamic Page Insertion
+- Add new pages using inline **“+” buttons** placed between existing pages.
+###  Drag-and-Drop Reordering
+- Reorder pages with a smooth drag-and-drop experience powered by [`@dnd-kit/core`](https://github.com/clauderic/dnd-kit).
+### Animated Feedback
+- A subtle **highlight animation** appears when a page is repositioned via drag-and-drop.
+###  Context Menu Support
+- Trigger a contextual menu using **Meta (⌘) + Enter**, exposing actions like **Rename**, **Duplicate**, and **Delete**.
+
+### Accessibility-First Design
+
+- Uses `aria-current="page"` to indicate the active page
+- **Focus restoration** ensures keyboard users stay in context
+- **Long titles** are truncated with ellipsis and shown in a **tooltip** on hover or focus
+
 
 ---
 
