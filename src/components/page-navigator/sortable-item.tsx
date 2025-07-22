@@ -1,6 +1,5 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { shadowActive, zIndexDefault, zIndexFloating } from 'src/theme';
-import { CSS } from '@dnd-kit/utilities';
 
 export const SortableItem = ({
   id,
@@ -20,7 +19,7 @@ export const SortableItem = ({
   });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: `translateX(${transform?.x ?? 0}px) translateY(${transform?.y ?? 0}px) scale(1)`,
     transition,
     zIndex: isDragging ? zIndexFloating : zIndexDefault,
     boxShadow: shadowActive,
