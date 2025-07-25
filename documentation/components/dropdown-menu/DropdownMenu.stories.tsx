@@ -78,6 +78,7 @@ const ButtonWrapper = styled('span')`
 const Container = styled('div')`
   max-height: 40vh;
   overflow: auto;
+  padding-top: 6px;
 `;
 
 export const Default = {
@@ -133,7 +134,7 @@ export const Default = {
 
 export const CustomReference = {
   play: async ({ canvas, userEvent }) => {
-    await userEvent.click(await canvas.findByRole('menu'));
+    await userEvent.click(await canvas.getByTestId('icon'));
   },
   render: ({ placement, ...args }) => {
     const [open, setOpen] = useState(false);
@@ -156,7 +157,7 @@ export const CustomReference = {
               <InnerText>
                 <FileTextIcon color={colorIconActive} /> Text example
               </InnerText>
-              <span ref={triggerRef}>
+              <span ref={triggerRef} data-testid="icon">
                 <VerticalDotsIcon size="small" color={colorIconStandardLighter} />
               </span>
             </ButtonWrapper>
