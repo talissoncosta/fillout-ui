@@ -33,7 +33,6 @@ interface DropdownMenuProps {
   isOpen?: boolean;
   onOpenChange: Dispatch<SetStateAction<boolean>>;
   placement?: Placement;
-  triggerRef?: RefObject<HTMLElement | null>;
 }
 
 export function DropdownMenu({
@@ -41,7 +40,6 @@ export function DropdownMenu({
   isOpen = false,
   onOpenChange,
   placement = 'bottom-start',
-  triggerRef,
 }: DropdownMenuProps) {
   const listRef = useRef<Array<HTMLElement | null>>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -59,11 +57,6 @@ export function DropdownMenu({
     whileElementsMounted: autoUpdate,
     transform: false,
   });
-  const getIgnoredRefs = (): RefObject<HTMLElement | null>[] => {
-    if (triggerRef) return [triggerRef];
-    if (refs.reference) return [refs.reference as RefObject<HTMLElement | null>];
-    return [];
-  };
 
   useOutsideClick(
     refs.floating,
@@ -72,7 +65,7 @@ export function DropdownMenu({
         onOpenChange(false);
       }
     },
-    getIgnoredRefs()
+    refs.reference ? [refs.reference] : []
   );
 
   const click = useClick(context);
@@ -108,7 +101,6 @@ export function DropdownMenu({
         getItemProps,
         listRef,
         activeIndex,
-        triggerRef,
         currentPlacement,
       }}
     >

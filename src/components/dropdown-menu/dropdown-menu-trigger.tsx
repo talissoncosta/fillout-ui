@@ -3,12 +3,12 @@ import { useDropdownMenu } from './dropdown-menu-context';
 import { Slot } from '@radix-ui/react-slot';
 import { useMergeRefs } from '@floating-ui/react';
 
-type DropdownMenuTriggerProps = ComponentProps<'div'> & {
-  asChild?: boolean;
+type DropdownMenuTriggerProps = ComponentProps<'button'> & {
+  shouldHandleInteractions?: boolean;
 };
 
-export const DropdownMenuTrigger = forwardRef<HTMLDivElement, DropdownMenuTriggerProps>(
-  ({ children, asChild, ...props }: DropdownMenuTriggerProps, forwardRef) => {
+export const DropdownMenuTrigger = forwardRef<HTMLButtonElement, DropdownMenuTriggerProps>(
+  ({ children, shouldHandleInteractions, ...props }: DropdownMenuTriggerProps, forwardRef) => {
     const { refs, getReferenceProps, onOpenChange, isOpen } = useDropdownMenu();
 
     const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -18,19 +18,30 @@ export const DropdownMenuTrigger = forwardRef<HTMLDivElement, DropdownMenuTrigge
       }
     };
 
-    const Comp = asChild ? Slot : 'div';
+    const handleClick = () => onOpenChange(!isOpen);
+
+    const interactionProps = {
+      onKeyDown: handleKeyDown,
+      onClick: handleClick,
+    };
 
     return (
-      <Comp
-        ref={useMergeRefs(asChild ? [refs.setReference, forwardRef] : [forwardRef])}
+      <Slot
+        ref={useMergeRefs([refs.setReference, forwardRef])}
         {...getReferenceProps()}
-        onKeyDown={handleKeyDown}
         aria-expanded={isOpen}
         aria-haspopup="menu"
+        {...(shouldHandleInteractions
+          ? interactionProps
+          : {
+              onClick: (e) => {
+                e.preventDefault();
+              },
+            })}
         {...props}
       >
         {children}
-      </Comp>
+      </Slot>
     );
   }
 );

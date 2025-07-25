@@ -14,7 +14,6 @@ interface DropdownMenuContextType {
   getItemProps: ReturnType<typeof useInteractions>['getItemProps'];
   listRef: MutableRefObject<Array<HTMLElement | null>>;
   activeIndex: number | null;
-  triggerRef?: MutableRefObject<HTMLElement | null>;
   currentPlacement: Placement;
 }
 

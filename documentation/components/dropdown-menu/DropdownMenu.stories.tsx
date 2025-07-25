@@ -26,7 +26,7 @@ import {
   TrashIcon,
   VerticalDotsIcon,
 } from 'src/components/icons';
-import { useRef, useState } from 'react';
+import { MouseEventHandler, useRef, useState } from 'react';
 
 const meta = {
   title: 'Components/DropdownMenu',
@@ -89,7 +89,7 @@ export const Default = {
     const [open, setOpen] = useState(false);
     return (
       <DropdownMenu isOpen={open} onOpenChange={setOpen} placement={placement}>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger shouldHandleInteractions>
           <Button variant="active">
             <ButtonWrapper>
               <InnerText>
@@ -132,33 +132,6 @@ export const Default = {
   },
 };
 
-const MenuTrigger = ({ triggerRef }) => {
-  const { refs } = useDropdownMenu();
-
-  const handleStopPropagation = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  return (
-    <Button variant="active" ref={refs.setReference}>
-      <ButtonWrapper>
-        <InnerText>
-          <FileTextIcon color={colorIconActive} /> Text example
-        </InnerText>
-        <DropdownMenuTrigger role="menu">
-          <VerticalDotsIcon
-            ref={triggerRef}
-            onMouseDown={handleStopPropagation}
-            size="small"
-            color={colorIconStandardLighter}
-          />
-        </DropdownMenuTrigger>
-      </ButtonWrapper>
-    </Button>
-  );
-};
-
 export const CustomReference = {
   play: async ({ canvas, userEvent }) => {
     await userEvent.click(await canvas.findByRole('menu'));
@@ -166,15 +139,28 @@ export const CustomReference = {
   render: ({ placement, ...args }) => {
     const [open, setOpen] = useState(false);
     const triggerRef = useRef<HTMLSpanElement>(null);
+    const toogle = () => setOpen((prev) => !prev);
+
+    const handleClick = (e: MouseEventHandler<HTMLButtonElement>) => {
+      const isTriggerClick = triggerRef.current?.contains(e.target as Node);
+
+      if (!isTriggerClick && !open) return;
+
+      toogle();
+    };
 
     return (
-      <DropdownMenu
-        isOpen={open}
-        onOpenChange={setOpen}
-        triggerRef={triggerRef}
-        placement={placement}
-      >
-        <MenuTrigger triggerRef={triggerRef} />
+      <DropdownMenu isOpen={open} onOpenChange={setOpen} placement={placement}>
+        <DropdownMenuTrigger>
+          <Button variant="active" onClick={handleClick} onKeyDown={() => console.log('keudown')}>
+            <ButtonWrapper>
+              <InnerText>
+                <FileTextIcon color={colorIconActive} /> Text example
+              </InnerText>
+              <VerticalDotsIcon ref={triggerRef} size="small" color={colorIconStandardLighter} />
+            </ButtonWrapper>
+          </Button>
+        </DropdownMenuTrigger>
         <DropdownMenuContent {...args}>
           <Container>
             <DropdownMenuItem index={1} onSelect={() => alert('Edit')}>
