@@ -22,14 +22,9 @@ interface NavigationDropdownProps {
   triggerRef?: RefObject<HTMLSpanElement | null>;
 }
 
-export const NavigationDropdown = ({
-  children,
-  isOpen,
-  onOpenChange,
-  triggerRef,
-}: NavigationDropdownProps) => {
+export const NavigationDropdown = ({ children, isOpen, onOpenChange }: NavigationDropdownProps) => {
   return (
-    <DropdownMenu isOpen={isOpen} onOpenChange={onOpenChange} triggerRef={triggerRef}>
+    <DropdownMenu isOpen={isOpen} onOpenChange={onOpenChange}>
       {children}
       <DropdownMenuContent>
         <TitleContainer>

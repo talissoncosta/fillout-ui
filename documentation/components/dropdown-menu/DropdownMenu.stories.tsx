@@ -4,7 +4,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
-  useDropdownMenu,
 } from 'src/components/dropdown-menu';
 import { Button } from 'src/components/button';
 import { styled } from '@linaria/react';
@@ -26,7 +25,7 @@ import {
   TrashIcon,
   VerticalDotsIcon,
 } from 'src/components/icons';
-import { MouseEventHandler, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 const meta = {
   title: 'Components/DropdownMenu',
@@ -141,7 +140,7 @@ export const CustomReference = {
     const triggerRef = useRef<HTMLSpanElement>(null);
     const toogle = () => setOpen((prev) => !prev);
 
-    const handleClick = (e: MouseEventHandler<HTMLButtonElement>) => {
+    const handleClick = (e: MouseEvent) => {
       const isTriggerClick = triggerRef.current?.contains(e.target as Node);
 
       if (!isTriggerClick && !open) return;
@@ -152,12 +151,14 @@ export const CustomReference = {
     return (
       <DropdownMenu isOpen={open} onOpenChange={setOpen} placement={placement}>
         <DropdownMenuTrigger>
-          <Button variant="active" onClick={handleClick} onKeyDown={() => console.log('keudown')}>
+          <Button variant="active" onClick={handleClick}>
             <ButtonWrapper>
               <InnerText>
                 <FileTextIcon color={colorIconActive} /> Text example
               </InnerText>
-              <VerticalDotsIcon ref={triggerRef} size="small" color={colorIconStandardLighter} />
+              <span ref={triggerRef}>
+                <VerticalDotsIcon size="small" color={colorIconStandardLighter} />
+              </span>
             </ButtonWrapper>
           </Button>
         </DropdownMenuTrigger>

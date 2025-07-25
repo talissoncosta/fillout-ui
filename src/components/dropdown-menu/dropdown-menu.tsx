@@ -11,14 +11,7 @@ import {
   useListNavigation,
   type Placement as PlacementType,
 } from '@floating-ui/react';
-import {
-  type ReactNode,
-  type Dispatch,
-  type SetStateAction,
-  type RefObject,
-  useState,
-  useRef,
-} from 'react';
+import { type ReactNode, type Dispatch, type SetStateAction, useState, useRef } from 'react';
 
 import { DropdownMenuContext } from './dropdown-menu-context';
 import { useOutsideClick } from 'src/hooks/use-click-outside';
