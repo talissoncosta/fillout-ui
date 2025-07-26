@@ -20,6 +20,7 @@ import { SortableItem } from 'src/components/page-navigator/sortable-item.tsx';
 import clsx from 'clsx';
 import { SortableList } from 'src/components/page-navigator/sortable-list.tsx';
 import { dragEndsCss, isDraggingCss } from './styles';
+import type { IconProps } from 'src/components/icons/svg';
 
 interface Page {
   title: string;
@@ -118,7 +119,7 @@ export const PageNavigator = ({
                     <PageButtonWrapper ref={setNodeRef} style={style}>
                       <NavigationItem
                         ref={refs[index]}
-                        icon={icon}
+                        icon={icon as ReactElement<IconProps>}
                         isActive={id === activePageId}
                         onClick={(e) => handleChange(e, id)}
                         {...listeners}

@@ -1,36 +1,51 @@
-import { type KeyboardEvent, type ComponentProps, forwardRef } from 'react';
+import {
+  forwardRef,
+  type KeyboardEvent,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+} from 'react';
 import { useDropdownMenu } from './dropdown-menu-context';
 import { Slot } from '@radix-ui/react-slot';
 import { useMergeRefs } from '@floating-ui/react';
 
-type DropdownMenuTriggerProps = ComponentProps<'div'> & {
-  asChild?: boolean;
+type DropdownMenuTriggerProps = ComponentPropsWithoutRef<'button'> & {
+  interactive?: boolean;
+  children: ReactNode;
 };
 
-export const DropdownMenuTrigger = forwardRef<HTMLDivElement, DropdownMenuTriggerProps>(
-  ({ children, asChild, ...props }: DropdownMenuTriggerProps, forwardRef) => {
+export const DropdownMenuTrigger = forwardRef<HTMLButtonElement, DropdownMenuTriggerProps>(
+  ({ children, interactive = false, ...props }, ref) => {
     const { refs, getReferenceProps, onOpenChange, isOpen } = useDropdownMenu();
 
-    const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         onOpenChange(!isOpen);
       }
     };
 
-    const Comp = asChild ? Slot : 'div';
+    const handleClick = () => onOpenChange(!isOpen);
+
+    const interactionHandlers = interactive
+      ? {
+          onKeyDown: handleKeyDown,
+          onClick: handleClick,
+        }
+      : {
+          onClick: (e: React.MouseEvent) => e.preventDefault(),
+        };
 
     return (
-      <Comp
-        ref={useMergeRefs(asChild ? [refs.setReference, forwardRef] : [forwardRef])}
+      <Slot
+        ref={useMergeRefs([refs.setReference, ref])}
         {...getReferenceProps()}
-        onKeyDown={handleKeyDown}
         aria-expanded={isOpen}
         aria-haspopup="menu"
+        {...interactionHandlers}
         {...props}
       >
         {children}
-      </Comp>
+      </Slot>
     );
   }
 );

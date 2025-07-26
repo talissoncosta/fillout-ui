@@ -45,6 +45,12 @@ export const FormBuilderExample: Story = {
     await userEvent.keyboard('[ArrowRight]');
     await userEvent.keyboard('[Enter]');
 
-    await expect(canvas.getByRole('heading', { name: /info/i })).toBeInTheDocument();
+    const buttonInfo = canvas.getByRole('button', { name: /info/i });
+    await expect(buttonInfo).toBeInTheDocument();
+
+    await userEvent.pointer({ keys: '[MouseRight]', target: buttonInfo });
+    await userEvent.keyboard('[Esc]');
+    await userEvent.keyboard('[Tab]');
+    await userEvent.keyboard('{Meta>}{Enter}{/Meta}');
   },
 };
