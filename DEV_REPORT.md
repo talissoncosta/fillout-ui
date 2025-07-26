@@ -84,7 +84,7 @@ While the implementation adheres closely to the design, I observed several gaps 
 
 - The **inline “+” buttons** are not yet tabbable or screen-reader-friendly.
 - **Drag handle** indicators are missing, so users may not realize the page buttons can be moved.
-- The **three-dot icon is purely visual** and should not be interactive. Initially, I wired it as a trigger, but upon revisiting the spec and demo, I corrected it to only display on hover/active states. The context menu is now correctly triggered via right-click (`onContextMenu`) on the page button itself, as per the expected behavior.
+- The **three-dot icon is purely visual** and should not be interactive. Initially, I wired it as a trigger, but upon revisiting the spec and demo, I corrected it to only display on active state. The context menu is now correctly triggered via right-click (`onContextMenu`) on the page button itself, as per the expected behavior.
 
 ---
 

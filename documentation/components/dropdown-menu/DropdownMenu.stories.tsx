@@ -89,7 +89,7 @@ export const Default = {
     const [open, setOpen] = useState(false);
     return (
       <DropdownMenu isOpen={open} onOpenChange={setOpen} placement={placement}>
-        <DropdownMenuTrigger shouldHandleInteractions>
+        <DropdownMenuTrigger interactive>
           <Button variant="active">
             <ButtonWrapper>
               <InnerText>

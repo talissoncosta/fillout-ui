@@ -10,21 +10,25 @@ The `DropdownMenu` component is a composable, accessible dropdown built using [F
 
 Use it to render contextual action menus triggered by buttons, icons, or any interactive element.
 
+---
+
 ## Composition
 
 The `DropdownMenu` is built from several composable parts:
 
 - **`DropdownMenu`**: Provides context and handles positioning logic.
-- **`DropdownMenuTrigger`**: Wraps the trigger element (e.g. a `Button`).
+- **`DropdownMenuTrigger`**: Wraps the trigger element and manages interaction behavior.
 - **`DropdownMenuContent`**: Renders the floating panel containing the menu.
 - **`DropdownMenuItem`**: Clickable actions or selectable options.
 - **`DropdownMenuSeparator`**: Optional visual divider between sections.
+
+---
 
 ## Example
 
 <Canvas of={Default} />
 
-
+---
 
 # Custom Trigger Interaction with Right-Click
 
@@ -33,7 +37,9 @@ The `DropdownMenu` supports custom interaction patterns beyond standard clicks. 
 This is useful when:
 
 - You want to open the menu only on **right-click**
-- You want a **visual icon or area** to act as the positioning anchor, but interactions happen elsewhere
+- You want a **visual icon or area** to act as a non-interactive positioning anchor
+
+You can use the `interactive` prop on `DropdownMenuTrigger` to opt into automatic keyboard and click handling, or omit it when manually controlling behavior.
 
 <Canvas of={WithContextualMenu} />
 
@@ -104,7 +110,7 @@ The `DropdownMenu` follows best practices for keyboard and screen reader support
 - Customizable placement (`bottom-start`, `top-end`, etc.)
 - Smart positioning: flips and shifts to stay in the viewport
 - Supports modal and non-modal focus control
-- Controlled or uncontrolled open state via `isOpen` / `defaultOpen`
+- Controlled or uncontrolled open state via `isOpen`
 
 ---
 

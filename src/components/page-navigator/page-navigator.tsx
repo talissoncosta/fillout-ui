@@ -119,7 +119,7 @@ export const PageNavigator = ({
                     <PageButtonWrapper ref={setNodeRef} style={style}>
                       <NavigationItem
                         ref={refs[index]}
-                        icon={icon as React.ReactElement<IconProps>}
+                        icon={icon as ReactElement<IconProps>}
                         isActive={id === activePageId}
                         onClick={(e) => handleChange(e, id)}
                         {...listeners}
