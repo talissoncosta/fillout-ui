@@ -1,3 +1,4 @@
+
 # Development Report: Fillout UI Assessment
 
 This document summarizes the decisions, challenges, and technical choices made during the development of the `PageNavigator` component and supporting UI pieces for the Fillout take-home assessment.
@@ -83,7 +84,7 @@ While the implementation adheres closely to the design, I observed several gaps 
 
 - The **inline “+” buttons** are not yet tabbable or screen-reader-friendly.
 - **Drag handle** indicators are missing, so users may not realize the page buttons can be moved.
-- The **three-dot dropdown trigger** is not a semantic `<button>`, due to nesting limitations, which introduces some accessibility compromises.
+- The **three-dot icon is purely visual** and should not be interactive. Initially, I wired it as a trigger, but upon revisiting the spec and demo, I corrected it to only display on hover/active states. The context menu is now correctly triggered via right-click (`onContextMenu`) on the page button itself, as per the expected behavior.
 
 ---
 
@@ -112,12 +113,13 @@ These touches improve usability by reinforcing changes in state and interaction 
 
 ## Custom Engineering Decisions
 
-### DropdownMenu with Custom Reference
+### DropdownMenu with Context Menu Trigger
 
 - Radix UI was my initial choice due to its great accessibility and structure.
-- However, Radix assumes that the **trigger and reference element are the same**, which conflicted with the requirement to have the icon trigger separate from the positioning anchor.
+- However, Radix assumes that the **trigger and reference element are the same**, which conflicted with the requirement to trigger the menu via right-click.
 - I rewrote the component using **Floating UI**, which allowed:
-  - A decoupled trigger and reference setup
+  - Custom context menu behavior using `onContextMenu`
+  - Visual-only three-dot icon without interaction
   - Correct positioning and keyboard accessibility (triggered via Command + Enter)
 
 This required more manual handling of accessibility features, but gave me the flexibility I needed to match the interaction spec.

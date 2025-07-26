@@ -49,5 +49,8 @@ export const FormBuilderExample: Story = {
     await expect(buttonInfo).toBeInTheDocument();
 
     await userEvent.pointer({ keys: '[MouseRight]', target: buttonInfo });
+    await userEvent.keyboard('[Esc]');
+    await userEvent.keyboard('[Tab]');
+    await userEvent.keyboard('{Meta>}{Enter}{/Meta}');
   },
 };

@@ -1,3 +1,4 @@
+
 # Fillout UI
 
 A modern, accessible, and customizable UI component library developed as a take-home assessment for a Front-End Engineer role at Fillout. The goal is to demonstrate high-quality component architecture, strong UX fundamentals, accessibility, and maintainability.
@@ -12,7 +13,7 @@ A modern, accessible, and customizable UI component library developed as a take-
 - Dynamic page insertion via inline "+" buttons
 - Drag-and-drop reordering (powered by `@dnd-kit/core`)
 - Animated feedback after reorder
-- Context menu via keyboard shortcuts
+- Context menu via right-click (`onContextMenu`) and keyboard shortcuts (e.g., Cmd+Enter)
 - Theming via design tokens (color, spacing, shadows, etc.)
 - Visual testing with Chromatic
 - Storybook with MDX documentation and interaction tests
@@ -111,9 +112,9 @@ A drag-and-droppable navigation bar for forms and multi-step flows.
 - Inline page insertion
 - Drag-and-drop reordering
 - Animated highlight after reorder
-- Context menu support
+- Context menu support via right-click and keyboard
 - Accessibility via `aria-current`, focus control, and tooltips
-- Custom reference support for flexible positioning
+- Visual-only three-dot icon (non-interactive)
 
 Use cases:
 - Form builders with dynamic step flows
@@ -129,12 +130,12 @@ Composed using Floating UI for flexible positioning and interaction management.
 #### Structure
 
 - `<DropdownMenu>` — context provider
-- `<DropdownMenuTrigger>` — click target
+- `<DropdownMenuTrigger>` — interaction target (supports `onContextMenu`)
 - `<DropdownMenuContent>` — floating panel
 - `<DropdownMenuItem>` — interactive actions
 - `<DropdownMenuSeparator>` — divider
 
-Tip: Custom reference support allows positioning content based on a different element than the trigger.
+Tip: Menus can be triggered via right-click or keyboard shortcuts like `Cmd+Enter`, depending on your implementation.
 
 ---
 
@@ -187,8 +188,8 @@ This project was developed as an assessment with a focus on developer experience
 
 - Inline "+" buttons are not yet fully accessible (missing semantic roles)
 - Drag handles could be more visually obvious
-- Nested button issue in dropdown trigger introduces minor accessibility compromise
-- Floating UI was chosen to enable flexible trigger + content positioning
+- Visual-only three-dot icon used as hover indicator
+- Floating UI was chosen to enable flexible interaction triggers
 
 ---
 
