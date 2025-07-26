@@ -1,45 +1,61 @@
-name: "Chromatic"
+name: Chromatic and UI Tests
 
 on:
-  push:
-    paths:
-      - 'src/components/**'
-      - '.storybook/**'
-      - 'documentation/**'
-      - '**/*.mdx'
-      - '**/*.stories.@(js|ts|jsx|tsx|mdx)'
   pull_request:
-    paths:
-      - 'src/components/**'
-      - '.storybook/**'
-      - 'documentation/**'
-      - '**/*.mdx'
-      - '**/*.stories.@(js|ts|jsx|tsx|mdx)'
+    branches: [main]
+  push:
+    branches: [main]
 
 jobs:
-  chromatic:
-    name: "📸 Run Chromatic"
+  should-run-chromatic:
     runs-on: ubuntu-latest
-
+    outputs:
+      should_run: ${{ steps.filter.outputs.should_run }}
     steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            chromatic:
+              - 'src/components/**'
+              - '.storybook/**'
+              - 'documentation/**'
+              - '**/*.mdx'
+              - '**/*.stories.@(js|ts|jsx|tsx|mdx)'
+
+  chromatic:
+    needs: should-run-chromatic
+    if: needs.should-run-chromatic.outputs.should_run == 'true'
+    runs-on: ubuntu-latest
+    name: Storybook Publish
+    steps:
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 22.17.0
+          node-version: 22
           cache: 'yarn'
-
-      - name: 📦 Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: 📸 Run Chromatic
-        uses: chromaui/action@v1
+      - run: yarn install --frozen-lockfile
+      - uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           exitZeroOnChanges: true
           exitOnceUploaded: true
           onlyChanged: true
+
+  chromatic-skipped:
+    needs: should-run-chromatic
+    if: needs.should-run-chromatic.outputs.should_run != 'true'
+    runs-on: ubuntu-latest
+    name: Storybook Publish
+    steps:
+      - name: Skip Chromatic
+        run: echo "Chromatic not needed on this PR"
+
+  ui-tests:
+    runs-on: ubuntu-latest
+    name: UI Tests
+    steps:
+      - name: Placeholder UI Tests
+        run: echo "No UI tests yet"
