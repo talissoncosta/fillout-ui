@@ -24,7 +24,6 @@ export const NavigationItem = forwardRef<HTMLButtonElement, NavigationItemProps>
     const [isFocused, setIsFocused] = useState(false);
     const [isOverflowing, setIsOverflowing] = useState(false);
 
-    const triggerRef = useRef<HTMLSpanElement | null>(null);
     const contentRef = useRef<HTMLSpanElement | null>(null);
 
     const onToggleDropdown = () => setOpen((prev) => !prev);
@@ -44,8 +43,7 @@ export const NavigationItem = forwardRef<HTMLButtonElement, NavigationItemProps>
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
       props.onClick?.(e);
-      const isTriggerClick = triggerRef.current?.contains(e.target as Node);
-      if (!isTriggerClick && !open) return;
+      if (!open) return;
       onToggleDropdown();
     };
 
@@ -79,17 +77,14 @@ export const NavigationItem = forwardRef<HTMLButtonElement, NavigationItemProps>
                   {renderedIcon}
                   {!isOverflowing && text}
                 </InnerText>
-
-                <span ref={triggerRef}>
-                  <VerticalDotsIcon
-                    className={clsx(buttonIconClass, {
-                      [contextButtonHiddenClass]: !isActive,
-                      [contextButtonVisibleClass]: isActive,
-                    })}
-                    size="small"
-                    color={colorIconStandardLighter}
-                  />
-                </span>
+                <VerticalDotsIcon
+                  className={clsx(buttonIconClass, {
+                    [contextButtonHiddenClass]: !isActive,
+                    [contextButtonVisibleClass]: isActive,
+                  })}
+                  size="small"
+                  color={colorIconStandardLighter}
+                />
               </ButtonWrapper>
             </Button>
           </DropdownMenuTrigger>

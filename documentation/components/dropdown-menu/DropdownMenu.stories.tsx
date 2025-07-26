@@ -25,7 +25,7 @@ import {
   TrashIcon,
   VerticalDotsIcon,
 } from 'src/components/icons';
-import { useRef, useState } from 'react';
+import { MouseEvent, useRef, useState } from 'react';
 
 const meta = {
   title: 'Components/DropdownMenu',
@@ -132,14 +132,20 @@ export const Default = {
   },
 };
 
-export const CustomReference = {
+export const WithContextualMenu = {
   play: async ({ canvas, userEvent }) => {
-    await userEvent.click(await canvas.getByTestId('icon'));
+    const button = await canvas.findByText('Text example');
+    await userEvent.pointer({ keys: '[MouseRight]', target: button });
   },
   render: ({ placement, ...args }) => {
     const [open, setOpen] = useState(false);
     const triggerRef = useRef<HTMLSpanElement>(null);
     const toogle = () => setOpen((prev) => !prev);
+
+    const handleContextMenu = (e: MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      toogle();
+    };
 
     const handleClick = (e: MouseEvent) => {
       const isTriggerClick = triggerRef.current?.contains(e.target as Node);
@@ -152,14 +158,12 @@ export const CustomReference = {
     return (
       <DropdownMenu isOpen={open} onOpenChange={setOpen} placement={placement}>
         <DropdownMenuTrigger>
-          <Button variant="active" onClick={handleClick}>
+          <Button variant="active" onClick={handleClick} onContextMenu={handleContextMenu}>
             <ButtonWrapper>
               <InnerText>
                 <FileTextIcon color={colorIconActive} /> Text example
               </InnerText>
-              <span ref={triggerRef} data-testid="icon">
-                <VerticalDotsIcon size="small" color={colorIconStandardLighter} />
-              </span>
+              <VerticalDotsIcon size="small" color={colorIconStandardLighter} />
             </ButtonWrapper>
           </Button>
         </DropdownMenuTrigger>

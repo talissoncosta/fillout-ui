@@ -1,6 +1,6 @@
 import { Meta, ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
 import { DropdownMenu } from 'src/components/dropdown-menu';
-import DropdownMenuStories, { CustomReference, Default } from './DropdownMenu.stories'
+import DropdownMenuStories, { Default, WithContextualMenu } from './DropdownMenu.stories'
 
 <Meta of={DropdownMenuStories} />
 
@@ -24,58 +24,90 @@ The `DropdownMenu` is built from several composable parts:
 
 <Canvas of={Default} />
 
-## Custom Reference Element
-The DropdownMenu supports advanced positioning through the triggerRef prop. This enables decoupling the visual trigger from the element used for positioning.
+
+
+# Custom Trigger Interaction with Right-Click
+
+The `DropdownMenu` supports custom interaction patterns beyond standard clicks. A common use case is triggering the menu via **right-click** (`contextmenu`) events while anchoring it to a visual element like a button.
 
 This is useful when:
-- You want to use a floating icon, avatar, or custom area as the anchor
-- You want to show the dropdown relative to one element but trigger it from another
 
-<Canvas of={CustomReference} />
+- You want to open the menu only on **right-click**
+- You want a **visual icon or area** to act as the positioning anchor, but interactions happen elsewhere
 
+<Canvas of={WithContextualMenu} />
 
 ```tsx
-const triggerRef = useRef(null);
+const [open, setOpen] = useState(false);
+const triggerRef = useRef<HTMLSpanElement>(null);
+const toggle = () => setOpen((prev) => !prev);
+
+const handleContextMenu = (e: MouseEvent<HTMLButtonElement>) => {
+  e.preventDefault();
+  toggle();
+};
+
+const handleClick = (e: MouseEvent) => {
+  const isTriggerClick = triggerRef.current?.contains(e.target as Node);
+  if (!isTriggerClick && !open) return;
+  toggle();
+};
 
 return (
-  <DropdownMenu
-    isOpen={open}
-    onOpenChange={setOpen}
-    triggerRef={triggerRef}
-    placement="bottom-end"
-  >
-    <MenuTrigger triggerRef={triggerRef} /> {/* Trigger can be elsewhere */}
+  <DropdownMenu isOpen={open} onOpenChange={setOpen} placement="bottom-end">
+    <DropdownMenuTrigger>
+      <Button variant="active" onClick={handleClick} onContextMenu={handleContextMenu}>
+        <ButtonWrapper>
+          <InnerText>
+            <FileTextIcon color={colorIconActive} /> Text example
+          </InnerText>
+          <VerticalDotsIcon
+            ref={triggerRef}
+            size="small"
+            color={colorIconStandardLighter}
+          />
+        </ButtonWrapper>
+      </Button>
+    </DropdownMenuTrigger>
     <DropdownMenuContent>
-      <DropdownMenuItem onSelect={() => alert('Edit')}>Edit</DropdownMenuItem>
-      <DropdownMenuItem onSelect={() => alert('Delete')}>Delete</DropdownMenuItem>
+      <DropdownMenuItem index={1} onSelect={() => alert('Edit')}>
+        Edit
+      </DropdownMenuItem>
+      <DropdownMenuItem index={2} onSelect={() => alert('Delete')}>
+        Delete
+      </DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem onSelect={() => alert('Report')}>Report</DropdownMenuItem>
+      <DropdownMenuItem index={3} onSelect={() => alert('Report')}>
+        Report
+      </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 );
-
 ```
-
 
 ---
 
 ## Accessibility
 
-The DropdownMenu follows best practices for keyboard and screen reader support:
+The `DropdownMenu` follows best practices for keyboard and screen reader support:
 
-- Keyboard navigation: `ArrowDown`, `ArrowUp`, `Enter`, `Escape`
-- aria-haspopup, aria-expanded, and aria-controls attributes on trigger
-- Roles: menu, menuitem
-- Focus is correctly managed when the menu opens/closes
-- Screen reader-friendly structure
+- Full keyboard navigation: `ArrowDown`, `ArrowUp`, `Enter`, `Escape`
+- Proper ARIA attributes: `aria-haspopup`, `aria-expanded`, `aria-controls` on the trigger
+- Roles: `menu`, `menuitem`, `separator`
+- Focus is automatically managed when the menu opens/closes
+- Fully accessible to screen readers
+
+---
 
 ## Behavior & Features
 
-- Customizable placement (bottom-start, top-end, etc.)
-- Auto flips and shifts to fit viewport
-- Modal or non-modal focus management
-- Controlled or uncontrolled open state
+- Customizable placement (`bottom-start`, `top-end`, etc.)
+- Smart positioning: flips and shifts to stay in the viewport
+- Supports modal and non-modal focus control
+- Controlled or uncontrolled open state via `isOpen` / `defaultOpen`
 
+---
 
 ## Props
+
 <ArgTypes of={DropdownMenu} />
