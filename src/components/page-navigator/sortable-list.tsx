@@ -2,6 +2,7 @@ import {
   DndContext,
   type DragEndEvent,
   KeyboardSensor,
+  type Modifier,
   PointerSensor,
   useSensor,
   useSensors,
@@ -13,6 +14,8 @@ import {
   horizontalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers';
+import type { SortingStrategy } from '@dnd-kit/sortable';
+import type { ReactNode } from 'react';
 
 interface BaseItem {
   id: UniqueIdentifier;
@@ -21,10 +24,24 @@ interface BaseItem {
 interface Props<T extends BaseItem> {
   items: T[];
   onDragEnd(event: DragEndEvent): void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-export function SortableList<T extends BaseItem>({ items, onDragEnd, children }: Props<T>) {
+interface Props<T extends BaseItem> {
+  items: T[];
+  onDragEnd(event: DragEndEvent): void;
+  children: ReactNode;
+  modifiers?: Modifier[];
+  strategy?: SortingStrategy;
+}
+
+export function SortableList<T extends BaseItem>({
+  items,
+  onDragEnd,
+  children,
+  modifiers,
+  strategy = horizontalListSortingStrategy,
+}: Props<T>) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -35,9 +52,14 @@ export function SortableList<T extends BaseItem>({ items, onDragEnd, children }:
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
+
   return (
-    <DndContext sensors={sensors} onDragEnd={onDragEnd} modifiers={[restrictToHorizontalAxis]}>
-      <SortableContext items={items} strategy={horizontalListSortingStrategy}>
+    <DndContext
+      sensors={sensors}
+      onDragEnd={onDragEnd}
+      modifiers={modifiers ?? [restrictToHorizontalAxis]}
+    >
+      <SortableContext items={items} strategy={strategy}>
         {children}
       </SortableContext>
     </DndContext>
