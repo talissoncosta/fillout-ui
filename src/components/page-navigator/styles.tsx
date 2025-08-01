@@ -22,14 +22,6 @@ export const isDraggingCss = css`
   background-color: var(--colorSurfaceStandardActive);
 `;
 
-export const contextButtonHiddenClass = css`
-  display: none;
-`;
-
-export const contextButtonVisibleClass = css`
-  display: flex;
-`;
-
 export const buttonIconClass = css`
   margin-left: 8px;
 `;

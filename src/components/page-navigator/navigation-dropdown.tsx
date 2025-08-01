@@ -1,4 +1,5 @@
-import type { ReactNode, Dispatch, SetStateAction, RefObject } from 'react';
+import type { ReactNode, Dispatch, SetStateAction, RefObject, ComponentType } from 'react';
+import type { IconProps } from 'src/components/icons/svg';
 import { colorIconContrast, colorIconDestructive, colorIconStandardLighter } from 'src/theme';
 import {
   DropdownMenu,
@@ -22,6 +23,43 @@ interface NavigationDropdownProps {
   triggerRef?: RefObject<HTMLSpanElement | null>;
 }
 
+type MenuItem = {
+  icon: ComponentType<IconProps>;
+  text: string;
+  color: string;
+} | {
+  separator: true;
+};
+
+const MENU_ITEMS: MenuItem[] = [
+  {
+    icon: FlagIcon,
+    text: 'Set as first page',
+    color: colorIconContrast,
+  },
+  {
+    icon: PencilIcon,
+    text: 'Rename',
+    color: colorIconStandardLighter,
+  },
+  {
+    icon: ClipboardIcon,
+    text: 'Copy',
+    color: colorIconStandardLighter,
+  },
+  {
+    icon: SquareBehindSquareIcon,
+    text: 'Duplicate',
+    color: colorIconStandardLighter,
+  },
+  { separator: true },
+  {
+    icon: TrashIcon,
+    text: 'Delete',
+    color: colorIconDestructive,
+  },
+];
+
 export const NavigationDropdown = ({ children, isOpen, onOpenChange }: NavigationDropdownProps) => {
   return (
     <DropdownMenu isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -31,27 +69,16 @@ export const NavigationDropdown = ({ children, isOpen, onOpenChange }: Navigatio
           <TitleText>Settings</TitleText>
         </TitleContainer>
         <Container>
-          <DropdownMenuItem>
-            <FlagIcon size="small" color={colorIconContrast} />
-            <span>Set as first page</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <PencilIcon size="small" color={colorIconStandardLighter} />
-            <span>Rename</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <ClipboardIcon size="small" color={colorIconStandardLighter} />
-            <span>Copy</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <SquareBehindSquareIcon size="small" color={colorIconStandardLighter} />
-            <span>Duplicate</span>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <TrashIcon size="small" color={colorIconDestructive} />
-            Delete
-          </DropdownMenuItem>
+          {MENU_ITEMS.map((item, index) =>
+            'separator' in item ? (
+              <DropdownMenuSeparator key={`separator-${index}`} />
+            ) : (
+              <DropdownMenuItem key={item.text}>
+                <item.icon size="small" color={item.color} />
+                <span>{item.text}</span>
+              </DropdownMenuItem>
+            )
+          )}
         </Container>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -1,9 +1,10 @@
 import { css } from '@linaria/core';
-import { type ComponentProps, useEffect, useRef, useState } from 'react';
-import { IconButton } from 'src/components/icon-button';
+import { type ComponentProps } from 'react';
 import clsx from 'clsx';
+import { IconButton } from 'src/components/icon-button';
 import { PlusIcon } from 'src/components/icons';
-import { DashedLine } from 'src/components/page-navigator/elements.tsx';
+import { DashedLine } from 'src/components/page-navigator/elements';
+import { useHoverVisibility } from './hooks/use-hover-visibility';
 
 const addPageButtonClass = css`
   transition: opacity 200ms ease-out;
@@ -31,41 +32,16 @@ const animateContainerClass = css`
   width: 48px;
 `;
 
-const HOVER_DEBOUNCE = 150; // ms
-
 export const InlineAddButton = ({ onClick }: ComponentProps<typeof IconButton>) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const hoverTimeout = useRef<number | null>(null);
-
-  const showButton = () => {
-    hoverTimeout.current = setTimeout(() => {
-      setIsVisible(true);
-    }, HOVER_DEBOUNCE);
-  };
-
-  const hideButton = () => {
-    if (hoverTimeout.current) {
-      clearTimeout(hoverTimeout.current);
-      hoverTimeout.current = null;
-    }
-    setIsVisible(false);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (hoverTimeout.current) {
-        clearTimeout(hoverTimeout.current);
-      }
-    };
-  }, []);
+  const { isVisible, show, hide } = useHoverVisibility();
 
   return (
     <li
       className={clsx(containerClass, {
         [animateContainerClass]: isVisible,
       })}
-      onMouseEnter={showButton}
-      onMouseLeave={hideButton}
+      onMouseEnter={show}
+      onMouseLeave={hide}
     >
       <DashedLine />
 

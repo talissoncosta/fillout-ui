@@ -10,8 +10,8 @@ import { PlusIcon } from 'src/components/icons';
 import { colorTextStandard } from 'src/theme';
 import { InnerText, PageButtonWrapper, PageNavigatorBar, PageNavigatorContent } from './elements';
 import { Button } from 'src/components/button';
-import { NavigationItem } from './navigation-item.tsx';
-import { InlineAddButton } from './inline-add-button.tsx';
+import { NavigationItem } from './navigation-item/navigation-item.tsx';
+import { InlineAddButton } from './inline-add-button/inline-add-button.tsx';
 import { styled } from '@linaria/react';
 import { useHorizontalListNavigation } from 'src/hooks/use-horizontal-list-navigation';
 import { type DragEndEvent } from '@dnd-kit/core';
@@ -119,6 +119,7 @@ export const PageNavigator = ({
                     <PageButtonWrapper ref={setNodeRef} style={style}>
                       <NavigationItem
                         ref={refs[index]}
+                        label={title}
                         icon={icon as ReactElement<IconProps>}
                         isActive={id === activePageId}
                         onClick={(e) => handleChange(e, id)}
@@ -129,9 +130,7 @@ export const PageNavigator = ({
                           [isDraggingCss]: isDragging,
                           [dragEndsCss]: lastDraggedId === id,
                         })}
-                      >
-                        {title}
-                      </NavigationItem>
+                      />
                     </PageButtonWrapper>
                   )}
                 </SortableItem>

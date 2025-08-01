@@ -1,0 +1,1 @@
+export { InlineAddButton } from './inline-add-button';

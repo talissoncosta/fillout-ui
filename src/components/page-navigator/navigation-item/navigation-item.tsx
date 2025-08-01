@@ -1,65 +1,55 @@
-import { cloneElement, forwardRef, useEffect, useRef, useState } from 'react';
+import { forwardRef, useRef } from 'react';
 import type { ComponentProps, ReactElement, MouseEvent, KeyboardEvent } from 'react';
 
-import { colorIconActive, colorIconStandardLighter } from 'src/theme';
-import { ButtonWrapper, InnerText } from './elements';
-import { NavigationDropdown } from './navigation-dropdown';
+import { colorIconStandardLighter } from 'src/theme';
+import { ButtonWrapper, InnerText } from '../elements';
+import { NavigationDropdown } from '../navigation-dropdown';
 import { Tooltip } from 'src/components/tooltip';
 import { DropdownMenuTrigger } from 'src/components/dropdown-menu';
 import { Button } from 'src/components/button';
 import { VerticalDotsIcon } from 'src/components/icons';
-import clsx from 'clsx';
-import { buttonIconClass, contextButtonHiddenClass, contextButtonVisibleClass } from './styles';
+import { buttonIconClass } from '../styles';
 import type { IconProps } from 'src/components/icons/svg';
+import { useControlledToggle } from './hooks/use-controlled-toggle';
+import { useFocusState } from './hooks/use-focus-state';
+import { useActiveIcon } from './hooks/use-active-icon';
+import { useTextOverflow } from './hooks/use-text-overflow';
 
 type NavigationItemProps = {
-  children: string;
+  label: string;
   icon: ReactElement<IconProps>;
   isActive?: boolean;
-} & ComponentProps<'button'>;
+  onToggleDropdown?: (open: boolean) => void;
+} & Pick<ComponentProps<'button'>, 'onClick' | 'onKeyDown' | 'disabled' | 'className'>;
 
 export const NavigationItem = forwardRef<HTMLButtonElement, NavigationItemProps>(
-  ({ children: text, icon, isActive = false, ...props }, forwardedRef) => {
-    const [open, setOpen] = useState(false);
-    const [isFocused, setIsFocused] = useState(false);
-    const [isOverflowing, setIsOverflowing] = useState(false);
-
+  ({ label, icon, isActive = false, onToggleDropdown, ...props }, forwardedRef) => {
+    const [open, setOpen, toggleOpen] = useControlledToggle(undefined, onToggleDropdown);
+    const { isFocused, onFocus, onBlur } = useFocusState();
     const contentRef = useRef<HTMLSpanElement | null>(null);
-
-    const onToggleDropdown = () => setOpen((prev) => !prev);
+    const isOverflowing = useTextOverflow(contentRef, [label]);
+    const renderedIcon = useActiveIcon(icon, isActive, isFocused);
 
     const handleContextMenu = (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      if (isActive) onToggleDropdown();
+      if (isActive) toggleOpen();
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
       props.onKeyDown?.(e);
-      if (e.metaKey && e.key === 'Enter') {
-        onToggleDropdown();
-      }
+      if (e.metaKey && e.key === 'Enter') toggleOpen();
       e.stopPropagation();
     };
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
       props.onClick?.(e);
       if (!open) return;
-      onToggleDropdown();
+      toggleOpen();
     };
-
-    useEffect(() => {
-      const el = contentRef.current;
-      if (el && 'scrollWidth' in el) {
-        setIsOverflowing(el.scrollWidth > el.clientWidth);
-      }
-    }, [text]);
-
-    const renderedIcon =
-      isActive || isFocused ? cloneElement(icon, { color: colorIconActive }) : icon;
 
     return (
       <NavigationDropdown isOpen={open} onOpenChange={setOpen}>
-        <Tooltip content={isOverflowing ? text : undefined}>
+        <Tooltip content={isOverflowing ? label : undefined}>
           <DropdownMenuTrigger>
             <Button
               aria-current={isActive ? 'page' : undefined}
@@ -69,19 +59,17 @@ export const NavigationItem = forwardRef<HTMLButtonElement, NavigationItemProps>
               onClick={handleClick}
               onKeyDown={handleKeyDown}
               onContextMenu={handleContextMenu}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
+              onFocus={onFocus}
+              onBlur={onBlur}
             >
               <ButtonWrapper>
                 <InnerText ref={contentRef}>
                   {renderedIcon}
-                  {!isOverflowing && text}
+                  {!isOverflowing && label}
                 </InnerText>
                 <VerticalDotsIcon
-                  className={clsx(buttonIconClass, {
-                    [contextButtonHiddenClass]: !isActive,
-                    [contextButtonVisibleClass]: isActive,
-                  })}
+                  className={buttonIconClass}
+                  data-visible={isActive}
                   size="small"
                   color={colorIconStandardLighter}
                 />
